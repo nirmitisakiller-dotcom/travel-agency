@@ -3,59 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nature Tours | Authentic Travel Experiences</title>
+    <title>Nature Tours | Premium Travel Experiences</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
-    <!-- 1. FIXED NAVIGATION HEADER WITH CODE EMBEDDED LOGO -->
+
     <header class="main-header">
         <div class="header-container">
-            
-            <!-- Pure CSS Logo Element (Zero File Dependencies) -->
             <div class="logo-area">
                 <div class="vector-logo-icon">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path><path d="M12 2V12L17 15"></path></svg>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
                 </div>
                 <div class="brand-text">Nature<span>Tours</span></div>
             </div>
-
             <div class="search-wrapper">
                 <form action="#" id="header-search-form" class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search 'Ladakh', 'Bali', 'Maldives'..." required>
-                    <button type="submit" class="search-btn">
-                        <svg xmlns="http://w3.org" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </button>
+                    <input type="text" id="search-input" placeholder="Search 'Ladakh', 'Bali'..." required>
+                    <button type="submit" class="search-btn">🔍</button>
                 </form>
             </div>
-
             <nav class="nav-menu">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#social-channels" class="nav-link">Our Community</a>
-                <a href="#domestic-hub" class="nav-link">Domestic</a>
-                <a href="#international-hub" class="nav-link">International</a>
+                <a href="#popular-glance" class="nav-link">Home</a>
+                <a href="#travel-hubs" class="nav-link">Explore</a>
                 <a href="https://wa.me" target="_blank" class="nav-cta-btn">Enquire Now</a>
             </nav>
-
         </div>
     </header>
 
     <main>
-
-        <!-- 2. VISUAL ROADMAP GLANCE SECTION -->
         <section id="popular-glance" class="glance-section">
             <div class="section-container">
-                
                 <div class="section-header">
                     <span class="sub-badge">Trending Getaways</span>
                     <h2>Not Sure Where to Go Yet?</h2>
                     <p>Take a quick glance at our most frequently requested itineraries.</p>
                 </div>
-
                 <div class="glance-grid">
                     <div class="glance-card">
                         <div class="card-image-wrapper">
-                            <img src="https://unsplash.com" alt="Maldives Escape" class="glance-img">
+                            <img src="https://unsplash.com" alt="Maldives" class="glance-img">
                             <span class="trending-badge bg-gold">#1 Hot Pick</span>
                         </div>
                         <div class="card-meta">
@@ -63,10 +49,9 @@
                             <p class="card-vibe">✨ Relaxation & Premium Overwater Villas</p>
                         </div>
                     </div>
-
                     <div class="glance-card">
                         <div class="card-image-wrapper">
-                            <img src="https://unsplash.com" alt="Spiti Valley" class="glance-img">
+                            <img src="https://unsplash.com" alt="Spiti" class="glance-img">
                             <span class="trending-badge bg-green">#2 Adventure</span>
                         </div>
                         <div class="card-meta">
@@ -74,74 +59,32 @@
                             <p class="card-vibe">🏔️ Guided Trans-Himalayan Expeditions</p>
                         </div>
                     </div>
-
-                    <div class="glance-card">
-                        <div class="card-image-wrapper">
-                            <img src="https://unsplash.com" alt="Bali Heritage" class="glance-img">
-                            <span class="trending-badge bg-blue">#3 Culture</span>
-                        </div>
-                        <div class="card-meta">
-                            <h3>Bali Heritage</h3>
-                            <p class="card-vibe">🌴 Exotic Temples, Swings & Islands</p>
-                        </div>
-                    </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- 3. NEW SECTION 4: HORIZONTAL HORIZON CATALOG SELECTION TABS -->
         <section id="travel-hubs" class="hubs-section">
             <div class="section-container">
-                
                 <div class="section-header">
                     <span class="sub-badge">Ready to Explore?</span>
                     <h2>Choose Your Vacation Horizon</h2>
-                    <p>Click below to open our fully detailed itinerary catalogs, premium hotels, and package sheets.</p>
                 </div>
-
-                <!-- Big, Premium Target Hub Links -->
                 <div class="hubs-container">
-                    
-                    <!-- International Catalog Direct Route Link -->
-                    <a href="international.html" id="international-hub" class="big-horizon-btn international-banner">
+                    <a href="international.html" class="big-horizon-btn international-banner">
                         <div class="horizon-content">
-                            <span class="horizon-badge">Global Escapes</span>
                             <h2>🌐 Explore International Trips</h2>
-                            <p>Discover Maldives, Vietnam, Singapore, Bali, and Bhutan packages</p>
+                            <p>Discover Maldives, Vietnam, Singapore, Bali, and Bhutan</p>
                         </div>
-                        <div class="horizon-arrow">➔</div>
                     </a>
-
-                    <!-- Domestic Catalog Direct Route Link -->
-                    <a href="domestic.html" id="domestic-hub" class="big-horizon-btn domestic-banner">
+                    <a href="domestic.html" class="big-horizon-btn domestic-banner">
                         <div class="horizon-content">
-                            <span class="horizon-badge">Incredible India</span>
                             <h2>🏔️ Explore Domestic Trips (India)</h2>
-                            <p>Discover Ladakh, Spiti Valley, Karnataka (Hampi), and Chhattisgarh</p>
+                            <p>Discover Ladakh, Spiti Valley, Karnataka, and Chhattisgarh</p>
                         </div>
-                        <div class="horizon-arrow">➔</div>
                     </a>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 4. VERIFIED CLIENT SOCIAL PLATFORMS -->
-        <section id="social-channels" class="social-section">
-            <div class="section-container">
-                <div class="social-channels-bar">
-                    <h3>Explore Our Active Travel Communities:</h3>
-                    <div class="social-links-container">
-                        <a href="https://youtu.be" target="_blank" class="social-badge yt-badge">🎥 YouTube Vlogs</a>
-                        <a href="https://facebook.com" target="_blank" class="social-badge fb-badge">🌐 Facebook Community</a>
-                        <a href="https://instagram.com" target="_blank" class="social-badge ig-badge">📸 Instagram Trends</a>
-                    </div>
                 </div>
             </div>
         </section>
-
     </main>
 
     <script src="script.js"></script>
