@@ -8,12 +8,15 @@
 </head>
 <body>
 
-    <!-- 1. PREMIUM FIXED NAVIGATION HEADER -->
+    <!-- 1. FIXED NAVIGATION HEADER WITH CODE EMBEDDED LOGO -->
     <header class="main-header">
         <div class="header-container">
             
+            <!-- Pure CSS Logo Element (Zero File Dependencies) -->
             <div class="logo-area">
-                <img src="assets/logo.png" alt="Nature Tours Logo" class="brand-logo">
+                <div class="vector-logo-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path><path d="M12 2V12L17 15"></path></svg>
+                </div>
                 <div class="brand-text">Nature<span>Tours</span></div>
             </div>
 
@@ -29,8 +32,8 @@
             <nav class="nav-menu">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#social-channels" class="nav-link">Our Community</a>
-                <a href="#domestic" class="nav-link">Domestic</a>
-                <a href="#international" class="nav-link">International</a>
+                <a href="#domestic-hub" class="nav-link">Domestic</a>
+                <a href="#international-hub" class="nav-link">International</a>
                 <a href="https://wa.me" target="_blank" class="nav-cta-btn">Enquire Now</a>
             </nav>
 
@@ -39,7 +42,7 @@
 
     <main>
 
-        <!-- 2. HIGH-POLISH VISUAL ROADMAP GLANCE SECTION -->
+        <!-- 2. VISUAL ROADMAP GLANCE SECTION -->
         <section id="popular-glance" class="glance-section">
             <div class="section-container">
                 
@@ -50,8 +53,6 @@
                 </div>
 
                 <div class="glance-grid">
-                    
-                    <!-- Card 1: Maldives -->
                     <div class="glance-card">
                         <div class="card-image-wrapper">
                             <img src="https://unsplash.com" alt="Maldives Escape" class="glance-img">
@@ -63,7 +64,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 2: Spiti Valley -->
                     <div class="glance-card">
                         <div class="card-image-wrapper">
                             <img src="https://unsplash.com" alt="Spiti Valley" class="glance-img">
@@ -75,7 +75,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 3: Bali -->
                     <div class="glance-card">
                         <div class="card-image-wrapper">
                             <img src="https://unsplash.com" alt="Bali Heritage" class="glance-img">
@@ -86,12 +85,50 @@
                             <p class="card-vibe">🌴 Exotic Temples, Swings & Islands</p>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </section>
 
-        <!-- 3. VERIFIED CLIENT SOCIAL PLATFORMS -->
+        <!-- 3. NEW SECTION 4: HORIZONTAL HORIZON CATALOG SELECTION TABS -->
+        <section id="travel-hubs" class="hubs-section">
+            <div class="section-container">
+                
+                <div class="section-header">
+                    <span class="sub-badge">Ready to Explore?</span>
+                    <h2>Choose Your Vacation Horizon</h2>
+                    <p>Click below to open our fully detailed itinerary catalogs, premium hotels, and package sheets.</p>
+                </div>
+
+                <!-- Big, Premium Target Hub Links -->
+                <div class="hubs-container">
+                    
+                    <!-- International Catalog Direct Route Link -->
+                    <a href="international.html" id="international-hub" class="big-horizon-btn international-banner">
+                        <div class="horizon-content">
+                            <span class="horizon-badge">Global Escapes</span>
+                            <h2>🌐 Explore International Trips</h2>
+                            <p>Discover Maldives, Vietnam, Singapore, Bali, and Bhutan packages</p>
+                        </div>
+                        <div class="horizon-arrow">➔</div>
+                    </a>
+
+                    <!-- Domestic Catalog Direct Route Link -->
+                    <a href="domestic.html" id="domestic-hub" class="big-horizon-btn domestic-banner">
+                        <div class="horizon-content">
+                            <span class="horizon-badge">Incredible India</span>
+                            <h2>🏔️ Explore Domestic Trips (India)</h2>
+                            <p>Discover Ladakh, Spiti Valley, Karnataka (Hampi), and Chhattisgarh</p>
+                        </div>
+                        <div class="horizon-arrow">➔</div>
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. VERIFIED CLIENT SOCIAL PLATFORMS -->
         <section id="social-channels" class="social-section">
             <div class="section-container">
                 <div class="social-channels-bar">
