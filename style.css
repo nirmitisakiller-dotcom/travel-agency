@@ -1,13 +1,35 @@
+/* Google Fonts Import for Professional Typography */
+@import url('https://googleapis.com');
+
+/* 🎨 Universal Color & Brand Configuration Variables */
+:root {
+    --primary-green: #2A9E41;   /* From logo text & palm tree */
+    --secondary-blue: #1E82CE;  /* From logo wave & sail */
+    --sun-gold: #FBB03B;        /* From logo sun background */
+    --sand-neutral: #F9F6EE;    /* Soft premium sandy background tint */
+    --dark-text: #2B3A42;       /* Ultra-deep slate for perfect scannability */
+    --white: #FFFFFF;
+    
+    --heading-font: 'Nunito', sans-serif;
+    --body-font: 'Inter', sans-serif;
+    --border-radius-smooth: 16px; /* Soft rounded corners matching logo style */
+    --transition-fast: 0.3s ease;
+}
+
+/* Base Document Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: var(--body-font);
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
+    background-color: var(--white);
+    color: var(--dark-text);
+    line-height: 1.6;
 }
