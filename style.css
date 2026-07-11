@@ -174,3 +174,91 @@ body {
 body {
     padding-top: 80px;
 }
+/* --- SECTION 3: POPULAR GLANCE STYLING --- */
+.glance-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.glance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.glance-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius-smooth);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(43, 58, 66, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: var(--transition-fast);
+}
+
+.glance-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(43, 58, 66, 0.1);
+}
+
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px;
+}
+
+.glance-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-fast);
+}
+
+.glance-card:hover .glance-img {
+    transform: scale(1.04);
+}
+
+.trending-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background-color: var(--sun-gold);
+    color: var(--dark-text);
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-meta {
+    padding: 24px;
+}
+
+.card-meta h3 {
+    font-family: var(--heading-font);
+    font-size: 20px;
+    color: var(--dark-text);
+    margin-bottom: 6px;
+}
+
+.card-vibe {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.card-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 14px;
+}
+
+.pricing-tint {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-green);
+    background-color: rgba(42, 158, 65, 0.08);
+    padding: 4px 12px;
+    border-radius: 6px;
+    display: inline-block;
+}
