@@ -323,3 +323,129 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
+/* --- VECTOR LOGO GRAPHIC TINT --- */
+.vector-logo-icon {
+    background-color: rgba(42, 158, 65, 0.1);
+    color: var(--primary-green);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- SECTION 4: HORIZONTAL HORIZON SELECTION TABS --- */
+.hubs-section {
+    padding: 40px 0 80px 0;
+}
+
+.hubs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.big-horizon-btn {
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 48px;
+    border-radius: var(--border-radius-smooth);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-fast);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-premium);
+}
+
+/* Styled backgrounds using custom stock vacation variants */
+.international-banner {
+    background: linear-gradient(135deg, rgba(30, 130, 206, 0.95), rgba(10, 25, 47, 0.9)), url('https://unsplash.com') center/cover;
+    color: var(--white);
+}
+
+.domestic-banner {
+    background: linear-gradient(135deg, rgba(42, 158, 65, 0.95), rgba(20, 40, 30, 0.9)), url('https://unsplash.com') center/cover;
+    color: var(--white);
+}
+
+.horizon-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 2;
+}
+
+.horizon-badge {
+    align-self: flex-start;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    color: var(--white);
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 20px;
+}
+
+.horizon-content h2 {
+    font-family: var(--heading-font);
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.horizon-content p {
+    font-size: 15px;
+    opacity: 0.85;
+    font-weight: 500;
+}
+
+.horizon-arrow {
+    font-size: 28px;
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition-fast);
+    z-index: 2;
+}
+
+/* Hover Physics */
+.big-horizon-btn:hover {
+    transform: translateY(-4px);
+}
+
+.international-banner:hover {
+    box-shadow: 0 20px 40px -10px rgba(30, 130, 206, 0.35);
+}
+
+.domestic-banner:hover {
+    box-shadow: 0 20px 40px -10px rgba(42, 158, 65, 0.35);
+}
+
+.big-horizon-btn:hover .horizon-arrow {
+    background-color: var(--white);
+    color: var(--dark-text);
+    transform: translateX(6px);
+}
+
+/* Responsive adjustments for phones */
+@media (max-width: 640px) {
+    .big-horizon-btn {
+        padding: 30px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .horizon-arrow {
+        align-self: flex-end;
+    }
+}
