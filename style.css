@@ -33,3 +33,144 @@ body {
     color: var(--dark-text);
     line-height: 1.6;
 }
+/* --- HEADER NAVIGATION STYLING --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(43, 58, 66, 0.05);
+    z-index: 2000;
+    padding: 12px 0;
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+/* Logo Alignment */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-text {
+    font-family: var(--heading-font);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary-green);
+}
+
+.brand-text span {
+    color: var(--secondary-blue);
+}
+
+/* 🔍 1-Click Search Component Styling */
+.search-wrapper {
+    flex: 0 1 400px;
+    margin: 0 20px;
+}
+
+.search-bar {
+    display: flex;
+    background-color: var(--sand-neutral);
+    border: 2px solid transparent;
+    border-radius: 40px;
+    padding: 4px 6px 4px 16px;
+    transition: var(--transition-fast);
+    align-items: center;
+}
+
+.search-bar:focus-within {
+    border-color: var(--secondary-blue);
+    background-color: var(--white);
+    box-shadow: 0 0 10px rgba(30, 130, 206, 0.15);
+}
+
+.search-bar input {
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 14px;
+    color: var(--dark-text);
+    font-weight: 500;
+}
+
+.search-btn {
+    background-color: var(--primary-green);
+    color: var(--white);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.search-btn:hover {
+    background-color: var(--secondary-blue);
+    transform: scale(1.05);
+}
+
+/* Link Menu Configuration */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark-text);
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition-fast);
+    position: relative;
+    padding: 6px 0;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-green);
+}
+
+/* WhatsApp Conversion Button */
+.nav-cta-btn {
+    text-decoration: none;
+    background-color: var(--secondary-blue);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(30, 130, 206, 0.25);
+    transition: var(--transition-fast);
+}
+
+.nav-cta-btn:hover {
+    background-color: var(--primary-green);
+    box-shadow: 0 4px 12px rgba(42, 158, 65, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Padding Fix for Body since header is fixed */
+body {
+    padding-top: 80px;
+}
