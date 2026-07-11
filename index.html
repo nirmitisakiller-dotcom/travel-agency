@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nature Tours | Premium Domestic & International Vacations</title>
-    <!-- This line below connects your HTML directly to your CSS styles -->
+    <!-- Links your HTML directly to your CSS styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Main Header Navigation Wrapper -->
+    <!-- 1. STICKY HEADER NAVIGATION BAR -->
     <header class="main-header">
         <div class="header-container">
             
@@ -19,7 +19,7 @@
                 <div class="brand-text">Nature<span>Tours</span></div>
             </div>
 
-            <!-- 🔍 1-Click Search Bar Bar -->
+            <!-- 🔍 1-CLICK SEARCH FIELD -->
             <div class="search-wrapper">
                 <form action="#" id="header-search-form" class="search-bar">
                     <input type="text" id="search-input" placeholder="Search 'Ladakh', 'Bali', 'Maldives'..." required>
@@ -41,7 +41,133 @@
         </div>
     </header>
 
-    <!-- Connect your JavaScript logic file -->
+    <!-- CONTENT WRAPPER -->
+    <main>
+
+        <!-- 2. REVIEWS & EXPERIENCES SECTION -->
+        <section id="experiences" class="experiences-section">
+            <div class="section-container">
+                
+                <div class="section-header">
+                    <span class="sub-badge">Guest Stories</span>
+                    <h2>What Our Travelers Say</h2>
+                    <p>Real experiences from adventurers who explored the world with Nature Tours.</p>
+                </div>
+
+                <!-- Reviews Display Grid -->
+                <div class="reviews-grid">
+                    
+                    <!-- Review Card 1 -->
+                    <div class="review-card">
+                        <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Our family trip to the Spiti Valley was beautifully managed. Every stay arrangement and route plan was seamless. Highly recommend Sameer Bhai's team!"</p>
+                        <div class="reviewer-info">
+                            <div class="reviewer-details">
+                                <h4>Amit Sharma</h4>
+                                <span>Visited Kinnaur & Spiti</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Card 2 -->
+                    <div class="review-card">
+                        <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"An unforgettable honeymoon package to the Maldives. Zero hassle from booking to transfer. Absolute value for money!"</p>
+                        <div class="reviewer-info">
+                            <div class="reviewer-details">
+                                <h4>Neha Patil</h4>
+                                <span>Visited Maldives Escape</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Social Verification Verification Links -->
+                <div class="social-channels-bar">
+                    <h3>Explore Our Active Travel Communities:</h3>
+                    <div class="social-links-container">
+                        <a href="https://youtu.be" target="_blank" class="social-badge yt-badge">
+                            <span>🎥 Watch Video Reviews on YouTube</span>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="social-badge fb-badge">
+                            <span>🌐 Join 500+ Stories on Facebook</span>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="social-badge ig-badge">
+                            <span>📸 Follow Trends on Instagram</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. POPULAR ROADMAP GLANCE SECTION -->
+        <section id="popular-glance" class="glance-section">
+            <div class="section-container">
+                
+                <div class="section-header">
+                    <span class="sub-badge">Trending Now</span>
+                    <h2>Not Sure Where to Go Yet?</h2>
+                    <p>Take a quick glance at our most frequently booked, hassle-free getaways.</p>
+                </div>
+
+                <!-- Cards Grid Layout -->
+                <div class="glance-grid">
+                    
+                    <!-- Card 1: Maldives -->
+                    <div class="glance-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://unsplash.com" alt="Maldives Escape" class="glance-img">
+                            <span class="trending-badge">#1 Hot Pick</span>
+                        </div>
+                        <div class="card-meta">
+                            <h3>Maldives Luxury</h3>
+                            <p class="card-vibe">✨ Best for Couples & Relaxation</p>
+                            <div class="card-footer">
+                                <span class="pricing-tint">All Inclusive Plan</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Spiti Valley -->
+                    <div class="glance-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://unsplash.com" alt="Spiti Valley" class="glance-img">
+                            <span class="trending-badge">#2 Adventure</span>
+                        </div>
+                        <div class="card-meta">
+                            <h3>Kinnaur & Spiti</h3>
+                            <p class="card-vibe">🏔️ Mighty Himalayan Passes</p>
+                            <div class="card-footer">
+                                <span class="pricing-tint">Guided Exploration</span>
+                              </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Bali -->
+                    <div class="glance-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://unsplash.com" alt="Bali Heritage" class="glance-img">
+                            <span class="trending-badge">#3 Culture</span>
+                        </div>
+                        <div class="card-meta">
+                            <h3>Bali Heritage</h3>
+                            <p class="card-vibe">🌴 Temples, Swings & Beaches</p>
+                            <div class="card-footer">
+                                <span class="pricing-tint">Custom Itineraries</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Connects your interactive JavaScript logic -->
     <script src="script.js"></script>
 </body>
 </html>
