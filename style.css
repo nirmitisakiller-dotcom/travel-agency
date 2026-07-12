@@ -579,3 +579,59 @@ body {
     font-size: 13px;
     border-top: 1px solid #e2e8f0;
 }
+/* --- MULTI-BRANCH MASTER FOOTER LAYOUT --- */
+.master-footer {
+    background-color: #1E293B;
+    color: #94A3B8;
+    padding: 70px 0 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 50px 24px;
+    display: grid;
+    grid-template-columns: 1.2fr repeat(3, 1fr);
+    gap: 40px;
+}
+
+.footer-brand-column p {
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.footer-address-card h4 {
+    font-family: var(--heading-font);
+    color: var(--white);
+    font-size: 16px;
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.footer-address-card p {
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.footer-copyright-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    padding: 24px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Responsive grid collapsing rules for small devices */
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
