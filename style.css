@@ -635,3 +635,67 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* --- INSPIRATIONAL HERO QUOTE PAINT LAYOUT --- */
+.hero-quote-section {
+    background: url('https://unsplash.com') center/cover fixed no-repeat;
+    min-height: 40vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.quote-overlay {
+    width: 100%;
+    padding: 60px 0;
+    background: linear-gradient(to right, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.6));
+    text-align: center;
+    color: var(--white);
+    backdrop-filter: blur(2px);
+}
+
+.quote-decorator {
+    font-family: var(--heading-font);
+    font-size: 80px;
+    line-height: 0;
+    color: var(--sun-gold);
+    display: block;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.main-quote {
+    font-family: var(--heading-font);
+    font-size: 32px;
+    font-weight: 800;
+    max-width: 800px;
+    margin: 0 auto 12px auto;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+}
+
+.quote-author {
+    font-size: 14px;
+    color: var(--sand-neutral);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.quote-divider {
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-green);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* Fix background parallax scrolling behavior for mobile screens */
+@media (max-width: 768px) {
+    .hero-quote-section {
+        background-attachment: scroll;
+    }
+    .main-quote {
+        font-size: 24px;
+    }
+}
