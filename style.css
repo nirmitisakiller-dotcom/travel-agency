@@ -449,3 +449,133 @@ body {
         align-self: flex-end;
     }
 }
+/* --- INNER PAGES SPECIFIC DESIGN LAYOUTS --- */
+.catalog-hero {
+    height: 45vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0 24px;
+}
+
+.domestic-hero-bg {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://unsplash.com') center/cover;
+}
+
+.catalog-hero-content h1 {
+    font-family: var(--heading-font);
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.catalog-hero-content p {
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.packages-section {
+    padding: 60px 0;
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.package-card {
+    background: var(--white);
+    border-radius: var(--border-radius-smooth);
+    overflow: hidden;
+    box-shadow: var(--shadow-premium);
+    border: 1px solid rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+}
+
+.p-img-wrapper {
+    position: relative;
+    height: 220px;
+    width: 100%;
+}
+
+.p-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.p-badge {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    background-color: var(--dark-text);
+    color: var(--white);
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.p-meta {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.p-meta h3 {
+    font-family: var(--heading-font);
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--dark-text);
+}
+
+.p-desc {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.p-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 16px;
+}
+
+.p-duration {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-green);
+}
+
+.p-book-btn {
+    text-decoration: none;
+    background-color: var(--primary-green);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.p-book-btn:hover {
+    background-color: var(--secondary-blue);
+}
+
+.catalog-footer {
+    text-align: center;
+    padding: 30px;
+    background-color: var(--white);
+    color: #64748b;
+    font-size: 13px;
+    border-top: 1px solid #e2e8f0;
+}
