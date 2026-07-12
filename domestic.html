@@ -6,9 +6,9 @@
     <title>Domestic Tour Packages | Nature Tours India</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="catalog-page">
+<body>
 
-    <!-- UNIVERSAL HEADER (Keeps navigation identical across pages) -->
+    <!-- STICKY HEADER FIXED NAVIGATION -->
     <header class="main-header">
         <div class="header-container">
             <div class="logo-area">
@@ -25,79 +25,80 @@
     </header>
 
     <main>
-        <!-- HERO BANNER FOR DOMESTIC HUBS -->
-        <section class="catalog-hero domestic-hero-bg">
-            <div class="catalog-hero-content">
-                <h1>Incredible India Expeditions</h1>
-                <p>Handcrafted itineraries exploring historical marvels, high mountain passes, and hidden tribal landscapes.</p>
+        <!-- MODERN VISUAL CATALOG HERO HEADER -->
+        <section class="glance-section" style="background: linear-gradient(rgba(30,41,59,0.75), rgba(30,41,59,0.9)), url('https://unsplash.com') center/cover; padding: 100px 0; text-align: center; color: #ffffff;">
+            <div class="section-container">
+                <span class="sub-badge" style="background: rgba(255,255,255,0.15); color: #ffffff;">Incredible India</span>
+                <h1 style="font-family: var(--heading-font); font-size: 42px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px;">Incredible India Expeditions</h1>
+                <p style="color: rgba(255,255,255,0.85); font-size: 16px; max-width: 650px; margin: 0 auto;">Handcrafted itineraries exploring historical marvels, high mountain passes, and hidden wilderness landscapes.</p>
             </div>
         </section>
 
-        <!-- THE PACKAGES DISPLAY GRID -->
-        <section class="packages-section">
+        <!-- HIGH-POLISH UTILITY PACKAGES GRID -->
+        <section class="glance-section" style="padding: 60px 0;">
             <div class="section-container">
-                <div class="packages-grid">
+                <div class="glance-grid">
 
-                    <!-- Package 1: Ladakh -->
-                    <div class="package-card" data-destination="ladakh">
-                        <div class="p-img-wrapper">
-                            <img src="https://unsplash.com" alt="Leh Ladakh">
-                            <span class="p-badge">High Altitude Adventure</span>
+                    <!-- Card 1: Ladakh -->
+                    <div class="glance-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://unsplash.com" alt="Leh Ladakh" class="glance-img">
+                            <span class="trending-badge bg-blue">⛰️ Mountain Odyssey</span>
                         </div>
-                        <div class="p-meta">
+                        <div class="card-meta">
                             <h3>Leh & Ladakh Odyssey</h3>
-                            <p class="p-desc">Experience the magic of Pangong Tso, Khardung La Pass, and ancient monasteries with premium stays and oxygen backups.</p>
-                            <div class="p-footer">
-                                <span class="p-duration">🗓️ Custom Days</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20am%20interested%20in%20the%20Ladakh%20Package." target="_blank" class="p-book-btn">Get Itinerary</a>
+                            <p class="card-vibe" style="margin-bottom: 20px;">Experience Pangong Tso, Khardung La Pass, and ancient monasteries with custom stays.</p>
+                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                                <span class="pricing-tint">Custom Days Plan</span>
+                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Ladakh%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Package 2: Spiti Valley -->
-                    <div class="package-card" data-destination="spiti">
-                        <div class="p-img-wrapper">
-                            <img src="https://unsplash.com" alt="Kinnaur Spiti Valley">
-                            <span class="p-badge">Trans-Himalayan Trail</span>
+                    <!-- Card 2: Spiti Valley -->
+                    <div class="glance-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://unsplash.com" alt="Kinnaur Spiti Valley" class="glance-img">
+                            <span class="trending-badge bg-green">❄️ Trans-Himalayan</span>
                         </div>
-                        <div class="p-meta">
+                        <div class="card-meta">
                             <h3>Kinnaur & Spiti Valley</h3>
-                            <p class="p-desc">Traverse through the world's most treacherous paths to explore Kaza, Tabo, Key Monastery, and Chitkul—the last village of India.</p>
-                            <div class="p-footer">
-                                <span class="p-duration">🗓️ Expert Guided</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20am%20interested%20in%20the%20Spiti%20Valley%20Package." target="_blank" class="p-book-btn">Get Itinerary</a>
+                            <p class="card-vibe" style="margin-bottom: 20px;">Traverse remote roads to explore Kaza, Tabo, Key Monastery, and India's last village, Chitkul.</p>
+                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                                <span class="pricing-tint">Expert Guided</span>
+                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Spiti%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Package 3: Karnataka -->
-                    <div class="package-card" data-destination="karnataka">
-                        <div class="p-img-wrapper">
-                            <img src="https://unsplash.com" alt="Hampi Ruins">
-                            <span class="p-badge">Heritage & Mythology</span>
+                    <!-- Card 3: Karnataka -->
+                    <div class="glance-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://unsplash.com" alt="Hampi Ruins" class="glance-img">
+                            <span class="trending-badge bg-gold">🏛️ Heritage Trail</span>
                         </div>
-                        <div class="p-meta">
+                        <div class="card-meta">
                             <h3>Hampi & Kishkindha</h3>
-                            <p class="p-desc">Step back in time through the majestic boulder landscapes of the Vijayanagara Empire and religious trails of Kishkindha.</p>
-                            <div class="p-footer">
-                                <span class="p-duration">🗓️ Heritage Tour</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20am%20interested%20in%20the%20Hampi%20Package." target="_blank" class="p-book-btn">Get Itinerary</a>
+                            <p class="card-vibe" style="margin-bottom: 20px;">Step into history among stone structures, ruins of the Vijayanagara Empire, and mythology paths.</p>
+                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                                <span class="pricing-tint">Historical Tour</span>
+                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Hampi%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Package 4: Chhattisgarh -->
-                    <div class="package-card" data-destination="chhattisgarh">
-                        <div class="p-img-wrapper">
-                            <img src="https://unsplash.com" alt="Chitrakote Waterfalls">
-                            <span class="p-badge">Unexplored Wilderness</span>
+                    <!-- Card 4: Chhattisgarh -->
+                    <div class="glance-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://unsplash.com" alt="Chitrakote Falls" class="glance-img">
+                            <span class="trending-badge" style="background-color: #A855F7;">🌊 Wild Eco-Trail</span>
                         </div>
-                        <div class="p-meta">
-                            <h3>Chhattisgarh Tribal & Wildlife Eco-Trail</h3>
-                            <p class="p-desc">Witness India's widest waterfall at Chitrakote, explore unique tribal cultures, and deep jungle caverns.</p>
-                            <div class="p-footer">
-                                <span class="p-duration">🗓️ Nature Trails</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20am%20interested%20in%20the%20Chhattisgarh%20Package." target="_blank" class="p-book-btn">Get Itinerary</a>
+                        <div class="card-meta">
+                            <h3>Chhattisgarh Wilderness</h3>
+                            <p class="card-vibe" style="margin-bottom: 20px;">Witness the wide Chitrakote Waterfalls, unique tribal heritage sites, and prehistoric caves.</p>
+                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                                <span class="pricing-tint">Nature Trails</span>
+                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Chhattisgarh%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
                             </div>
                         </div>
                     </div>
@@ -107,8 +108,9 @@
         </section>
     </main>
 
-    <footer class="catalog-footer">
-        <p>© 2026 Nature Tours (Nashik / Jalgaon). Powered by 1-Click WhatsApp Support.</p>
+    <!-- FOOTER -->
+    <footer style="text-align: center; padding: 40px; background-color: #ffffff; color: #64748b; font-size: 13px; font-weight: 500; border-top: 1px solid #E2E8F0;">
+        <p>© 2026 Nature Tours (Nashik / Jalgaon). All Rights Reserved.</p>
     </footer>
 
 </body>
