@@ -50,9 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Generates a live, unique random holiday image for the searched keyword
             const randomSeedId = Math.floor(Math.random() * 1000);
-            const liveInternetPhoto = `https://picsum.photos{randomSeedId}`;
+            const liveInternetPhoto = `https://unsplash.com`;
 
-            // Create the custom HTML block structure
+
+      // Create the custom HTML block structure
             const dynamicCardHTML = `
                 <div class="glance-card dynamic-search-card" id="dynamic-result-anchor" style="border: 2px solid var(--secondary-blue); transform: scale(1.02); transition: all 0.4s ease;">
                     <div class="card-image-wrapper">
