@@ -50,7 +50,25 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Generates a live, unique random holiday image for the searched keyword
             const randomSeedId = Math.floor(Math.random() * 1000);
-            const liveInternetPhoto = `https://unsplash.com`;
+                      // Build a crisp premium graphic card placeholder out of thin air
+            const dynamicCardHTML = `
+                <div class="glance-card dynamic-search-card" id="dynamic-result-anchor" style="border: 2px solid var(--secondary-blue); transform: scale(1.02); transition: all 0.4s ease;">
+                    <div class="card-image-wrapper">
+                        <!-- Direct, high-fidelity secure default placeholder alignment -->
+                        <img src="https://unsplash.com" alt="${formattedTitle}" class="glance-img">
+                        <span class="trending-badge" style="background-color: var(--secondary-blue); color: white; font-weight:700;">🌐 Live Request</span>
+                    </div>
+                    <div class="card-meta">
+                        <h3 style="font-family: var(--heading-font); font-size:22px; color: var(--dark-text);">Custom ${formattedTitle} Plan</h3>
+                        <p class="card-vibe" style="font-size:14px; color:#64748b; margin-bottom:20px;">✨ 100% tailor-made global tour layout curated for your specific request.</p>
+                        <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                            <span class="pricing-tint">Bespoke Coordinates</span>
+                            <a href="https://wa.me{encodeURIComponent(formattedTitle)}%20on%20your%20site.%20Please%20help%20me%20arrange%20this%20itinerary!" target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Book Destination</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
 
 
       // Create the custom HTML block structure
