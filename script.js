@@ -16,21 +16,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const domesticTargets = ['ladakh', 'leh', 'karnataka', 'hampi', 'kishkindha', 'kinnaur', 'spiti', 'chhattisgarh'];
             const internationalTargets = ['bhutan', 'maldives', 'vietnam', 'singapore', 'bali', 'indonesia'];
 
-            // A. Local built-in package router
+            // FIX: Using relative paths (./) stops GitHub Pages from redirecting to the root domain
             let matchedDest = domesticTargets.find(dest => lowerQuery.includes(dest));
             if (matchedDest) {
-                window.location.href = `domestic.html?highlight=${matchedDest}`;
+                window.location.href = `./domestic.html?highlight=${matchedDest}`;
                 return;
             }
 
             matchedDest = internationalTargets.find(dest => lowerQuery.includes(dest));
             if (matchedDest) {
-                window.location.href = `international.html?highlight=${matchedDest}`;
+                window.location.href = `./international.html?highlight=${matchedDest}`;
                 return;
             }
 
-            // B. Global search wildcard handshake
-            window.location.href = `international.html?globalSearch=${encodeURIComponent(query)}`;
+            // Wildcard redirect rule for unknown canvas lookups
+            window.location.href = `./international.html?globalSearch=${encodeURIComponent(query)}`;
         });
     }
 
@@ -47,11 +47,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (glanceGrid) {
             const formattedTitle = globalSearch.charAt(0).toUpperCase() + globalSearch.slice(1);
             
-            // Build a crisp premium graphic card placeholder out of thin air using zero image urls
+            // Build the card layout dynamically using pure geometric CSS properties
             const dynamicCardHTML = `
                 <div class="glance-card dynamic-search-card" id="dynamic-result-anchor" style="border: 2px solid var(--secondary-blue); transform: scale(1.02); transition: all 0.4s ease;">
                     
-                    <!-- Pure graphic css style instead of an external image link -->
                     <div class="card-image-wrapper" style="background: linear-gradient(135deg, var(--secondary-blue), var(--dark-text)); display: flex; align-items: center; justify-content: center; height: 250px;">
                         <span style="font-size: 64px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));">✈️</span>
                         <span class="trending-badge" style="background-color: var(--sun-gold); color: var(--dark-text); font-weight:800;">🌐 Custom Canvas</span>
@@ -68,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
 
-            // Inject the card right at the front of the grid layout
+            // Inject the generated canvas card element at the top position of the layout
             glanceGrid.insertAdjacentHTML('afterbegin', dynamicCardHTML);
 
-            // Smooth scroll down to reveal the custom generated card
+            // Trigger window view slide down anchor targeting
             setTimeout(() => {
                 const targetCard = document.getElementById('dynamic-result-anchor');
                 if (targetCard) {
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 3. Highlight scroller engine for hardcoded cards
+    // 3. Highlight anchor scroller engine for hardcoded cards
     if (highlightTarget) {
         const cards = document.querySelectorAll('.glance-card');
         cards.forEach(card => {
