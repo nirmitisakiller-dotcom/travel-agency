@@ -1,53 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // ----------------------------------------------------
-    // 1. 🔍 THE REDIRECTING SEARCH INTERCEPTOR
-    // ----------------------------------------------------
-    const searchForm = document.getElementById('header-search-form');
-    if (searchForm) {
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const searchInput = document.getElementById('search-input');
-            const query = searchInput.value.trim();
-            if (!query) return;
-
-            const lowerQuery = query.toLowerCase();
-            const domesticTargets = ['ladakh', 'leh', 'karnataka', 'hampi', 'kishkindha', 'kinnaur', 'spiti', 'chhattisgarh'];
-            const internationalTargets = ['bhutan', 'maldives', 'vietnam', 'singapore', 'bali', 'indonesia'];
-
-            // FIX: Using relative paths (./) stops GitHub Pages from redirecting to the root domain
-            let matchedDest = domesticTargets.find(dest => lowerQuery.includes(dest));
-            if (matchedDest) {
-                window.location.href = `./domestic.html?highlight=${matchedDest}`;
-                return;
-            }
-
-            matchedDest = internationalTargets.find(dest => lowerQuery.includes(dest));
-            if (matchedDest) {
-                window.location.href = `./international.html?highlight=${matchedDest}`;
-                return;
-            }
-
-            // Wildcard redirect rule for unknown canvas lookups
-            window.location.href = `./international.html?globalSearch=${encodeURIComponent(query)}`;
-        });
-    }
-
-    // ----------------------------------------------------
-    // 2. 🌍 LIVE STYLISH CARD BUILDER & INJECTOR
-    // ----------------------------------------------------
+    // Extract query parameters from the browser's URL header bar
     const urlParams = new URLSearchParams(window.location.search);
     const globalSearch = urlParams.get('globalSearch');
-    const highlightTarget = urlParams.get('highlight');
 
+    // This block triggers only if a user searched a custom country destination
     if (globalSearch) {
         const glanceGrid = document.querySelector('.glance-grid');
         
         if (glanceGrid) {
+            // Capitalise the keyword for elegant typography rules
             const formattedTitle = globalSearch.charAt(0).toUpperCase() + globalSearch.slice(1);
             
-            // Build the card layout dynamically using pure geometric CSS properties
+            // Build the card component on the fly with a pure CSS backdrop block to avoid cross-site image blocks
             const dynamicCardHTML = `
                 <div class="glance-card dynamic-search-card" id="dynamic-result-anchor" style="border: 2px solid var(--secondary-blue); transform: scale(1.02); transition: all 0.4s ease;">
                     
@@ -67,31 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
 
-            // Inject the generated canvas card element at the top position of the layout
+            // Inject the block at the front of the destination listing grid
             glanceGrid.insertAdjacentHTML('afterbegin', dynamicCardHTML);
 
-            // Trigger window view slide down anchor targeting
+            // Smooth scroll target alignment execution
             setTimeout(() => {
                 const targetCard = document.getElementById('dynamic-result-anchor');
                 if (targetCard) {
                     targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
-            }, 600);
+            }, 500);
         }
-    }
-
-    // 3. Highlight anchor scroller engine for hardcoded cards
-    if (highlightTarget) {
-        const cards = document.querySelectorAll('.glance-card');
-        cards.forEach(card => {
-            const cardTitle = card.querySelector('h3').textContent.toLowerCase();
-            if (cardTitle.includes(highlightTarget)) {
-                setTimeout(() => {
-                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    card.style.transform = 'scale(1.04)';
-                    card.style.borderColor = 'var(--secondary-blue)';
-                }, 400);
-            }
-        });
     }
 });
