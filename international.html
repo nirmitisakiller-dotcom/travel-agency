@@ -8,12 +8,18 @@
 </head>
 <body>
 
-    <!-- STICKY HEADER FIXED NAVIGATION -->
+    <!-- 1. FIXED NAVIGATION HEADER -->
     <header class="main-header">
         <div class="header-container">
             <div class="logo-area">
                 <img src="logo.png" alt="Nature Tours Logo" class="brand-logo">
                 <div class="brand-text">Nature<span>Tours</span></div>
+            </div>
+            <div class="search-wrapper">
+                <form action="#" id="header-search-form" class="search-bar">
+                    <input type="text" name="globalSearch" id="search-input" placeholder="Search 'Mumbai', 'Paris'..." required>
+                    <button type="submit" class="search-btn">🔍</button>
+                </form>
             </div>
             <nav class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
@@ -24,115 +30,105 @@
         </div>
     </header>
 
-    <main>
-        <!-- MODERN VISUAL CATALOG HERO HEADER -->
-        <section class="glance-section" style="background: linear-gradient(rgba(15,23,42,0.75), rgba(15,23,42,0.9)), url('https://unsplash.com') center/cover; padding: 100px 0; text-align: center; color: #ffffff;">
-            <div class="section-container">
-                <span class="sub-badge" style="background: rgba(255,255,255,0.15); color: #ffffff;">Global Escapes</span>
-                <h1 style="font-family: var(--heading-font); font-size: 42px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px;">Worldwide Outbound Gateways</h1>
-                <p style="color: rgba(255,255,255,0.85); font-size: 16px; max-width: 650px; margin: 0 auto;">Curated premium international vacation plans across scenic coastlines, cultural hubs, and luxury island retreats.</p>
+    <main style="background-color: var(--sand-neutral); min-height: 100vh;">
+        
+        <!-- 2. VISUAL CATALOG HERO HEADER (Will be painted dynamically via JS) -->
+        <section id="catalog-hero-banner" class="catalog-hero-box" style="background: linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('https://unsplash.com') center/cover fixed;">
+            <div class="section-container" style="text-align: center; color: var(--white); padding: 60px 0;">
+                <span class="sub-badge" style="background: rgba(255,255,255,0.15); color: #ffffff;">Global Outbound</span>
+                <h1 id="dynamic-hero-title" style="font-family: var(--heading-font); font-size: 42px; font-weight: 800; margin-bottom: 8px;">Explore The World</h1>
+                <p id="dynamic-hero-desc" style="color: rgba(255,255,255,0.85); font-size: 15px; max-width: 600px; margin: 0 auto;">Select from premium verified properties rated 3-star and above with full customization rules.</p>
             </div>
         </section>
 
-        <!-- HIGH-POLISH UTILITY PACKAGES GRID -->
-        <section class="glance-section" style="padding: 60px 0;">
-            <div class="section-container">
-                <div class="glance-grid">
-
-                    <!-- Card 1: Maldives -->
-                    <div class="glance-card">
-                        <div class="card-image-wrapper">
-                            <img src="assets/maldives.jpg" alt="Maldives Getaway" class="glance-img">
-                            <span class="trending-badge bg-gold">☀️ Tropical Island</span>
+        <!-- 3. AMAZON-STYLE MARKETPLACE VIEWPORT WRAPPER -->
+        <div class="marketplace-wrapper">
+            <div class="marketplace-container">
+                
+                <!-- 🎛️ LEFT SIDEBAR FILTERS CONTROL CENTER -->
+                <aside class="filter-sidebar">
+                    <div class="filter-sticky-card">
+                        
+                        <div class="filter-section-header">
+                            <h3>🔍 Filter Accommodations</h3>
+                            <button id="reset-filters-btn" class="reset-btn">Clear All</button>
                         </div>
-                        <div class="card-meta">
-                            <h3>Maldives Paradise</h3>
-                            <p class="card-vibe" style="margin-bottom: 20px;">Indulge in white-sand overwater villas, luxury resort transfers, and colorful coral reef snorkeling sessions.</p>
-                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                                <span class="pricing-tint">All-Inclusive Resorts</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Maldives%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
+
+                        <!-- Price Filter Sliders -->
+                        <div class="filter-block">
+                            <label class="filter-label">Max Price (Per Person/Night)</label>
+                            <div class="price-slider-wrapper">
+                                <input type="range" id="price-range-slider" min="2000" max="100000" value="100000" step="1000">
+                                <div class="price-range-labels">
+                                    <span>₹2,000</span>
+                                    <span id="current-price-label" style="color: var(--secondary-blue); font-weight:700;">₹1,00,000</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Card 2: Bali -->
-                    <div class="glance-card">
-                        <div class="card-image-wrapper">
-                            <img src="assets/bali.jpg" alt="Bali Luxury" class="glance-img">
-                            <span class="trending-badge bg-green">🌴 Exotic Culture</span>
-                        </div>
-                        <div class="card-meta">
-                            <h3>Bali & Indonesia</h3>
-                            <p class="card-vibe" style="margin-bottom: 20px;">Tour iconic artistic temples, explore jungle canopy swings in Ubud, and catch beautiful coastal sunsets.</p>
-                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                                <span class="pricing-tint">Custom Leisure</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Bali%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
+                        <!-- Amenities Checklist Matrix -->
+                        <div class="filter-block">
+                            <label class="filter-label">Hotel Rating Tier</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="3star" checked> ⭐⭐⭐ 3-Star Comfort</label>
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="4star" checked> ⭐⭐⭐⭐ 4-Star Elite</label>
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="5star" checked> ⭐⭐⭐⭐⭐ 5-Star Sovereign</label>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Card 3: Vietnam -->
-                    <div class="glance-card">
-                        <div class="card-image-wrapper">
-                            <img src="assets/vietnam.jpg" alt="Vietnam Cruises" class="glance-img">
-                            <span class="trending-badge bg-blue">🛶 Scenic Heritage</span>
-                        </div>
-                        <div class="card-meta">
-                            <h3>Vietnam Discovery</h3>
-                            <p class="card-vibe" style="margin-bottom: 20px;">Cruise through Ha Long Bay, walk the historic lanterns of Hoi An, and discover bustling urban street flavors.</p>
-                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                                <span class="pricing-tint">Guided Group Tour</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Vietnam%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
+                        <div class="filter-block">
+                            <label class="filter-label">Dining Commodities</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="breakfast"> Free Breakfast (CP Plan)</label>
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="vegkitchen"> Pure Veg / Jain Food</label>
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="roomservice"> 24/7 Room Service</label>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Card 4: Singapore -->
-                    <div class="glance-card">
-                        <div class="card-image-wrapper">
-                            <img src="assets/singapore.jpg" alt="Singapore Skyline" class="glance-img">
-                            <span class="trending-badge" style="background-color: #EF4444;">🌆 Modern Cityscape</span>
-                        </div>
-                        <div class="card-meta">
-                            <h3>Singapore Marvels</h3>
-                            <p class="card-vibe" style="margin-bottom: 20px;">Explore Marina Bay Sands, the spectacular Gardens by the Bay, and premium movie thrills at Universal Studios.</p>
-                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                                <span class="pricing-tint">City Highlights</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Singapore%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
+                        <div class="filter-block">
+                            <label class="filter-label">Wellness & Facilities</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="pool"> Swimming Pool</label>
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="spa"> Luxury Wellness Spa</label>
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="gym"> Fitness Centre / Gym</label>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Card 5: Bhutan -->
-                    <div class="glance-card">
-                        <div class="card-image-wrapper">
-                            <img src="assets/bhutan.jpg" alt="Bhutan Dzongs" class="glance-img">
-                            <span class="trending-badge" style="background-color: #F97316;">🏰 Mountain Kingdom</span>
-                        </div>
-                        <div class="card-meta">
-                            <h3>Bhutan Cultural Trail</h3>
-                            <p class="card-vibe" style="margin-bottom: 20px;">Hike to the legendary Tiger’s Nest Monastery, explore traditional valleys, and view majestic architectural dzongs.</p>
-                            <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                                <span class="pricing-tint">Peace & Eco-Tour</span>
-                                <a href="https://wa.me?text=Hi%20Nature%20Tours,%20I%20want%20the%20Bhutan%20Itinerary." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none;">Get Plan</a>
+                        <div class="filter-block">
+                            <label class="filter-label">Transit & Assistance</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="shuttle"> Free Airport Shuttle</label>
+                                <label class="checkbox-label"><input type="checkbox" class="amenity-check" value="guide"> Local English/Hindi Guide</label>
                             </div>
                         </div>
+
+                        <button id="apply-filters-btn" class="apply-filter-btn">Apply Marketplace Filters</button>
+
+                    </div>
+                </aside>
+
+                <!-- 🏢 RIGHT MAIN PANEL CONTENT AREA (15 CARDS DATA MATRIX GRID) -->
+                <section class="catalog-main-feed">
+                    <!-- Notification Counter Panel -->
+                    <div class="results-counter-bar">
+                        <span id="hotel-results-counter">Showing 15 available accommodations</span>
                     </div>
 
-                </div>
+                    <!-- The 15 Hotel Cards Dynamic Placeholder Grid Container -->
+                    <div id="hotel-cards-target-grid" class="glance-grid" style="padding-top: 0;">
+                        <!-- JavaScript will securely inject all 15 custom hotel cards right inside here -->
+                    </div>
+                </section>
+
             </div>
-        </section>
+        </div>
+
     </main>
 
-    <!-- FOOTER -->
     <footer style="text-align: center; padding: 40px; background-color: #ffffff; color: #64748b; font-size: 13px; font-weight: 500; border-top: 1px solid #E2E8F0;">
         <p>© 2026 Nature Tours (Nashik / Jalgaon). All Rights Reserved.</p>
     </footer>
-        <script src="script.js?v=2"></script>
+
+    <script src="script.js?v=3"></script>
 </body>
 </html>
-
-</body>
-</html>
-
-
