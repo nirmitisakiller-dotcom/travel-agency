@@ -54,13 +54,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const tierPool = ['3star', '4star', '5star'];
         
         // Curated stable photo URLs matching various resort tiers
-        const hotelPhotos = [
-            'https://unsplash.com',
-            'https://unsplash.com',
-            'https://unsplash.com',
-            'https://unsplash.com',
-            'https://unsplash.com'
+               const hotelPhotos = [
+            'https://picsum.photos',
+            'https://picsum.photos',
+            'https://picsum.photos',
+            'https://picsum.photos',
+            'https://picsum.photos'
         ];
+
+    
 
         const titlesPool = ['Grand Imperial', 'Royal Heritage', 'Elite Retreat', 'Vista Bay Resort', 'Sovereign Haven'];
 
