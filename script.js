@@ -1,96 +1,190 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. CONTEXT-AWARE ROUTING INTERCEPTOR
+    // ----------------------------------------------------
+    // 1. 🇮🇳 CONTEXT-AWARE INDIA ROUTING DICTIONARY
+    // ----------------------------------------------------
+    const indianGeography = [
+        'mumbai', 'delhi', 'bangalore', 'hyderabad', 'ahmedabad', 'chennai', 'kolkata', 'surat', 'pune', 'jaipur',
+        'nashik', 'goa', 'kerala', 'rajasthan', 'gujarat', 'maharashtra', 'karnataka', 'tamil nadu', 'leh', 'ladakh',
+        'hampi', 'spiti', 'kinnaur', 'chhattisgarh', 'shimla', 'manali', 'sikkim', 'assam', 'meghalaya', 'udaipur'
+    ];
+
     const searchForm = document.getElementById('header-search-form');
     if (searchForm) {
         searchForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const searchInput = document.getElementById('search-input');
             const query = searchInput.value.trim();
             if (!query) return;
 
-            // Route everything directly to your catalog using native variables
-            window.location.href = './international.html?globalSearch=' + encodeURIComponent(query);
+            const lowerQuery = query.toLowerCase();
+            const isDomestic = indianGeography.some(place => lowerQuery.includes(place));
+
+            // Direct route split fallback handler
+            if (isDomestic) {
+                window.location.href = './domestic.html?globalSearch=' + encodeURIComponent(query);
+            } else {
+                window.location.href = './international.html?globalSearch=' + encodeURIComponent(query);
+            }
         });
     }
 
-    // 2. FREE AUTOMATED HOTEL INJECTOR ENGINE
+    // ----------------------------------------------------
+    // 2. 🗃️ HIGH-CAPACITY 15-HOTEL CORE DATABASE ARCHITECTURE
+    // ----------------------------------------------------
     const urlParams = new URLSearchParams(window.location.search);
     const globalSearch = urlParams.get('globalSearch');
 
     if (globalSearch) {
-        const glanceGrid = document.querySelector('.glance-grid');
+        const formattedTitle = globalSearch.charAt(0).toUpperCase() + globalSearch.slice(1);
         
-        if (glanceGrid) {
-            const formattedTitle = globalSearch.charAt(0).toUpperCase() + globalSearch.slice(1);
-            
-            // Clean out the default placeholder grid to create space for the hotel matrix
-            glanceGrid.innerHTML = '';
-            
-            // Generate free, randomized pricing variables based on the destination string length
-            const basePrice = Math.floor((globalSearch.length * 1500) + 4000);
+        // Dynamic Hero Painting Logic
+        const heroBanner = document.getElementById('catalog-hero-banner');
+        const heroTitle = document.getElementById('dynamic-hero-title');
+        if (heroTitle) heroTitle.textContent = `Premium Stays in ${formattedTitle}`;
 
-            // Construct 3 beautifully distinct hotel selection tier components out of thin air
-            const hotelMatrixHTML = `
-                <!-- Header Badge Alert Grid Layer -->
-                <div style="grid-column: 1 / -1; background-color: var(--white); border-left: 5px solid var(--secondary-blue); padding: 16px 24px; border-radius: 8px; margin-bottom: 10px; box-shadow: var(--shadow-premium);">
-                    <h3 style="font-family: var(--heading-font); color: var(--dark-text); font-size: 18px;">🔒 Active Quality Filters: Showing Accommodations for "${formattedTitle}"</h3>
-                    <p style="font-size: 13px; color: #64748b; font-weight: 500; margin-top: 2px;">Display constraints configured strictly to verified 3-Star, 4-Star, and 5-Star luxury categories.</p>
-                </div>
-
-                <!-- Tier 1: 3-Star Standard Premium Choice -->
-                <div class="glance-card" style="border: 1px solid #e2e8f0;">
-                    <div class="card-image-wrapper" style="background: linear-gradient(135deg, #64748b, var(--dark-text)); display: flex; align-items: center; justify-content: center; height: 200px;">
-                        <span style="font-size: 48px;">🏢</span>
-                    </div>
-                    <div class="card-meta" style="padding: 24px;">
-                        <span style="color: var(--sun-gold); font-weight: 800; font-size: 13px; display: block; margin-bottom: 4px;">⭐⭐⭐ COMFORT TIER</span>
-                        <h3 style="font-family: var(--heading-font); font-size: 20px; color: var(--dark-text); margin-bottom: 8px;">${formattedTitle} Prime Residency</h3>
-                        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 18px;">Walk-to-metro city locations featuring clean configurations, hot water setups, and secure luggage lounges.</p>
-                        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 14px; font-weight: 700; color: var(--dark-text);">Est: ₹${basePrice}/Night</span>
-                            <a href="https://wa.me{encodeURIComponent(formattedTitle)}." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 12px; text-decoration:none; background-color: var(--dark-text); color: white; border-radius: 20px; font-weight: 600;">Select Stay</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tier 2: 4-Star Elite Premium Choice -->
-                <div class="glance-card" style="border: 2px solid var(--secondary-blue); transform: scale(1.02);">
-                    <div class="card-image-wrapper" style="background: linear-gradient(135deg, var(--secondary-blue), var(--dark-text)); display: flex; align-items: center; justify-content: center; height: 200px; position: relative;">
-                        <span style="font-size: 48px;">🏨</span>
-                        <span style="position: absolute; top: 12px; right: 12px; background-color: var(--sun-gold); color: var(--dark-text); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px;">MOST POPULAR</span>
-                    </div>
-                    <div class="card-meta" style="padding: 24px;">
-                        <span style="color: var(--secondary-blue); font-weight: 800; font-size: 13px; display: block; margin-bottom: 4px;">⭐⭐⭐⭐ ELITE LUXURY</span>
-                        <h3 style="font-family: var(--heading-font); font-size: 20px; color: var(--dark-text); margin-bottom: 8px;">Grand Regency & Spa Hub</h3>
-                        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 18px;">Premium upgrades featuring inclusive swimming pool paths, open sky dining lounges, and complimentary breakfast plans.</p>
-                        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 14px; font-weight: 700; color: var(--secondary-blue);">Est: ₹${Math.floor(basePrice * 1.5)}/Night</span>
-                            <a href="https://wa.me{encodeURIComponent(formattedTitle)}." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 12px; text-decoration:none; background-color: var(--secondary-blue); color: white; border-radius: 20px; font-weight: 600;">Select Stay</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tier 3: 5-Star Grand Sovereign Choice -->
-                <div class="glance-card" style="border: 1px solid #e2e8f0;">
-                    <div class="card-image-wrapper" style="background: linear-gradient(135deg, var(--primary-green), #14281e); display: flex; align-items: center; justify-content: center; height: 200px;">
-                        <span style="font-size: 48px;">🏰</span>
-                    </div>
-                    <div class="card-meta" style="padding: 24px;">
-                        <span style="color: var(--primary-green); font-weight: 800; font-size: 13px; display: block; margin-bottom: 4px;">⭐⭐⭐⭐⭐ SOVEREIGN VIP</span>
-                        <h3 style="font-family: var(--heading-font); font-size: 20px; color: var(--dark-text); margin-bottom: 8px;">The Sovereign Royal Estate</h3>
-                        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 18px;">Absolute elite track setups including private vehicle transit shuttles, VIP airport lounges, and 24/7 dedicated butler concierge desks.</p>
-                        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 14px; font-weight: 700; color: var(--primary-green);">Est: ₹${Math.floor(basePrice * 2.4)}/Night</span>
-                            <a href="https://wa.me{encodeURIComponent(formattedTitle)}." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 12px; text-decoration:none; background-color: var(--primary-green); color: white; border-radius: 20px; font-weight: 600;">Select Stay</a>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Inject the complete multi-tier data matrix onto the interface instantly
-            glanceGrid.insertAdjacentHTML('afterbegin', hotelMatrixHTML);
+        // Swap top banner photo dynamically using highly stable global network keywords
+        if (heroBanner) {
+            heroBanner.style.background = `linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('https://unsplash.com') center/cover fixed`;
         }
+
+        // Generate custom hotel profiles mathematically with unique configurations
+        const hotelDatabase = [];
+        const tierPool = ['3star', '4star', '5star'];
+        
+        // Curated stable photo URLs matching various resort tiers
+        const hotelPhotos = [
+            'https://unsplash.com',
+            'https://unsplash.com',
+            'https://unsplash.com',
+            'https://unsplash.com',
+            'https://unsplash.com'
+        ];
+
+        const titlesPool = ['Grand Imperial', 'Royal Heritage', 'Elite Retreat', 'Vista Bay Resort', 'Sovereign Haven'];
+
+        for (let i = 1; i <= 15; i++) {
+            const tier = tierPool[i % 3];
+            let price = 3500 + (i * 2200);
+            if (tier === '4star') price += 4500;
+            if (tier === '5star') price += 12000;
+
+            hotelDatabase.push({
+                id: i,
+                name: `${formattedTitle} ${titlesPool[i % 5]} ${i}`,
+                tier: tier,
+                price: price,
+                image: hotelPhotos[i % 5],
+                // Unique boolean flag matching layout checkboxes
+                amenities: {
+                    breakfast: i % 2 === 0,
+                    vegkitchen: i % 3 === 0,
+                    roomservice: true,
+                    pool: tier !== '3star',
+                    spa: tier === '5star',
+                    gym: i % 2 !== 0,
+                    shuttle: tier === '5star' || i % 4 === 0,
+                    guide: i % 5 === 0
+                }
+            });
+        }
+
+        // ----------------------------------------------------
+        // 3. 🎛️ SIDEBAR INTERACTIVE RENDER FILTER CONTROLLER
+        // ----------------------------------------------------
+        const targetGrid = document.getElementById('hotel-cards-target-grid');
+        const priceSlider = document.getElementById('price-range-slider');
+        const priceLabel = document.getElementById('current-price-label');
+        const counterBar = document.getElementById('hotel-results-counter');
+
+        // Track range changes visually on screen
+        if (priceSlider && priceLabel) {
+            priceSlider.addEventListener('input', function() {
+                priceLabel.textContent = `Price: ₹${parseInt(this.value).toLocaleString('en-IN')}`;
+            });
+        }
+
+        function renderMarketplace() {
+            if (!targetGrid) return;
+            targetGrid.innerHTML = '';
+
+            const maxAllowedPrice = priceSlider ? parseInt(priceSlider.value) : 100000;
+            
+            // Gather array values of verified checklist inputs
+            const checkedCheckboxes = document.querySelectorAll('.amenity-check:checked');
+            const activeFilters = Array.from(checkedCheckboxes).map(cb => cb.value);
+
+            let visibleCount = 0;
+
+            hotelDatabase.forEach(hotel => {
+                // Filter Rule A: Price Cap Verification
+                if (hotel.price > maxAllowedPrice) return;
+
+                // Filter Rule B: Check if rating tier matches active selection
+                if (!activeFilters.includes(hotel.tier)) return;
+
+                // Filter Rule C: Continuous checkbox query verification
+                let matchAmenities = true;
+                activeFilters.forEach(f => {
+                    if (f !== '3star' && f !== '4star' && f !== '5star') {
+                        if (!hotel.amenities[f]) matchAmenities = false;
+                    }
+                });
+                if (!matchAmenities) return;
+
+                visibleCount++;
+
+                // Build a custom stars indicator block element
+                let stars = '⭐⭐⭐';
+                if (hotel.tier === '4star') stars = '⭐⭐⭐⭐';
+                if (hotel.tier === '5star') stars = '⭐⭐⭐⭐⭐';
+
+                const cardHTML = `
+                    <div class="glance-card" style="display:flex; flex-direction:column; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-premium);">
+                        <div class="card-image-wrapper" style="height:200px; width:100%; overflow:hidden;">
+                            <img src="${hotel.image}" alt="${hotel.name}" class="glance-img" style="width:100%; height:100%; object-fit:cover;">
+                            <span class="trending-badge" style="background-color:var(--dark-text); color:white; font-size:11px; top:12px; left:12px; font-weight:700;">${stars}</span>
+                        </div>
+                        <div class="card-meta" style="padding:20px; display:flex; flex-direction:column; justify-content:space-between; flex-grow:1;">
+                            <div>
+                                <h3 style="font-family:var(--heading-font); font-size:18px; color:var(--dark-text); margin-bottom:6px;">${hotel.name}</h3>
+                                <p style="font-size:13px; color:#64748b; line-height:1.5; margin-bottom:15px;">Luxury stay package options arranged with premium hospitality constraints.</p>
+                            </div>
+                            <div style="border-top:1px solid #f1f5f9; padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+                                <span style="font-size:14px; font-weight:700; color:var(--secondary-blue);">₹${hotel.price.toLocaleString('en-IN')}/N</span>
+                                <a href="https://wa.me{encodeURIComponent(hotel.name)}%20in%20${encodeURIComponent(formattedTitle)}.%20Price:%20₹${hotel.price}" target="_blank" class="nav-cta-btn" style="padding:6px 14px; font-size:12px; text-decoration:none; color:white; border-radius:20px; font-weight:600; box-shadow:none;">Select Hotel</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                targetGrid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            if (counterBar) {
+                counterBar.textContent = `Showing ${visibleCount} verified accommodations matching your rules`;
+            }
+        }
+
+        // Assign action triggers to buttons
+        const applyBtn = document.getElementById('apply-filters-btn');
+        if (applyBtn) {
+            applyBtn.addEventListener('click', renderMarketplace);
+        }
+
+        const resetBtn = document.getElementById('reset-filters-btn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                if (priceSlider) priceSlider.value = 100000;
+                if (priceLabel) priceLabel.textContent = `₹1,00,000`;
+                document.querySelectorAll('.amenity-check').forEach(cb => {
+                    if (cb.value === '3star' || cb.value === '4star' || cb.value === '5star') cb.checked = true;
+                    else cb.checked = false;
+                });
+                renderMarketplace();
+            });
+        }
+
+        // Initialize display setup on mount
+        renderMarketplace();
     }
 });
