@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Swap top banner photo dynamically using highly stable global network keywords
         if (heroBanner) {
-            heroBanner.style.background = `linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('https://unsplash.com') center/cover fixed`;
+           heroBanner.style.background = `linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('https://picsum.photos') center/cover no-repeat`;
+
         }
 
         // Generate custom hotel profiles mathematically with unique configurations
