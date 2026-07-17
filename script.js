@@ -73,9 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p class="card-vibe" style="font-size:14px; color:#64748b; margin-bottom:20px;">✨ Click to explore luxury 3★ and above hotels in ${formattedTitle} tailored to your budget constraints.</p>
                         <div style="border-top: 1px solid #F1F5F9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
                             <span class="pricing-tint" style="color: var(--primary-green); background: rgba(42,158,65,0.08); padding:4px 10px; border-radius:5px; font-size:12px; font-weight:600;">Tailor-Made Route</span>
-                            <a href="https://wa.me{encodeURIComponent(formattedTitle)}.%20Please%20suggest%20hotels%203-star%20and%20above." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none; background-color: var(--primary-green); text-decoration:none; color:white; border-radius:20px; font-weight:600;">Enquire Hotels</a>
-                        </div>
-                    </div>
+                           <a href="https://wa.me{encodeURIComponent(formattedTitle)}.%20Please%20suggest%20hotels%203-star%20and%20above." target="_blank" class="nav-cta-btn" style="padding: 8px 16px; font-size: 13px; box-shadow: none; background-color: var(--primary-green); text-decoration:none; color:white; border-radius:20px; font-weight:600;">Enquire Hotels</a>
+
                 </div>
             `;
 
