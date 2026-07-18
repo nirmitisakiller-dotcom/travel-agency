@@ -1,42 +1,75 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. 🇮🇳 CONTEXT-AWARE INDIA ROUTING DICTIONARY
-    const indianGeography = [
-        'mumbai', 'delhi', 'bangalore', 'hyderabad', 'ahmedabad', 'chennai', 'kolkata', 'surat', 'pune', 'jaipur',
-        'nashik', 'goa', 'kerala', 'rajasthan', 'gujarat', 'maharashtra', 'karnataka', 'tamil nadu', 'leh', 'ladakh',
-        'hampi', 'spiti', 'kinnaur', 'chhattisgarh', 'shimla', 'manali', 'sikkim', 'assam', 'meghalaya', 'udaipur'
-    ];
-
+    // ----------------------------------------------------
+    // 1. 🔍 THE OPEN-STREETMAP GEOGRAPHIC INTERCEPTOR
+    // ----------------------------------------------------
     const searchForm = document.getElementById('header-search-form');
     if (searchForm) {
         searchForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const searchInput = document.getElementById('search-input');
             const query = searchInput.value.trim();
             if (!query) return;
 
-            const lowerQuery = query.toLowerCase();
-            const isDomestic = indianGeography.some(place => lowerQuery.includes(place));
+            // FREE PUBLIC GEOPATH API: Verifies coordinates and auto-corrects spelling typos live
+            const geoApiUrl = `https://openstreetmap.org{encodeURIComponent(query)}&limit=1`;
 
-            if (isDomestic) {
-                window.location.href = './domestic.html?globalSearch=' + encodeURIComponent(query);
-            } else {
-                window.location.href = './international.html?globalSearch=' + encodeURIComponent(query);
-            }
+            fetch(geoApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        const verifiedPlace = data[0];
+                        const displayName = verifiedPlace.display_name;
+                        const lowerDisplay = displayName.toLowerCase();
+
+                        // Extract clean, corrected city name
+                        const correctedCity = displayName.split(',')[0].trim();
+
+                        // Smart Context Filter: Detects if the location is inside India
+                        if (lowerDisplay.includes('india') || lowerDisplay.includes('bharat')) {
+                            window.location.href = `./domestic.html?globalSearch=${encodeURIComponent(correctedCity)}`;
+                        } else {
+                            window.location.href = `./international.html?globalSearch=${encodeURIComponent(correctedCity)}`;
+                        }
+                    } else {
+                        // Spellcheck Fallback: Handles severe gibberish lookups gracefully
+                        alert(`"${query}" could not be located on the global map. Please verify your spelling and try again!`);
+                    }
+                })
+                .catch(err => {
+                    // Fail-safe router if the global network experiences temporary lag
+                    window.location.href = `./international.html?globalSearch=${encodeURIComponent(query)}`;
+                });
         });
     }
 
-    // 2. 🌍 SERVERLESS GLOBAL TRAVEL DATA ENGINE
+    // ----------------------------------------------------
+    // 2. 🌍 DYNAMIC MARKETPLACE ARRAY CONSTRUCTOR
+    // ----------------------------------------------------
     const urlParams = new URLSearchParams(window.location.search);
     const globalSearch = urlParams.get('globalSearch');
 
     if (globalSearch) {
         const formattedTitle = globalSearch.charAt(0).toUpperCase() + globalSearch.slice(1);
-        const lowerSearch = globalSearch.toLowerCase();
         
-        // 🏰 THE LIVE GEOGRAPHIC VISUAL DICTIONARY
-        let cityHeroPhoto = 'https://unsplash.com'; // Default Global Exploration
-        let poolOfPhotos = [
+        // Dynamically configure hero title elements layout
+        const heroTitle = document.getElementById('dynamic-hero-title');
+        if (heroTitle) heroTitle.textContent = `Verified Properties in ${formattedTitle}`;
+
+        // Highly stable stock vacation cover templates
+        const defaultHeroPhoto = 'https://unsplash.com';
+        const heroBanner = document.getElementById('catalog-hero-banner');
+        if (heroBanner) {
+            heroBanner.style.background = `linear-gradient(rgba(15,23,42,0.5), rgba(15,23,42,0.85)), url('${defaultHeroPhoto}') center/cover fixed no-repeat`;
+        }
+
+        // Construct 15 completely unique hotels dynamically based on the verified input city
+        const hotelDatabase = [];
+        const tierPool = ['3star', '4star', '5star'];
+        
+        // Premium, un-blockable travel architecture imagery pool
+        const travelStockPhotos = [
             'https://unsplash.com',
             'https://unsplash.com',
             'https://unsplash.com',
@@ -44,59 +77,24 @@ document.addEventListener('DOMContentLoaded', function() {
             'https://unsplash.com'
         ];
 
-        // Match Paris Queries
-        if (lowerSearch.includes('paris') || lowerSearch.includes('france')) {
-            cityHeroPhoto = 'https://unsplash.com'; // Eiffel Tower Sunset
-            poolOfPhotos = [
-                'https://unsplash.com', // Parisian Boutique
-                'https://unsplash.com', // Premium French Balcony
-                'https://unsplash.com', // Luxury Bed Chamber
-                'https://unsplash.com', // Courtyard Lounge
-                'https://unsplash.com'  // Luxury Indoor Bath
-            ];
-        } 
-        // Match Japan Queries
-        else if (lowerSearch.includes('japan') || lowerSearch.includes('tokyo') || lowerSearch.includes('kyoto')) {
-            cityHeroPhoto = 'https://unsplash.com'; // Mount Fuji Pagoda
-            poolOfPhotos = [
-                'https://unsplash.com', // Tokyo Skyline Room
-                'https://unsplash.com', // Ryokan Interior
-                'https://unsplash.com', // Zen Minimalist Suite
-                'https://unsplash.com', // Kyoto Luxury Stay
-                'https://unsplash.com'  // Premium Capsule Suite
-            ];
-        }
-
-        // Apply background photo dynamically with fallbacks to avoid blank gray shapes
-        const heroBanner = document.getElementById('catalog-hero-banner');
-        const heroTitle = document.getElementById('dynamic-hero-title');
-        if (heroTitle) heroTitle.textContent = `Premium Accommodations in ${formattedTitle}`;
-        if (heroBanner) {
-            heroBanner.style.background = `linear-gradient(rgba(15,23,42,0.5), rgba(15,23,42,0.85)), url('${cityHeroPhoto}') center/cover fixed no-repeat`;
-        }
-
-        // Build 15 unique, city-specific hotel names dynamically
-        const hotelDatabase = [];
-        const tierPool = ['3star', '4star', '5star'];
-        const uniqueTitles = [
-            'Metropolitan Lodge', 'Palace Grand Stay', 'Zenith Heritage Hub', 
-            'Ambassador Boutique', 'Sovereign Haven Resort', 'Chateau Vista',
-            'Alps Horizon Inn', 'Marina Bay Retreat', 'Imperial Courtyard',
-            'The Sanctuary Estate', 'The Landmark Manor', 'Equinox Premium Suites'
-        ];
+        const establishmentStyles = ['Inn & Suites', 'Grand Residency', 'Boutique Retreat', 'Heritage Manor', 'Sovereign Palace'];
+        const areaZones = ['Central Hub', 'Riverside Promenade', 'Historic Quarter', 'Downtown Avenue', 'Elite Sector'];
 
         for (let i = 1; i <= 15; i++) {
             const tier = tierPool[i % 3];
-            let price = 3200 + (i * 1900);
-            if (tier === '4star') price += 4000;
-            if (tier === '5star') price += 11500;
+            
+            // Mathematical Price Scaling Matrix
+            let baseNightlyRate = 2800 + (i * 1500);
+            if (tier === '4star') baseNightlyRate += 3500;
+            if (tier === '5star') baseNightlyRate += 12500;
 
             hotelDatabase.push({
                 id: i,
-                name: `${formattedTitle} ${uniqueTitles[i % uniqueTitles.length]} ${100 + i}`,
+                name: `${formattedTitle} ${establishmentStyles[i % 5]} ${100 + i}`,
+                location: `${areaZones[i % 5]}, ${formattedTitle}`,
                 tier: tier,
-                price: price,
-                image: poolOfPhotos[i % poolOfPhotos.length],
+                price: baseNightlyRate,
+                image: travelStockPhotos[i % 5],
                 amenities: {
                     breakfast: i % 2 === 0,
                     vegkitchen: i % 3 === 0,
@@ -110,7 +108,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // 3. INTERACTIVE AMAZON-STYLE FILTER MATRIX
+        // ----------------------------------------------------
+        // 3. 🎛️ SIDEBAR INTERACTIVE LIVE FILTER CONTROLLER
+        // ----------------------------------------------------
         const targetGrid = document.getElementById('hotel-cards-target-grid');
         const priceSlider = document.getElementById('price-range-slider');
         const priceLabel = document.getElementById('current-price-label');
@@ -146,25 +146,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 visibleCount++;
 
-                let stars = '⭐⭐項目';
-                if (hotel.tier === '3star') stars = '⭐⭐⭐ Comfort';
-                if (hotel.tier === '4star') stars = '⭐⭐⭐⭐ Elite';
-                if (hotel.tier === '5star') stars = '⭐⭐⭐⭐⭐ Sovereign';
+                let starLabel = '⭐⭐⭐ Comfort Stay';
+                if (hotel.tier === '4star') starLabel = '⭐⭐⭐⭐ Elite Luxury';
+                if (hotel.tier === '5star') starLabel = '⭐⭐⭐⭐⭐ Sovereign VIP';
 
                 const cardHTML = `
                     <div class="glance-card" style="display:flex; flex-direction:column; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-premium); border: 1px solid rgba(0,0,0,0.02);">
                         <div class="card-image-wrapper" style="height:210px; width:100%; overflow:hidden; position:relative;">
                             <img src="${hotel.image}" alt="${hotel.name}" class="glance-img" style="width:100%; height:100%; object-fit:cover; display:block;">
-                            <span class="trending-badge" style="background-color:var(--dark-text); color:white; font-size:11px; top:12px; left:12px; font-weight:700; position:absolute; padding: 4px 10px; border-radius: 20px;">${stars}</span>
+                            <span class="trending-badge" style="background-color:var(--dark-text); color:white; font-size:11px; top:12px; left:12px; font-weight:700; position:absolute; padding: 4px 10px; border-radius: 20px;">${starLabel}</span>
                         </div>
                         <div class="card-meta" style="padding:20px; display:flex; flex-direction:column; justify-content:space-between; flex-grow:1;">
                             <div>
-                                <h3 style="font-family:var(--heading-font); font-size:18px; color:var(--dark-text); margin-bottom:6px; font-weight:800;">${hotel.name}</h3>
-                                <p style="font-size:13px; color:#64748b; line-height:1.5; margin-bottom:15px;">Verified premium accommodation choice mapped for outbound travelers under Mr. Sameer's custom rates.</p>
+                                <h3 style="font-family:var(--heading-font); font-size:18px; color:var(--dark-text); margin-bottom:4px; font-weight:800;">${hotel.name}</h3>
+                                <p style="font-size:12px; color:var(--primary-green); font-weight:600; margin-bottom:10px;">📍 ${hotel.location}</p>
+                                <p style="font-size:13px; color:#64748b; line-height:1.5; margin-bottom:15px;">Verified properties optimized for business and leisure requirements with direct B2B corporate room rate availability.</p>
                             </div>
                             <div style="border-top:1px solid #f1f5f9; padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
                                 <span style="font-size:14px; font-weight:700; color:var(--secondary-blue);">₹${hotel.price.toLocaleString('en-IN')}/Night</span>
-                                <a href="https://wa.me{encodeURIComponent(hotel.name)}%20in%20${encodeURIComponent(formattedTitle)}.%20Tier:%20${hotel.tier}.%20Estimated%20Price:%20₹${hotel.price}" target="_blank" class="nav-cta-btn" style="padding:8px 16px; font-size:12px; text-decoration:none; color:white; border-radius:20px; font-weight:600; background-color: var(--primary-green); box-shadow:none;">Select Hotel</a>
+                                <a href="https://wa.me{encodeURIComponent(hotel.name)}%20(${encodeURIComponent(hotel.location)}).%20Please%20verify%20room%20availability." target="_blank" class="nav-cta-btn" style="padding:8px 16px; font-size:12px; text-decoration:none; color:white; border-radius:20px; font-weight:600; background-color: var(--primary-green); box-shadow:none;">Select Hotel</a>
                             </div>
                         </div>
                     </div>
@@ -173,14 +173,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (counterBar) {
-                counterBar.textContent = `Showing ${visibleCount} verified accommodations matching your rules`;
+                counterBar.textContent = `Showing ${visibleCount} verified accommodations matching your parameters`;
             }
         }
 
         const applyBtn = document.getElementById('apply-filters-btn');
-        if (applyBtn) {
-            applyBtn.addEventListener('click', renderMarketplace);
-        }
+        if (applyBtn) applyBtn.addEventListener('click', renderMarketplace);
 
         const resetBtn = document.getElementById('reset-filters-btn');
         if (resetBtn) {
@@ -195,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Run the dynamic generator immediately on mount
         renderMarketplace();
     }
 });
