@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 2. 🌍 REAL-TIME SUBURB & POINT-OF-INTEREST EXTRACTOR
     // ----------------------------------------------------
     const urlParams = new URLSearchParams(window.location.search);
-          const overpassUrl = "https://overpass-api.de[out:json][timeout:25];(node[\"tourism\"=\"hotel\"](" + (parseFloat(targetLat)-0.04) + "," + (parseFloat(targetLon)-0.05) + "," + (parseFloat(targetLat)+0.04) + "," + (parseFloat(targetLon)+0.05) + ");node[\"amenity\"=\"restaurant\"](" + (parseFloat(targetLat)-0.04) + "," + (parseFloat(targetLon)-0.05) + "," + (parseFloat(targetLat)+0.04) + "," + (parseFloat(targetLon)+0.05) + "););out body 15;";
+              const cleanLat = parseFloat(targetLat);
+        const cleanLon = parseFloat(targetLon);
+        const overpassUrl = `https://overpass-api.de[out:json][timeout:25];(node["tourism"="hotel"](${(cleanLat-0.03).toFixed(4)},${(cleanLon-0.04).toFixed(4)},${(cleanLat+0.03).toFixed(4)},${(cleanLon+0.04).toFixed(4)});node["amenity"="restaurant"](${(cleanLat-0.03).toFixed(4)},${(cleanLon-0.04).toFixed(4)},${(cleanLat+0.03).toFixed(4)},${(cleanLon+0.04).toFixed(4)}););out body 15;`;
+    
     const targetLat = urlParams.get('lat');
     const targetLon = urlParams.get('lon');
 
