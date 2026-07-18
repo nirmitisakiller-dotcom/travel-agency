@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // ----------------------------------------------------
-    // 1. 🔍 THE OPEN-STREETMAP GEOGRAPHIC INTERCEPTOR
-    // ----------------------------------------------------
+    // 1. 🇮🇳 CONTEXT-AWARE CONVERSION BOUNDARY DICTIONARY
+    const indianGeography = ['mumbai', 'delhi', 'bangalore', 'pune', 'nashik', 'goa', 'kerala', 'alibaug', 'alibag', 'ladakh', 'hampi', 'spiti'];
+
     const searchForm = document.getElementById('header-search-form');
     if (searchForm) {
         searchForm.addEventListener('submit', function(e) {
@@ -12,8 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const query = searchInput.value.trim();
             if (!query) return;
 
-            // FREE PUBLIC GEOPATH API: Verifies coordinates and auto-corrects spelling typos live
-            const geoApiUrl = `https://openstreetmap.org{encodeURIComponent(query)}&limit=1`;
+            const geoApiUrl = 'https://openstreetmap.org' + encodeURIComponent(query) + '&limit=1';
 
             fetch(geoApiUrl)
                 .then(response => response.json())
@@ -21,54 +20,75 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (data && data.length > 0) {
                         const verifiedPlace = data[0];
                         const displayName = verifiedPlace.display_name;
-                        const lowerDisplay = displayName.toLowerCase();
+                        const countryCode = verifiedPlace.address.country_code;
 
-                        // Extract clean, corrected city name
-                        const correctedCity = displayName.split(',')[0].trim();
+                        // Extracts clean city name from map parameters
+                        const correctedCity = verifiedPlace.name || displayName.split(',')[0].trim();
 
-                        // Smart Context Filter: Detects if the location is inside India
-                        if (lowerDisplay.includes('india') || lowerDisplay.includes('bharat')) {
-                            window.location.href = `./domestic.html?globalSearch=${encodeURIComponent(correctedCity)}`;
+                        // Route boundary engine split logic
+                        if (countryCode === 'in' || indianGeography.some(place => query.toLowerCase().includes(place))) {
+                            window.location.href = './domestic.html?globalSearch=' + encodeURIComponent(correctedCity) + '&lat=' + verifiedPlace.lat + '&lon=' + verifiedPlace.lon;
                         } else {
-                            window.location.href = `./international.html?globalSearch=${encodeURIComponent(correctedCity)}`;
+                            window.location.href = './international.html?globalSearch=' + encodeURIComponent(correctedCity) + '&lat=' + verifiedPlace.lat + '&lon=' + verifiedPlace.lon;
                         }
                     } else {
-                        // Spellcheck Fallback: Handles severe gibberish lookups gracefully
-                        alert(`"${query}" could not be located on the global map. Please verify your spelling and try again!`);
+                        alert(`"${query}" could not be verified on the map. Try checking the spelling!`);
                     }
                 })
                 .catch(err => {
-                    // Fail-safe router if the global network experiences temporary lag
-                    window.location.href = `./international.html?globalSearch=${encodeURIComponent(query)}`;
+                    window.location.href = './international.html?globalSearch=' + encodeURIComponent(query);
                 });
         });
     }
 
-    // ----------------------------------------------------
-    // 2. 🌍 DYNAMIC MARKETPLACE ARRAY CONSTRUCTOR
-    // ----------------------------------------------------
+    // 2. 🗺️ REAL LOCAL SUBURB EXTRACTION ENGINE
     const urlParams = new URLSearchParams(window.location.search);
     const globalSearch = urlParams.get('globalSearch');
+    const targetLat = urlParams.get('lat');
+    const targetLon = urlParams.get('lon');
 
-    if (globalSearch) {
+    if (globalSearch && targetLat && targetLon) {
         const formattedTitle = globalSearch.charAt(0).toUpperCase() + globalSearch.slice(1);
         
-        // Dynamically configure hero title elements layout
         const heroTitle = document.getElementById('dynamic-hero-title');
         if (heroTitle) heroTitle.textContent = `Verified Properties in ${formattedTitle}`;
 
-        // Highly stable stock vacation cover templates
-        const defaultHeroPhoto = 'https://unsplash.com';
-        const heroBanner = document.getElementById('catalog-hero-banner');
-        if (heroBanner) {
-            heroBanner.style.background = `linear-gradient(rgba(15,23,42,0.5), rgba(15,23,42,0.85)), url('${defaultHeroPhoto}') center/cover fixed no-repeat`;
-        }
+        // 📡 LIVE SUBURB FETCH CRAWLER: Pulls real street and sector strings based on coordinates
+        const reverseGeocodeUrl = `https://openstreetmap.org{targetLat}&lon=${targetLon}&zoom=14`;
 
-        // Construct 15 completely unique hotels dynamically based on the verified input city
+        fetch(reverseGeocodeUrl)
+            .then(res => res.json())
+            .then(geoData => {
+                let localSuburbsPool = ['Downtown', 'Central Sector', 'Highland', 'Coastal Road', 'Metropolitan'];
+                
+                // If the map network returns real local street/suburb tokens, extract them!
+                if (geoData && geoData.address) {
+                    const addr = geoData.address;
+                    const extractedTokens = [addr.suburb, addr.neighbourhood, addr.city_district, addr.county, addr.road, addr.state_district].filter(Boolean);
+                    if (extractedTokens.length > 0) {
+                        localSuburbsPool = extractedTokens;
+                    }
+                }
+
+                // Call the builder using real geographic parameters
+                initializeLiveMarketplace(formattedTitle, localSuburbsPool);
+            })
+            .catch(() => {
+                initializeLiveMarketplace(formattedTitle, ['Central Hub', 'Riverside Promenade', 'Historic Quarter']);
+            });
+    }
+
+    // 3. AUTOMATED CARD GRID CONSTRUCTOR
+    function initializeLiveMarketplace(cityName, realSuburbs) {
+        const targetGrid = document.getElementById('hotel-cards-target-grid');
+        const priceSlider = document.getElementById('price-range-slider');
+        const priceLabel = document.getElementById('current-price-label');
+        const counterBar = document.getElementById('hotel-results-counter');
+
         const hotelDatabase = [];
         const tierPool = ['3star', '4star', '5star'];
+        const suffixPool = ['Regency Hub', 'Grand Stay Luxury', 'Boutique Manor', 'Prime Residency', 'Sovereign Palace'];
         
-        // Premium, un-blockable travel architecture imagery pool
         const travelStockPhotos = [
             'https://unsplash.com',
             'https://unsplash.com',
@@ -77,44 +97,30 @@ document.addEventListener('DOMContentLoaded', function() {
             'https://unsplash.com'
         ];
 
-        const establishmentStyles = ['Inn & Suites', 'Grand Residency', 'Boutique Retreat', 'Heritage Manor', 'Sovereign Palace'];
-        const areaZones = ['Central Hub', 'Riverside Promenade', 'Historic Quarter', 'Downtown Avenue', 'Elite Sector'];
-
+        // Construct 15 strictly localized hotel structures dynamically
         for (let i = 1; i <= 15; i++) {
             const tier = tierPool[i % 3];
-            
-            // Mathematical Price Scaling Matrix
-            let baseNightlyRate = 2800 + (i * 1500);
-            if (tier === '4star') baseNightlyRate += 3500;
-            if (tier === '5star') baseNightlyRate += 12500;
+            const activeLocalStreet = realSuburbs[i % realSuburbs.length];
+            const businessSuffix = suffixPool[i % suffixPool.length];
+
+            let price = 2900 + (i * 1400);
+            if (tier === '4star') price += 4000;
+            if (tier === '5star') price += 13000;
 
             hotelDatabase.push({
                 id: i,
-                name: `${formattedTitle} ${establishmentStyles[i % 5]} ${100 + i}`,
-                location: `${areaZones[i % 5]}, ${formattedTitle}`,
+                name: `${activeLocalStreet} ${businessSuffix}`,
+                location: `${activeLocalStreet}, ${cityName}`,
                 tier: tier,
-                price: baseNightlyRate,
+                price: price,
                 image: travelStockPhotos[i % 5],
                 amenities: {
-                    breakfast: i % 2 === 0,
-                    vegkitchen: i % 3 === 0,
-                    roomservice: true,
-                    pool: tier !== '3star',
-                    spa: tier === '5star',
-                    gym: i % 2 !== 0,
-                    shuttle: tier === '5star' || i % 4 === 0,
-                    guide: i % 5 === 0
+                    breakfast: i % 2 === 0, vegkitchen: i % 3 === 0, roomservice: true,
+                    pool: tier !== '3star', spa: tier === '5star', gym: i % 2 !== 0,
+                    shuttle: tier === '5star' || i % 4 === 0, guide: i % 5 === 0
                 }
             });
         }
-
-        // ----------------------------------------------------
-        // 3. 🎛️ SIDEBAR INTERACTIVE LIVE FILTER CONTROLLER
-        // ----------------------------------------------------
-        const targetGrid = document.getElementById('hotel-cards-target-grid');
-        const priceSlider = document.getElementById('price-range-slider');
-        const priceLabel = document.getElementById('current-price-label');
-        const counterBar = document.getElementById('hotel-results-counter');
 
         if (priceSlider && priceLabel) {
             priceSlider.addEventListener('input', function() {
