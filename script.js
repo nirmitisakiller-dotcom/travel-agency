@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 2. 🌍 REAL-TIME SUBURB & POINT-OF-INTEREST EXTRACTOR
     // ----------------------------------------------------
     const urlParams = new URLSearchParams(window.location.search);
-    const globalSearch = urlParams.get('globalSearch');
+          const overpassUrl = "https://overpass-api.de[out:json][timeout:25];(node[\"tourism\"=\"hotel\"](" + (parseFloat(targetLat)-0.04) + "," + (parseFloat(targetLon)-0.05) + "," + (parseFloat(targetLat)+0.04) + "," + (parseFloat(targetLon)+0.05) + ");node[\"amenity\"=\"restaurant\"](" + (parseFloat(targetLat)-0.04) + "," + (parseFloat(targetLon)-0.05) + "," + (parseFloat(targetLat)+0.04) + "," + (parseFloat(targetLon)+0.05) + "););out body 15;";
     const targetLat = urlParams.get('lat');
     const targetLon = urlParams.get('lon');
 
