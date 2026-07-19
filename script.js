@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. THE LIVE WIKIPEDIA GEOGRAPHIC CRAWLER BRIDGE
+    // 2. ASYNC GEONAMES CONTENT CRAWLER
     const urlParams = new URLSearchParams(window.location.search);
     const globalSearch = urlParams.get('globalSearch');
 
@@ -40,46 +40,51 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Wikipedia Data Endpoint Call String
-        const wikiApiUrl = `https://wikipedia.org{encodeURIComponent(globalSearch)}&format=json&origin=*`;
+        // ASYNC CORE EXECUTION: Forces browser to wait until real data arrives
+        async function fetchRealWorldData() {
+            try {
+                // Step A: Search for the city's unique Geonames ID
+                const searchUrl = `https://geonames.org{encodeURIComponent(globalSearch)}&maxRows=1&username=naturetoursportal`;
+                const searchResponse = await fetch(searchUrl);
+                const searchData = await searchResponse.json();
 
-        // The Handshake Header: Identifies your registered Meta-Wiki username to clear safety gates
-        fetch(wikiApiUrl, {
-            headers: {
-                'User-Agent': 'NatureToursPortal/1.0 (Contact: nimritmhatre@gmail.com; MetaWikiAccount: NatureToursPortal) TravelApp/Proto'
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            let realLocalLandmarks = [];
-            
-            if (data && data.query && data.query.search) {
-                data.query.search.forEach(item => {
-                    let cleanName = item.title.replace(/<\/?[^>]+(>|$)/g, "");
-                    cleanName = cleanName.replace(formattedTitle, "").replace("in", "").trim();
+                let localNamesPool = [];
+
+                if (searchData && searchData.geonames && searchData.geonames.length > 0) {
+                    const cityId = searchData.geonames[0].geonameId;
                     
-                    if (cleanName.length > 2 && !cleanName.toLowerCase().includes('demographics') && !cleanName.toLowerCase().includes('geography')) {
-                        realLocalLandmarks.push(cleanName);
+                    // Step B: Query children features (suburbs, parks, landmarks, districts inside that city)
+                    const childrenUrl = `https://geonames.org{cityId}&username=naturetoursportal`;
+                    const childrenResponse = await fetch(childrenUrl);
+                    const childrenData = await childrenResponse.json();
+
+                    if (childrenData && childrenData.geonames && childrenData.geonames.length > 0) {
+                        localNamesPool = childrenData.geonames.map(g => g.name);
                     }
-                });
-            }
+                }
 
-            if (realLocalLandmarks.length === 0) {
-                realLocalLandmarks = ['Central Quarter', 'Downtown Avenue', 'Riverside Hub', 'Historic Sector', 'Grand Promenade'];
-            }
+                // If a small village has no sub-districts, fallback to descriptive text-hashed descriptors
+                if (localNamesPool.length === 0) {
+                    localNamesPool = ['Central Valley', 'Coastal Heights', 'Emerald Estate', 'Riverside Promenade', 'Historic Hub'];
+                }
 
-            buildLiveMarketplace(formattedTitle, realLocalLandmarks, targetGrid, priceSlider, counterBar);
-        })
-        .catch(() => {
-            buildLiveMarketplace(formattedTitle, ['Metropolitan Sector', 'Highland Vista', 'Central Avenue'], targetGrid, priceSlider, counterBar);
-        });
+                // Call the builder function only AFTER data is safely stored in array memory
+                buildMarketplaceGrid(formattedTitle, localNamesPool, targetGrid, priceSlider, counterBar);
+
+            } catch (error) {
+                // Safety net fallback to keep site 100% active if servers hit lag thresholds
+                buildMarketplaceGrid(formattedTitle, ['Downtown Sector', 'Metropolitan View', 'Grand District'], targetGrid, priceSlider, counterBar);
+            }
+        }
+
+        fetchRealWorldData();
     }
 
-    // 3. DYNAMIC DATA FEED BUILDER
-    function buildLiveMarketplace(cityName, localPlaces, grid, slider, counter) {
+    // 3. SECURE INTERFACE GENERATOR
+    function buildMarketplaceGrid(cityName, realPlaces, grid, slider, counter) {
         const hotelDatabase = [];
         const tierPool = ['3star', '4star', '5star'];
-        const suffixes = ['Regency Hub', 'Grand Stay Resort', 'Boutique Manor', 'Comfort Stay', 'Sovereign Palace'];
+        const suffixes = ['Regency Hub', 'Grand Beach Resort', 'Boutique Manor', 'Comfort Stay', 'Sovereign Palace'];
         
         const stockPhotos = [
             'https://picsum.photos',
@@ -91,16 +96,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         for (let i = 1; i <= 15; i++) {
             const tier = tierPool[i % 3];
-            const activeLandmark = localPlaces[i % localPlaces.length];
-            const activeSuffix = suffixes[(i * 3) % suffixes.length];
+            const activeSubPlace = realPlaces[i % realPlaces.length];
+            const activeSuffix = suffixes[(i * 2) % suffixes.length];
             
-            let price = 3100 + (i * 1200);
-            if (tier === '4star') price += 4000;
-            if (tier === '5star') price += 12500;
+            let price = 3300 + (i * 1100);
+            if (tier === '4star') price += 3500;
+            if (tier === '5star') price += 12000;
 
             hotelDatabase.push({
-                name: `${activeLandmark} ${activeSuffix}`,
-                location: `${activeLandmark}, ${cityName}`,
+                name: `${activeSubPlace} ${activeSuffix}`,
+                location: `${activeSubPlace}, ${cityName}`,
                 tier: tier,
                 price: price,
                 image: stockPhotos[i % stockPhotos.length]
