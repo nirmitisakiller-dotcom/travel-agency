@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     initializeCustomMarketplaceGrid(formattedTitle);
                 }, 500);
             }
-        }, 50); 
+        }, 40); 
     }
 
-    // 3. SEED-MULTIPLIED REPETITION-FREE HOTEL COMPONENT MATRIX
+    // 3. REPETITION-FREE LOCATION-AWARE GENERATOR MATRIX
     function initializeCustomMarketplaceGrid(cityName) {
         const targetGrid = document.getElementById('hotel-cards-target-grid');
         const priceSlider = document.getElementById('price-range-slider');
@@ -84,43 +84,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const lowerCity = cityName.toLowerCase();
         
-        // --- 🔑 THE INLINE MATH SEED HASHER ---
-        let uniqueWordSeed = 0;
-        for (let j = 0; j < lowerCity.length; j++) {
-            uniqueWordSeed = lowerCity.charCodeAt(j) + ((uniqueWordSeed << 5) - uniqueWordSeed);
+        // --- 🗺️ AUTHENTIC LOCAL DISTINGUISHED VOCABULARY ENGINE ---
+        // This explicitly injects non-repeating, destination-specific configurations
+        let uniqueLocalNames = [];
+
+        if (lowerCity.includes('alibaug') || lowerCity.includes('alibag')) {
+            uniqueLocalNames = [
+                'Varsoli Beachfront Resort', 'Nagaon Coconut Grove Heritage', 'Kashid Highway Comfort Stay', 
+                'Kihim Palms Sanctuary', 'Mandwa Jet-Hub Luxury', 'Akshi Coastal Manor', 
+                'Radisson Blu Elite Hub', 'Zirad Villa Estates', 'Revdanda Fort Residency', 
+                'Awas Marine Retreat', 'Sasawane Arts Boutique', 'Ganjis Executive Lodge', 
+                'Konkan Countryside Haven', ' Thal Beachview Horizon', 'Chaul Historic Palace'
+            ];
+        } else if (lowerCity.includes('paris') || lowerCity.includes('france')) {
+            uniqueLocalNames = [
+                'Eiffel Promenade Splendour', 'Louvre Museum Grand Mansion', 'Champs-Élysées Palace Manor', 
+                'Montmartre Artist Boutique', 'Seine Riverfront Plaza', 'Latin Quarter Luxury Inn', 
+                'Notre-Dame Vista Regency', 'Marais Premium Chambers', 'Bastille Sovereign Estate', 
+                'Opéra Garnier Executive Stay', 'Saint-Germain Cozy Haven', 'Versailles Royal Pavilion', 
+                'Le Marais Elegant Lodge', 'Sorbonne Scholar Retreat', 'Montparnasse Sky Tower Suite'
+            ];
+        } else if (lowerCity.includes('japan') || lowerCity.includes('tokyo') || lowerCity.includes('kyoto')) {
+            uniqueLocalNames = [
+                'Shinjuku Neon Horizon Resort', 'Kyoto Bamboo Forest Sanctuary', 'Mount Fuji Panoramic Chateau', 
+                'Shibuya Crossing Elite Tower', 'Asakusa Temple Traditional Inn', 'Ginza Luxury Shopping Suite', 
+                'Akihabara Cyber Hub Residency', 'Roppongi Sky Lounge Palace', 'Ueno Park Blossom Manor', 
+                'Odaiba Bayfront Marina Stay', 'Nara Deer Sanctuary Retreat', 'Osaka Castle Heritage Hub', 
+                'Hokkaido Snowy Lodge', 'Okinawa Coral Sands Pavilions', 'Hakone Hot Springs Estate'
+            ];
+        } else {
+            // General multi-destination wildcard array strategy to cover any unexpected search term flawlessly
+            for(let k = 1; k <= 15; k++) {
+                uniqueLocalNames.push(`${cityName} Continental Hub ${k * 10}`);
+            }
         }
-        const textSignatureValue = Math.abs(uniqueWordSeed);
 
-        // Extensive vocab matrices to build hundreds of distinct properties
-        const domesticAdjectives = ['Varsoli Sands', 'Nagaon Palms', 'Coconut Groves', 'Coastal Breeze', 'Kashid Vista', 'Maratha Heritage', 'Konkan Retreat', 'Mandwa Horizon'];
-        const globalAdjectives = ['Chateau Royale', 'Boutique Opéra', 'Alpine Horizon', 'Metropolitan Suites', 'Sovereign Palace', 'Zenith Manor', 'Marina Bay', 'Imperial Boulevard'];
-        const infrastructureSuffixes = ['Premium Regency', 'Grand Resort & Spa', 'Boutique Manor', 'Comfort Stay Hub', 'Royal Palace Residence'];
-
-        const activeAdjectivePool = (lowerCity.includes('alibaug') || lowerCity.includes('alibag') || lowerCity.includes('goa') || lowerCity.includes('mumbai')) 
-            ? domesticAdjectives 
-            : globalAdjectives;
-
+        // Loop to construct 15 entirely distinct cards based on the specific location drawer array
         for (let i = 1; i <= 15; i++) {
             const tier = tierPool[i % 3];
-            
-            // Shifting arrays uniquely via the text signature code instead of a raw alternating index loop
-            const dynamicWordIndex = (textSignatureValue + i) % activeAdjectivePool.length;
-            const dynamicSuffixIndex = (textSignatureValue + (i * 3)) % infrastructureSuffixes.length;
+            const propertyNameText = uniqueLocalNames[(i - 1) % uniqueLocalNames.length];
 
-            const selectedWord = activeAdjectivePool[dynamicWordIndex];
-            const selectedSuffix = infrastructureSuffixes[dynamicSuffixIndex];
-
-            let baseRate = 3200 + ((textSignatureValue + i) % 6 * 1100) + (i * 300);
+            let baseRate = 3400 + (i * 1200);
             if (tier === '4star') baseRate += 3500;
             if (tier === '5star') baseRate += 12000;
 
             hotelDatabase.push({
                 id: i,
-                name: `${cityName} ${selectedWord} ${selectedSuffix}`,
-                location: `${selectedWord}, ${cityName}`,
+                name: propertyNameText,
+                location: `${cityName} Premium District`,
                 tier: tier,
                 price: baseRate,
-                image: secureStockPhotos[(textSignatureValue + i) % secureStockPhotos.length]
+                image: secureStockPhotos[i % secureStockPhotos.length]
             });
         }
 
@@ -161,13 +175,16 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p style="font-size:13px; color:#64748b; line-height:1.5; margin-bottom:15px;">Verified premium accommodation choice arranged under Mr. Sameer's custom corporate allocations.</p>
                             </div>
                             <div style="border-top:1px solid #f1f5f9; padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
-                                <span style="font-size:14px; font-weight:700; color:var(--secondary-blue);">₹${hotel.price.toLocaleString('en-IN')}/Night</span>
-                                <a href="https://wa.me{encodeURIComponent(hotel.name)}%20(${encodeURIComponent(hotel.location)})." target="_blank" class="nav-cta-btn" style="padding:8px 16px; font-size:12px; text-decoration:none; color:white; border-radius:20px; font-weight:600; background-color: var(--primary-green); box-shadow:none;">Select Hotel</a>
+                                <span style="font-size:14px; font-weight:700; color:var(--secondary-blue);">=== RATE TEXT ===</span>
                             </div>
                         </div>
                     </div>
                 `;
-                targetGrid.insertAdjacentHTML('beforeend', cardHTML);
+                
+                const patchedHTML = cardHTML.replace('=== RATE TEXT ===', `₹${hotel.price.toLocaleString('en-IN')}/Night`)
+                    .replace('</div>\n                            </div>', `<a href="https://wa.me{encodeURIComponent(hotel.name)}%20(${encodeURIComponent(hotel.location)})." target="_blank" class="nav-cta-btn" style="padding:8px 16px; font-size:12px; text-decoration:none; color:white; border-radius:20px; font-weight:600; background-color: var(--primary-green); box-shadow:none;">Select Hotel</a></div></div></div>`);
+                
+                targetGrid.insertAdjacentHTML('beforeend', patchedHTML);
             });
 
             if (counterBar) {
