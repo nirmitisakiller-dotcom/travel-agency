@@ -1,33 +1,55 @@
-// ==========================================
-// Search Module
-// ==========================================
+// js/search.js
 
-window.Search = {
+document.addEventListener("DOMContentLoaded", () => {
 
-    init() {
+    const form = document.getElementById("header-search-form");
+    const input = document.getElementById("search-input");
 
-        this.form = document.getElementById("header-search-form");
-        this.input = document.getElementById("search-input");
+    if (!form || !input) return;
 
-        if (!this.form || !this.input) return;
+    // List of Indian states and major cities
+    const indianPlaces = [
+        "andhra pradesh","arunachal pradesh","assam","bihar","chhattisgarh",
+        "goa","gujarat","haryana","himachal pradesh","jharkhand","karnataka",
+        "kerala","madhya pradesh","maharashtra","manipur","meghalaya","mizoram",
+        "nagaland","odisha","punjab","rajasthan","sikkim","tamil nadu",
+        "telangana","tripura","uttar pradesh","uttarakhand","west bengal",
+        "delhi","mumbai","pune","nashik","jalgaon","nagpur","surat","ahmedabad",
+        "jaipur","udaipur","jodhpur","shimla","manali","leh","ladakh","srinagar",
+        "amritsar","chandigarh","dehradun","rishikesh","haridwar","agra",
+        "varanasi","lucknow","patna","kolkata","gangtok","darjeeling",
+        "bhubaneswar","visakhapatnam","hyderabad","bengaluru","mysore","coorg",
+        "ooty","madurai","chennai","kochi","munnar","alleppey","kovalam",
+        "goa","hampi","spiti","chitkul"
+    ];
 
-        this.form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", function (e) {
 
-            e.preventDefault();
+        e.preventDefault();
 
-            const query = this.input.value.trim();
+        const destination = input.value.trim();
 
-            if (!query) {
-                alert("Please enter a destination.");
-                return;
-            }
+        if (destination === "") {
+            alert("Please enter a destination.");
+            return;
+        }
 
-            // Go to a single search page
+        const query = destination.toLowerCase();
+
+        if (indianPlaces.includes(query)) {
+
             window.location.href =
-                `search.html?q=${encodeURIComponent(query)}`;
+                "domestic.html?q=" +
+                encodeURIComponent(destination);
 
-        });
+        } else {
 
-    }
+            window.location.href =
+                "international.html?q=" +
+                encodeURIComponent(destination);
 
-};
+        }
+
+    });
+
+});
