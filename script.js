@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const isDomestic = indianGeography.some(place => lowerQuery.includes(place));
 
             const targetPage = isDomestic ? './domestic.html' : './international.html';
-            window.location.href = `${targetPage}?globalSearch=${encodeURIComponent(query)}`;
+            window.location.href = targetPage + '?globalSearch=' + encodeURIComponent(query);
         });
     }
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formattedTitle = globalSearch.charAt(0).toUpperCase() + globalSearch.slice(1);
         
         const heroTitle = document.getElementById('dynamic-hero-title');
-        if (heroTitle) heroTitle.textContent = `Explore Stays in ${formattedTitle}`;
+        if (heroTitle) heroTitle.textContent = 'Explore Stays in ' + formattedTitle;
 
         const loadingScreen = document.getElementById('global-loading-screen');
         const progressBar = document.getElementById('loading-bar-progress-line');
@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (progressBar) progressBar.style.width = currentProgressCount + '%';
 
             if (currentProgressCount < 30) {
-                if (statusText) statusText.textContent = `🔍 Searching data coordinates for "${formattedTitle}"...`;
+                if (statusText) statusText.textContent = '🔍 Searching coordinates for ' + formattedTitle + '...';
             } else if (currentProgressCount >= 30 && currentProgressCount < 70) {
-                if (statusText) statusText.textContent = `📡 Pinging live travel data indices...`;
+                if (statusText) statusText.textContent = '📡 Pinging live travel data indices...';
             } else if (currentProgressCount >= 70 && currentProgressCount < 100) {
-                if (statusText) statusText.textContent = `📦 Packaging verified 3-Star and above accommodation profiles...`;
+                if (statusText) statusText.textContent = '📦 Packaging verified 3-Star and above profiles...';
             }
 
             if (currentProgressCount >= 100) {
@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     initializeCustomMarketplaceGrid(formattedTitle);
                 }, 500);
             }
-        }, 40); 
+        }, 30); 
     }
 
-    // 3. REPETITION-FREE LOCATION-AWARE GENERATOR MATRIX
+    // 3. REPETITION-FREE REAL-WORLD DESTINATION DICTIONARY
     function initializeCustomMarketplaceGrid(cityName) {
         const targetGrid = document.getElementById('hotel-cards-target-grid');
         const priceSlider = document.getElementById('price-range-slider');
@@ -83,9 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         const lowerCity = cityName.toLowerCase();
-        
-        // --- 🗺️ AUTHENTIC LOCAL DISTINGUISHED VOCABULARY ENGINE ---
-        // This explicitly injects non-repeating, destination-specific configurations
         let uniqueLocalNames = [];
 
         if (lowerCity.includes('alibaug') || lowerCity.includes('alibag')) {
@@ -94,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Kihim Palms Sanctuary', 'Mandwa Jet-Hub Luxury', 'Akshi Coastal Manor', 
                 'Radisson Blu Elite Hub', 'Zirad Villa Estates', 'Revdanda Fort Residency', 
                 'Awas Marine Retreat', 'Sasawane Arts Boutique', 'Ganjis Executive Lodge', 
-                'Konkan Countryside Haven', ' Thal Beachview Horizon', 'Chaul Historic Palace'
+                'Konkan Countryside Haven', 'Thal Beachview Horizon', 'Chaul Historic Palace'
             ];
         } else if (lowerCity.includes('paris') || lowerCity.includes('france')) {
             uniqueLocalNames = [
@@ -113,13 +110,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Hokkaido Snowy Lodge', 'Okinawa Coral Sands Pavilions', 'Hakone Hot Springs Estate'
             ];
         } else {
-            // General multi-destination wildcard array strategy to cover any unexpected search term flawlessly
             for(let k = 1; k <= 15; k++) {
-                uniqueLocalNames.push(`${cityName} Continental Hub ${k * 10}`);
+                uniqueLocalNames.push(cityName + ' Holiday Stay Suite ' + (k * 10));
             }
         }
 
-        // Loop to construct 15 entirely distinct cards based on the specific location drawer array
         for (let i = 1; i <= 15; i++) {
             const tier = tierPool[i % 3];
             const propertyNameText = uniqueLocalNames[(i - 1) % uniqueLocalNames.length];
@@ -131,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hotelDatabase.push({
                 id: i,
                 name: propertyNameText,
-                location: `${cityName} Premium District`,
+                location: cityName + ' Premium District',
                 tier: tier,
                 price: baseRate,
                 image: secureStockPhotos[i % secureStockPhotos.length]
@@ -140,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (priceSlider && priceLabel) {
             priceSlider.addEventListener('input', function() {
-                priceLabel.textContent = `₹${parseInt(this.value).toLocaleString('en-IN')}`;
+                priceLabel.textContent = '₹' + parseInt(this.value).toLocaleString('en-IN');
             });
         }
 
@@ -154,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let visibleCount = 0;
 
-            hotelDatabase.forEach(hotel => {
+            hotelDatabase.forEach(function(hotel) {
                 if (hotel.price > maxPrice || !activeTiers.includes(hotel.tier)) return;
                 visibleCount++;
 
@@ -162,33 +157,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (hotel.tier === '4star') tierLabel = '⭐⭐⭐⭐ Elite Luxury';
                 if (hotel.tier === '5star') tierLabel = '⭐⭐⭐⭐⭐ Sovereign VIP';
 
-                const cardHTML = `
-                    <div class="glance-card" style="display:flex; flex-direction:column; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-premium); border:1px solid rgba(0,0,0,0.02);">
-                        <div class="card-image-wrapper" style="height:200px; width:100%; overflow:hidden; position:relative; background:#e2e8f0;">
-                            <img src="${hotel.image}" alt="${hotel.name}" class="glance-img" style="width:100%; height:100%; object-fit:cover; display:block;">
-                            <span class="trending-badge" style="background-color:var(--dark-text); color:white; font-size:11px; top:12px; left:12px; font-weight:700; position:absolute; padding: 4px 10px; border-radius: 20px;">${tierLabel}</span>
-                        </div>
-                        <div class="card-meta" style="padding:20px; display:flex; flex-direction:column; justify-content:space-between; flex-grow:1;">
-                            <div>
-                                <h3 style="font-family:var(--heading-font); font-size:17px; color:var(--dark-text); margin-bottom:4px; font-weight:800; line-height:1.4;">${hotel.name}</h3>
-                                <p style="font-size:12px; color:var(--primary-green); font-weight:600; margin-bottom:12px;">📍 ${hotel.location}</p>
-                                <p style="font-size:13px; color:#64748b; line-height:1.5; margin-bottom:15px;">Verified premium accommodation choice arranged under Mr. Sameer's custom corporate allocations.</p>
-                            </div>
-                            <div style="border-top:1px solid #f1f5f9; padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
-                                <span style="font-size:14px; font-weight:700; color:var(--secondary-blue);">=== RATE TEXT ===</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                // Secure step-by-step element building method (Immune to string replacement syntax bugs)
+                const card = document.createElement('div');
+                card.className = 'glance-card';
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.backgroundColor = '#ffffff';
+                card.style.borderRadius = '16px';
+                card.style.overflow = 'hidden';
+                card.style.boxShadow = 'var(--shadow-premium)';
+                card.style.border = '1px solid rgba(0,0,0,0.02)';
+
+                const whatsappUrl = 'https://wa.me' + encodeURIComponent(hotel.name) + '%20(' + encodeURIComponent(hotel.location) + ').';
+
+                card.innerHTML = ' \
+                    <div class="card-image-wrapper" style="height:200px; width:100%; overflow:hidden; position:relative; background:#e2e8f0;"> \
+                        <img src="' + hotel.image + '" alt="' + hotel.name + '" class="glance-img" style="width:100%; height:100%; object-fit:cover; display:block;"> \
+                        <span class="trending-badge" style="background-color:var(--dark-text); color:white; font-size:11px; top:12px; left:12px; font-weight:700; position:absolute; padding: 4px 10px; border-radius: 20px;">' + tierLabel + '</span> \
+                    </div> \
+                    <div class="card-meta" style="padding:20px; display:flex; flex-direction:column; justify-content:space-between; flex-grow:1;"> \
+                        <div> \
+                            <h3 style="font-family:var(--heading-font); font-size:17px; color:var(--dark-text); margin-bottom:4px; font-weight:800; line-height:1.4;">' + hotel.name + '</h3> \
+                            <p style="font-size:12px; color:var(--primary-green); font-weight:600; margin-bottom:12px;">📍 ' + hotel.location + '</p> \
+                            <p style="font-size:13px; color:#64748b; line-height:1.5; margin-bottom:15px;">Verified premium accommodation choice arranged under Mr. Sameer\'s custom corporate allocations.</p> \
+                        </div> \
+                        <div style="border-top:1px solid #f1f5f9; padding-top:12px; display:flex; justify-content:space-between; align-items:center;"> \
+                            <span style="font-size:14px; font-weight:700; color:var(--secondary-blue);">₹' + hotel.price.toLocaleString('en-IN') + '/Night</span> \
+                            <a href="' + whatsappUrl + '" target="_blank" class="nav-cta-btn" style="padding:8px 16px; font-size:12px; text-decoration:none; color:white; border-radius:20px; font-weight:600; background-color: var(--primary-green); box-shadow:none;">Select Hotel</a> \
+                        </div> \
+                    </div> \
+                ';
                 
-                const patchedHTML = cardHTML.replace('=== RATE TEXT ===', `₹${hotel.price.toLocaleString('en-IN')}/Night`)
-                    .replace('</div>\n                            </div>', `<a href="https://wa.me{encodeURIComponent(hotel.name)}%20(${encodeURIComponent(hotel.location)})." target="_blank" class="nav-cta-btn" style="padding:8px 16px; font-size:12px; text-decoration:none; color:white; border-radius:20px; font-weight:600; background-color: var(--primary-green); box-shadow:none;">Select Hotel</a></div></div></div>`);
-                
-                targetGrid.insertAdjacentHTML('beforeend', patchedHTML);
+                targetGrid.appendChild(card);
             });
 
             if (counterBar) {
-                counterBar.textContent = `Showing ${visibleCount} verified luxury options matching your parameters`;
+                counterBar.textContent = 'Showing ' + visibleCount + ' verified luxury options matching your parameters';
             }
         }
 
