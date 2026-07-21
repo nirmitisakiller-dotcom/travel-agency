@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!form || !input) return;
 
-    form.addEventListener("submit", function (e) {
+   form.addEventListener("submit", async function (e) {
 
         e.preventDefault();
 
@@ -30,39 +30,33 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         // Route using your existing pages
-        const indianPlaces = [
+     const place =
+    await Destinations.find(destination);
 
-            "india","goa","mumbai","pune","nashik","jalgaon",
-            "delhi","agra","jaipur","udaipur","jodhpur",
-            "leh","ladakh","shimla","manali",
-            "spiti","coorg","ooty","kerala","munnar",
-            "alleppey","kovalam","hyderabad",
-            "bangalore","bengaluru","mysore",
-            "kolkata","darjeeling","gangtok",
-            "chennai","madurai","hampi",
-            "varanasi","lucknow","amritsar",
-            "rishikesh","haridwar","dehradun",
-            "srinagar","kashmir","nagpur",
-            "ahmedabad","surat","kochi",
-            "visakhapatnam","bhubaneswar"
+if (place) {
 
-        ];
+    if (place.type === "domestic") {
 
-        const search = destination.toLowerCase();
+        window.location.href =
+            "domestic.html?q=" +
+            encodeURIComponent(destination);
 
-        if (indianPlaces.includes(search)) {
+    } else {
 
-            window.location.href =
-                "domestic.html?q=" +
-                encodeURIComponent(destination);
+        window.location.href =
+            "international.html?q=" +
+            encodeURIComponent(destination);
 
-        } else {
+    }
 
-            window.location.href =
-                "international.html?q=" +
-                encodeURIComponent(destination);
+} else {
 
-        }
+    // Unknown destination
+    window.location.href =
+        "international.html?q=" +
+        encodeURIComponent(destination);
+
+}
 
     });
 
