@@ -4,7 +4,7 @@
 // Part 1 of 5
 // ======================================================
 
-document.addEventListener("DOMContentLoaded", () => {});
+document.addEventListener("DOMContentLoaded", () => {
 
     // -----------------------------------
     // Check page
