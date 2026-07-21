@@ -4,7 +4,7 @@
 // Part 1 of 5
 // ======================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {});
 
     // -----------------------------------
     // Check page
@@ -548,3 +548,4 @@ Please send me the best package and available options.`
         );
 
     };
+});
