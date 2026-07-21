@@ -1,4 +1,6 @@
-// js/search.js
+// ==========================================
+// Nature Tours Search
+// ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -7,22 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!form || !input) return;
 
-    // List of Indian states and major cities
-    const indianPlaces = [
-        "andhra pradesh","arunachal pradesh","assam","bihar","chhattisgarh",
-        "goa","gujarat","haryana","himachal pradesh","jharkhand","karnataka",
-        "kerala","madhya pradesh","maharashtra","manipur","meghalaya","mizoram",
-        "nagaland","odisha","punjab","rajasthan","sikkim","tamil nadu",
-        "telangana","tripura","uttar pradesh","uttarakhand","west bengal",
-        "delhi","mumbai","pune","nashik","jalgaon","nagpur","surat","ahmedabad",
-        "jaipur","udaipur","jodhpur","shimla","manali","leh","ladakh","srinagar",
-        "amritsar","chandigarh","dehradun","rishikesh","haridwar","agra",
-        "varanasi","lucknow","patna","kolkata","gangtok","darjeeling",
-        "bhubaneswar","visakhapatnam","hyderabad","bengaluru","mysore","coorg",
-        "ooty","madurai","chennai","kochi","munnar","alleppey","kovalam",
-        "goa","hampi","spiti","chitkul"
-    ];
-
     form.addEventListener("submit", function (e) {
 
         e.preventDefault();
@@ -30,13 +16,41 @@ document.addEventListener("DOMContentLoaded", () => {
         const destination = input.value.trim();
 
         if (destination === "") {
+
             alert("Please enter a destination.");
+            input.focus();
             return;
+
         }
 
-        const query = destination.toLowerCase();
+        // Save destination for results page
+        localStorage.setItem(
+            "natureToursDestination",
+            destination
+        );
 
-        if (indianPlaces.includes(query)) {
+        // Route using your existing pages
+        const indianPlaces = [
+
+            "india","goa","mumbai","pune","nashik","jalgaon",
+            "delhi","agra","jaipur","udaipur","jodhpur",
+            "leh","ladakh","shimla","manali",
+            "spiti","coorg","ooty","kerala","munnar",
+            "alleppey","kovalam","hyderabad",
+            "bangalore","bengaluru","mysore",
+            "kolkata","darjeeling","gangtok",
+            "chennai","madurai","hampi",
+            "varanasi","lucknow","amritsar",
+            "rishikesh","haridwar","dehradun",
+            "srinagar","kashmir","nagpur",
+            "ahmedabad","surat","kochi",
+            "visakhapatnam","bhubaneswar"
+
+        ];
+
+        const search = destination.toLowerCase();
+
+        if (indianPlaces.includes(search)) {
 
             window.location.href =
                 "domestic.html?q=" +
