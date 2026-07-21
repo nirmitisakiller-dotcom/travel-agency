@@ -1,1 +1,88 @@
-
+[
+  {
+    "name": "Paris",
+    "country": "France",
+    "continent": "Europe",
+    "type": "international"
+  },
+  {
+    "name": "Tokyo",
+    "country": "Japan",
+    "continent": "Asia",
+    "type": "international"
+  },
+  {
+    "name": "Bali",
+    "country": "Indonesia",
+    "continent": "Asia",
+    "type": "international"
+  },
+  {
+    "name": "Singapore",
+    "country": "Singapore",
+    "continent": "Asia",
+    "type": "international"
+  },
+  {
+    "name": "Maldives",
+    "country": "Maldives",
+    "continent": "Asia",
+    "type": "international"
+  },
+  {
+    "name": "Leh",
+    "country": "India",
+    "state": "Ladakh",
+    "continent": "Asia",
+    "type": "domestic"
+  },
+  {
+    "name": "Ladakh",
+    "country": "India",
+    "state": "Ladakh",
+    "continent": "Asia",
+    "type": "domestic"
+  },
+  {
+    "name": "Spiti",
+    "country": "India",
+    "state": "Himachal Pradesh",
+    "continent": "Asia",
+    "type": "domestic"
+  },
+  {
+    "name": "Hampi",
+    "country": "India",
+    "state": "Karnataka",
+    "continent": "Asia",
+    "type": "domestic"
+  },
+  {
+    "name": "Chhattisgarh",
+    "country": "India",
+    "state": "Chhattisgarh",
+    "continent": "Asia",
+    "type": "domestic"
+  },
+  {
+    "name": "Mumbai",
+    "country": "India",
+    "state": "Maharashtra",
+    "continent": "Asia",
+    "type": "domestic"
+  },
+  {
+    "name": "Nashik",
+    "country": "India",
+    "state": "Maharashtra",
+    "continent": "Asia",
+    "type": "domestic"
+  },
+  {
+    "name": "Jalgaon",
+    "country": "India",
+    "state": "Maharashtra",
+    "continent": "Asia",
+    "type": "domestic"
+  }
+]
