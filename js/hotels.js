@@ -6,6 +6,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+     console.log("HOTELS.JS VERSION TEST");
     // -----------------------------------
     // Check page
     // -----------------------------------
