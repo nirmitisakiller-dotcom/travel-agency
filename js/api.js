@@ -67,7 +67,7 @@ out center tags;
 `;
 
         const response = await fetch(
-        "https://overpass.kumi.systems/api/interpreter"
+        "https://overpass.kumi.systems/api/interpreter" ,
             {
                 method: "POST",
                 body: query
