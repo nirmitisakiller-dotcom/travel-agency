@@ -1,5 +1,5 @@
 // ==========================================
-// Nature Tours Autocomplete
+// Nature Tours Autocomplete Engine
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -13,77 +13,111 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!input || !box)
         return;
 
+    await window.DestinationEngine.load();
+
     const destinations =
-        await window.DestinationEngine.load();
+        window.DestinationEngine.destinations;
 
-    input.addEventListener("input", function () {
+    function hideBox() {
 
-        const search =
-            this.value
-                .trim()
-                .toLowerCase();
+        box.style.display = "none";
+        box.innerHTML = "";
+
+    }
+
+    function showResults(search) {
 
         box.innerHTML = "";
 
         if (search.length < 2) {
 
-            box.style.display = "none";
+            hideBox();
             return;
 
         }
 
         const matches =
             destinations.filter(item =>
+
                 item.name
                     .toLowerCase()
                     .includes(search)
-            );
+
+            ).slice(0,8);
 
         if (!matches.length) {
 
-            box.style.display = "none";
+            hideBox();
             return;
 
         }
 
-        matches.slice(0,5).forEach(item => {
+        matches.forEach(item => {
 
-            const div =
+            const row =
                 document.createElement("div");
 
-            div.className =
+            row.className =
                 "search-item";
 
-            div.innerHTML = `
+            row.innerHTML = `
 
                 <div class="search-title">
-                    ${item.name}
+
+                    📍 ${item.name}
+
                 </div>
 
                 <div class="search-subtitle">
+
                     ${item.continent} → ${item.country}
+
                 </div>
 
             `;
-          div.addEventListener("click", () => {
 
-    input.value = item.name;
+            row.onclick = () => {
 
-    box.style.display = "none";
+                input.value = item.name;
 
-});
+                hideBox();
 
-    input.value = item.name;
+                input.focus();
 
-    box.style.display = "none";
+            };
 
-});
-
-            box.appendChild(div);
+            box.appendChild(row);
 
         });
 
         box.style.display = "block";
+
+    }
+
+    input.addEventListener("input", () => {
+
+        showResults(
+
+            input.value
+                .trim()
+                .toLowerCase()
+
+        );
+
+    });
+
+    document.addEventListener("click", (e) => {
+
+        if (
+
+            !box.contains(e.target) &&
+            e.target !== input
+
+        ) {
+
+            hideBox();
+
+        }
 
     });
 
