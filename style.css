@@ -925,3 +925,18 @@ body {
     margin-top:4px;
 
 }
+.search-wrapper{
+    position: relative;
+}
+
+.search-suggestions{
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+}
+
+.search-item{
+    pointer-events: auto;
+}
