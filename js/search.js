@@ -32,13 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Route using your existing pages
    const search = destination.toLowerCase();
 
-const destinations = await window.destinationEngine.load();
+const destinations =
+    await window.DestinationEngine.load();
 
 const match = destinations.find(d =>
     d.name.toLowerCase() === search
 );
 
-if (match) {
+if (match) 
 
     if (match.type === "domestic") {
 
