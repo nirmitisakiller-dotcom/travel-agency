@@ -30,34 +30,35 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         // Route using your existing pages
-     const place =
-    await Destinations.find(destination);
+   const search = destination.toLowerCase();
 
-if (place) {
+const destinations = await window.destinationEngine.load();
 
-    if (place.type === "domestic") {
+const match = destinations.find(d =>
+    d.name.toLowerCase() === search
+);
+
+if (match) {
+
+    if (match.type === "domestic") {
 
         window.location.href =
             "domestic.html?q=" +
-            encodeURIComponent(destination);
+            encodeURIComponent(match.name);
 
     } else {
 
         window.location.href =
             "international.html?q=" +
-            encodeURIComponent(destination);
+            encodeURIComponent(match.name);
 
     }
 
 } else {
 
-    // Unknown destination
-    window.location.href =
-        "international.html?q=" +
-        encodeURIComponent(destination);
+    alert("Destination not found.");
 
 }
-
     });
 
 });
