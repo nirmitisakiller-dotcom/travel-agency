@@ -2,31 +2,39 @@
 // Nature Tours Destination Engine
 // ==========================================
 
-window.Destinations = {
+window.DestinationEngine = {
 
-    data: [],
+    destinations: [],
 
     async load() {
 
-        if (this.data.length)
-            return this.data;
+        if (this.destinations.length) return;
 
         const response = await fetch("data/destinations.json");
 
-        this.data = await response.json();
-
-        return this.data;
+        this.destinations = await response.json();
 
     },
 
-    async find(name) {
+    async find(searchText) {
 
         await this.load();
 
-        return this.data.find(place =>
-            place.name.toLowerCase() ===
-            name.toLowerCase()
-        );
+        const search =
+            searchText
+                .trim()
+                .toLowerCase();
+
+        return this.destinations.find(item => {
+
+            return (
+                item.name.toLowerCase() === search ||
+                item.country.toLowerCase() === search ||
+                (item.state &&
+                    item.state.toLowerCase() === search)
+            );
+
+        });
 
     }
 
