@@ -65,9 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
 
             `;
-            div.addEventListener("mousedown", (e) => {
-
-    e.preventDefault();
+          div.addEventListener("click", () => {
 
     input.value = item.name;
 
