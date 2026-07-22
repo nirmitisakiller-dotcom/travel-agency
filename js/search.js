@@ -39,7 +39,7 @@ const match = destinations.find(d =>
     d.name.toLowerCase() === search
 );
 
-if (match) 
+if (match) {
 
     if (match.type === "domestic") {
 
