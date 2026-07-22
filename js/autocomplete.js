@@ -65,6 +65,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
 
             `;
+            div.addEventListener("click", () => {
+
+    input.value = item.name;
+
+    box.style.display = "none";
+
+});
 
             box.appendChild(div);
 
