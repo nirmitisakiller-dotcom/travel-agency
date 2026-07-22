@@ -5,17 +5,23 @@
 window.DestinationEngine = {
 
     destinations: [],
+async load() {
 
-    async load() {
+    if (this.destinations.length) {
 
-        if (this.destinations.length) return;
+        return this.destinations;
 
-        const response = await fetch("data/destinations.json");
+    }
 
-        this.destinations = await response.json();
+    const response =
+        await fetch("data/destinations.json");
 
-    },
+    this.destinations =
+        await response.json();
 
+    return this.destinations;
+
+},
     async find(searchText) {
 
         await this.load();
