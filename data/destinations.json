@@ -1,16 +1,44 @@
 [
   {
-    "name": "Paris",
-    "country": "France",
-    "continent": "Europe",
-    "type": "international"
-  },
+  "id": "paris",
+  "name": "Paris",
+  "country": "France",
+  "continent": "Europe",
+  "region": "Île-de-France",
+  "type": "international",
+  "airport": "Charles de Gaulle Airport",
+  "currency": "Euro",
+  "language": "French",
+  "timezone": "CET",
+  "bestSeason": "April to June, September to October",
+  "tags": [
+    "honeymoon",
+    "romantic",
+    "family",
+    "culture",
+    "shopping"
+  ]
+},
   {
-    "name": "Tokyo",
-    "country": "Japan",
-    "continent": "Asia",
-    "type": "international"
-  },
+  "id": "tokyo",
+  "name": "Tokyo",
+  "country": "Japan",
+  "continent": "Asia",
+  "region": "Kanto",
+  "type": "international",
+  "airport": "Haneda Airport",
+  "currency": "Japanese Yen",
+  "language": "Japanese",
+  "timezone": "JST",
+  "bestSeason": "March to May, October to November",
+  "tags": [
+    "family",
+    "technology",
+    "shopping",
+    "food",
+    "culture"
+  ]
+},
   {
     "name": "Bali",
     "country": "Indonesia",
