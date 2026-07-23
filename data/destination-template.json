@@ -1,0 +1,44 @@
+{
+  "id": "",
+  "name": "",
+
+  "type": "",
+  "continent": "",
+  "country": "",
+  "region": "",
+  "state": "",
+
+  "description": "",
+
+  "airport": "",
+  "currency": "",
+  "language": "",
+  "timezone": "",
+
+  "bestSeason": "",
+  "visa": "",
+  "averageBudget": "",
+
+  "coordinates": {
+    "lat": 0,
+    "lon": 0
+  },
+
+  "tags": [],
+
+  "topAttractions": [],
+
+  "nearbyDestinations": [],
+
+  "food": [],
+
+  "gallery": [],
+
+  "packages": [],
+
+  "natureToursRecommendations": {
+    "recommendedHotel": "",
+    "recommendedPackage": "",
+    "travelTips": []
+  }
+}
