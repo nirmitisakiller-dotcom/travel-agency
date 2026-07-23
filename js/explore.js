@@ -45,7 +45,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div>
 
         `;
+card.style.cursor = "pointer";
 
+card.onclick = () => {
+
+    window.location.href =
+        "continent.html?name=" +
+        encodeURIComponent(continent);
+
+};
         grid.appendChild(card);
 
     });
