@@ -49,9 +49,9 @@ card.style.cursor = "pointer";
 
 card.onclick = () => {
 
-    window.location.href =
-        "continent.html?name=" +
-        encodeURIComponent(continent);
+   window.location.href =
+    "explore.html?continent=" +
+    encodeURIComponent(continent);
 
 };
         grid.appendChild(card);
