@@ -76,15 +76,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             `;
 
-            row.onclick = () => {
+           row.onclick = () => {
 
-                input.value = item.name;
+    input.value = item.name;
 
-                hideBox();
+    hideBox();
 
-                input.focus();
+    if (item.type === "domestic") {
 
-            };
+        window.location.href =
+            "domestic.html?q=" +
+            encodeURIComponent(item.name);
+
+    } else {
+
+        window.location.href =
+            "international.html?q=" +
+            encodeURIComponent(item.name);
+
+    }
+
+};
 
             box.appendChild(row);
 
