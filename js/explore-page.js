@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const continent =
         params.get("continent");
-
+ const country =
+    params.get("country");
     const title =
         document.getElementById("explore-title");
 
@@ -86,7 +87,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
 
             `;
+card.style.cursor =
+    "pointer";
 
+card.onclick = () => {
+
+    window.location.href =
+        "explore.html?country=" +
+        encodeURIComponent(country);
+
+};
             grid.appendChild(card);
 
         });
