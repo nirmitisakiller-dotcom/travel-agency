@@ -39,24 +39,65 @@
     "culture"
   ]
 },
+ {
+  "id": "bali",
+  "name": "Bali",
+  "country": "Indonesia",
+  "continent": "Asia",
+  "region": "Bali",
+  "type": "international",
+  "airport": "Ngurah Rai International Airport",
+  "currency": "Indonesian Rupiah",
+  "language": "Indonesian",
+  "timezone": "WITA (UTC+8)",
+  "bestSeason": "April to October",
+  "tags": [
+    "honeymoon",
+    "beaches",
+    "luxury",
+    "family",
+    "adventure"
+  ]
+},{
+  "id": "singapore",
+  "name": "Singapore",
+  "country": "Singapore",
+  "continent": "Asia",
+  "region": "Central Region",
+  "type": "international",
+  "airport": "Changi Airport",
+  "currency": "Singapore Dollar",
+  "language": "English",
+  "timezone": "SGT",
+  "bestSeason": "February to April",
+  "tags": [
+    "family",
+    "shopping",
+    "food",
+    "luxury",
+    "city"
+  ]
+},
   {
-    "name": "Bali",
-    "country": "Indonesia",
-    "continent": "Asia",
-    "type": "international"
-  },
-  {
-    "name": "Singapore",
-    "country": "Singapore",
-    "continent": "Asia",
-    "type": "international"
-  },
-  {
-    "name": "Maldives",
-    "country": "Maldives",
-    "continent": "Asia",
-    "type": "international"
-  },
+  "id": "maldives",
+  "name": "Maldives",
+  "country": "Maldives",
+  "continent": "Asia",
+  "region": "Kaafu Atoll",
+  "type": "international",
+  "airport": "Velana International Airport",
+  "currency": "Maldivian Rufiyaa",
+  "language": "Dhivehi",
+  "timezone": "MVT",
+  "bestSeason": "November to April",
+  "tags": [
+    "honeymoon",
+    "luxury",
+    "beach",
+    "resorts",
+    "romantic"
+  ]
+},
   {
     "name": "Leh",
     "country": "India",
