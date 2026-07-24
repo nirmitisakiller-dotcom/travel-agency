@@ -33,26 +33,33 @@ const hotels =
         return;
 
     }
+container.innerHTML = `
 
-    container.innerHTML = `
+<div class="destination-hero">
+
+    <div class="destination-info">
 
         <h1>${destination.name}</h1>
 
-        <p><strong>Country:</strong> ${destination.country}</p>
+        <p>🌍 ${destination.country}</p>
 
-        <p><strong>Region:</strong> ${destination.region || destination.state || "-"}</p>
+        <p>📍 ${destination.region || destination.state || "-"}</p>
 
-        <p><strong>Airport:</strong> ${destination.airport || "-"}</p>
+        <p>✈️ ${destination.airport || "-"}</p>
 
-        <p><strong>Currency:</strong> ${destination.currency || "-"}</p>
+        <p>💰 ${destination.currency || "-"}</p>
 
-        <p><strong>Language:</strong> ${destination.language || "-"}</p>
+        <p>🗣 ${destination.language || "-"}</p>
 
-        <p><strong>Timezone:</strong> ${destination.timezone || "-"}</p>
+        <p>🕒 ${destination.timezone || "-"}</p>
 
-        <p><strong>Best Season:</strong> ${destination.bestSeason || "-"}</p>
+        <p>🌸 Best Season: ${destination.bestSeason || "-"}</p>
 
-    `;
+    </div>
+
+</div>
+
+`;
 const destinationHotels =
     hotels.filter(hotel =>
         hotel.destinationId === destination.id
