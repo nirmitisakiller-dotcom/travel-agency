@@ -102,5 +102,56 @@ card.onclick = () => {
         });
 
     }
+    // -----------------------------
+// COUNTRY VIEW
+// -----------------------------
 
+if (country) {
+
+    title.textContent =
+        country;
+
+    subtitle.textContent =
+        "Country";
+
+    description.textContent =
+        "Choose a destination";
+
+    grid.innerHTML = "";
+
+    const places =
+        destinations.filter(d =>
+            d.country === country
+        );
+
+    places.forEach(place => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "glance-card";
+
+        card.style.cursor =
+            "pointer";
+
+        card.innerHTML = `
+
+            <div class="card-meta">
+
+                <h3>${place.name}</h3>
+
+                <p>
+                    ${place.region || place.state || "Destination"}
+                </p>
+
+            </div>
+
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
 });
