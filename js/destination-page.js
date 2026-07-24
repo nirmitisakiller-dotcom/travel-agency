@@ -5,7 +5,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
     await window.DestinationEngine.load();
+const hotelResponse =
+    await fetch("data/hotels.json");
 
+const hotels =
+    await hotelResponse.json();
     const destinations =
         window.DestinationEngine.destinations;
 
@@ -49,5 +53,40 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>Best Season:</strong> ${destination.bestSeason || "-"}</p>
 
     `;
+const destinationHotels =
+    hotels.filter(hotel =>
+        hotel.destinationId === destination.id
+    );
 
+container.innerHTML += `
+
+    <hr>
+
+    <h2>Hotels</h2>
+
+`;
+
+destinationHotels.forEach(hotel => {
+
+    container.innerHTML += `
+
+        <div class="glance-card">
+
+            <div class="card-meta">
+
+                <h3>${hotel.name}</h3>
+
+                <p>⭐ ${hotel.rating} Stars</p>
+
+                <p>💰 ₹${hotel.price.toLocaleString()} / night</p>
+
+                <p>📍 ${hotel.address}</p>
+
+            </div>
+
+        </div>
+
+    `;
+
+});
 });
