@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         params.get("continent");
  const country =
     params.get("country");
+    const region =
+    params.get("region");
     const title =
         document.getElementById("explore-title");
 
@@ -148,7 +150,21 @@ if (country) {
             </div>
 
         `;
+card.onclick = () => {
 
+    if (place.region || place.state) {
+
+        window.location.href =
+            "explore.html?country=" +
+            encodeURIComponent(country) +
+            "&region=" +
+            encodeURIComponent(
+                place.region || place.state
+            );
+
+    }
+
+};
         grid.appendChild(card);
 
     });
