@@ -166,7 +166,64 @@ card.onclick = () => {
 
 };
         grid.appendChild(card);
+card.onclick = () => {
 
+    const info =
+        document.getElementById(
+            "destination-info"
+        );
+
+    info.innerHTML = `
+
+        <div class="glance-card">
+
+            <div class="card-meta">
+
+                <h2>${place.name}</h2>
+
+                <p>
+                    🌍 ${place.country}
+                </p>
+
+                <p>
+                    🗺 ${place.region || place.state || "-"}
+                </p>
+
+                <p>
+                    ✈️ ${place.airport || "-"}
+                </p>
+
+                <p>
+                    💰 ${place.currency || "-"}
+                </p>
+
+                <p>
+                    🗣 ${place.language || "-"}
+                </p>
+
+                <p>
+                    🕒 ${place.timezone || "-"}
+                </p>
+
+                <p>
+                    🌸 ${place.bestSeason || "-"}
+                </p>
+
+            </div>
+
+        </div>
+
+    `;
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+};
     });
 
 }
