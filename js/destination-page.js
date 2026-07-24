@@ -65,35 +65,75 @@ const destinationHotels =
         hotel.destinationId === destination.id
     );
 
-container.innerHTML += `
-
-    <hr>
-
-    <h2>Hotels</h2>
-
-`;
-
-destinationHotels.forEach(hotel => {
+if (destinationHotels.length) {
 
     container.innerHTML += `
 
-        <div class="glance-card">
+    <section class="hotel-section">
 
-            <div class="card-meta">
+        <h2 class="hotel-section-title">
+
+            Recommended Hotels
+
+        </h2>
+
+        <div class="hotel-grid">
+
+    `;
+
+    destinationHotels.forEach(hotel => {
+
+        container.innerHTML += `
+
+        <div class="hotel-card">
+
+            <div class="hotel-image">
+
+                🏨
+
+            </div>
+
+            <div class="hotel-content">
 
                 <h3>${hotel.name}</h3>
 
                 <p>⭐ ${hotel.rating} Stars</p>
 
-                <p>💰 ₹${hotel.price.toLocaleString()} / night</p>
+                <p class="hotel-price">
 
-                <p>📍 ${hotel.address}</p>
+                    ₹${hotel.price.toLocaleString()} / night
+
+                </p>
+
+                <p>
+
+                    📍 ${hotel.address}
+
+                </p>
+
+                <a
+                    href="${hotel.bookingUrl}"
+                    target="_blank"
+                    class="hotel-btn">
+
+                    View Details
+
+                </a>
 
             </div>
 
         </div>
 
+        `;
+
+    });
+
+    container.innerHTML += `
+
+        </div>
+
+    </section>
+
     `;
 
-});
-});
+}
