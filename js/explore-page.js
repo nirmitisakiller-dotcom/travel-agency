@@ -6,225 +6,120 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await window.DestinationEngine.load();
 
-    const destinations =
-        window.DestinationEngine.destinations;
+    const destinations = window.DestinationEngine.destinations;
 
-    const params =
-        new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
 
-    const continent =
-        params.get("continent");
- const country =
-    params.get("country");
-    const region =
-    params.get("region");
-    const title =
-        document.getElementById("explore-title");
+    const continent = params.get("continent");
+    const country = params.get("country");
 
-    const subtitle =
-        document.getElementById("explore-type");
+    const title = document.getElementById("explore-title");
+    const subtitle = document.getElementById("explore-type");
+    const description = document.getElementById("explore-description");
+    const grid = document.getElementById("explore-grid");
 
-    const description =
-        document.getElementById("explore-description");
+    grid.innerHTML = "";
 
-    const grid =
-        document.getElementById("explore-grid");
-
-    // -----------------------------
+    // ==========================================
     // CONTINENT VIEW
-    // -----------------------------
+    // ==========================================
 
     if (continent) {
 
-        title.textContent =
-            continent;
+        title.textContent = continent;
+        subtitle.textContent = "Continent";
+        description.textContent = "Choose a country";
 
-        subtitle.textContent =
-            "Continent";
-
-        description.textContent =
-            "Choose a country";
-
-        const countries =
-            [...new Set(
-
+        const countries = [
+            ...new Set(
                 destinations
-                    .filter(d =>
-                        d.continent === continent
-                    )
-                    .map(d =>
-                        d.country
-                    )
+                    .filter(d => d.continent === continent)
+                    .map(d => d.country)
+            )
+        ].sort();
 
-            )].sort();
+        countries.forEach(countryName => {
 
-        countries.forEach(country => {
+            const total = destinations.filter(
+                d => d.country === countryName
+            ).length;
 
-            const total =
-                destinations.filter(d =>
-                    d.country === country
-                ).length;
+            const card = document.createElement("div");
 
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "glance-card";
-
-            card.style.cursor =
-                "pointer";
+            card.className = "glance-card";
+            card.style.cursor = "pointer";
 
             card.innerHTML = `
-
                 <div class="card-meta">
-
-                    <h3>${country}</h3>
-
-                    <p>
-
-                        ${total} destination(s)
-
-                    </p>
-
+                    <h3>${countryName}</h3>
+                    <p>${total} destination(s)</p>
                 </div>
-
             `;
-card.style.cursor =
-    "pointer";
 
-card.onclick = () => {
+            card.onclick = () => {
 
-    window.location.href =
-        "explore.html?country=" +
-        encodeURIComponent(country);
+                window.location.href =
+                    "explore.html?country=" +
+                    encodeURIComponent(countryName);
 
-};
+            };
+
             grid.appendChild(card);
 
         });
 
     }
-    // -----------------------------
-// COUNTRY VIEW
-// -----------------------------
 
-if (country) {
+    // ==========================================
+    // COUNTRY VIEW
+    // ==========================================
 
-    title.textContent =
-        country;
+    if (country) {
 
-    subtitle.textContent =
-        "Country";
+        title.textContent = country;
+        subtitle.textContent = "Country";
+        description.textContent = "Choose a destination";
 
-    description.textContent =
-        "Choose a destination";
-
-    grid.innerHTML = "";
-
-    const places =
-        destinations.filter(d =>
-            d.country === country
+        const places = destinations.filter(
+            d => d.country === country
         );
 
-    places.forEach(place => {
+        places.forEach(place => {
 
-        const card =
-            document.createElement("div");
+            const card = document.createElement("div");
 
-        card.className =
-            "glance-card";
+            card.className = "glance-card";
+            card.style.cursor = "pointer";
 
-        card.style.cursor =
-            "pointer";
+            card.innerHTML = `
+                <div class="card-meta">
+                    <h3>${place.name}</h3>
+                    <p>${place.region || place.state || "Destination"}</p>
+                </div>
+            `;
 
-        card.innerHTML = `
+            card.onclick = () => {
 
-            <div class="card-meta">
+                if (!place.id) {
 
-                <h3>${place.name}</h3>
+                    alert(
+                        "This destination does not have an id yet."
+                    );
 
-                <p>
-                    ${place.region || place.state || "Destination"}
-                </p>
+                    return;
 
-            </div>
+                }
 
-        `;
-card.onclick = () => {
+                window.location.href =
+                    "destination.html?id=" +
+                    encodeURIComponent(place.id);
 
-    if (place.region || place.state) {
+            };
 
-        window.location.href =
-            "explore.html?country=" +
-            encodeURIComponent(country) +
-            "&region=" +
-            encodeURIComponent(
-                place.region || place.state
-            );
+            grid.appendChild(card);
+
+        });
 
     }
 
-};
-        grid.appendChild(card);
-card.onclick = () => {
-
-    const info =
-        document.getElementById(
-            "destination-info"
-        );
-
-    info.innerHTML = `
-
-        <div class="glance-card">
-
-            <div class="card-meta">
-
-                <h2>${place.name}</h2>
-
-                <p>
-                    🌍 ${place.country}
-                </p>
-
-                <p>
-                    🗺 ${place.region || place.state || "-"}
-                </p>
-
-                <p>
-                    ✈️ ${place.airport || "-"}
-                </p>
-
-                <p>
-                    💰 ${place.currency || "-"}
-                </p>
-
-                <p>
-                    🗣 ${place.language || "-"}
-                </p>
-
-                <p>
-                    🕒 ${place.timezone || "-"}
-                </p>
-
-                <p>
-                    🌸 ${place.bestSeason || "-"}
-                </p>
-
-            </div>
-
-        </div>
-
-    `;
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-};
-    });
-
-}
 });
