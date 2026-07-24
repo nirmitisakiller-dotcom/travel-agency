@@ -1,0 +1,33 @@
+.destination-hero{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    margin-bottom:40px;
+
+}
+
+.destination-info h1{
+
+    font-size:48px;
+
+    margin-bottom:20px;
+
+    color:#16325c;
+
+}
+
+.destination-info p{
+
+    font-size:18px;
+
+    margin:12px 0;
+
+    color:#555;
+
+}
