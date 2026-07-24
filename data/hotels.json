@@ -1,1 +1,51 @@
-
+[
+  {
+    "id": "marina-bay-sands",
+    "destinationId": "singapore",
+    "name": "Marina Bay Sands",
+    "rating": 5,
+    "price": 28000,
+    "currency": "INR",
+    "image": "",
+    "address": "10 Bayfront Avenue, Singapore",
+    "amenities": [
+      "Free WiFi",
+      "Infinity Pool",
+      "Spa",
+      "Breakfast Included"
+    ],
+    "bookingUrl": "#"
+  },
+  {
+    "id": "pan-pacific",
+    "destinationId": "singapore",
+    "name": "Pan Pacific Singapore",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "",
+    "address": "7 Raffles Boulevard, Singapore",
+    "amenities": [
+      "Pool",
+      "Gym",
+      "Free WiFi"
+    ],
+    "bookingUrl": "#"
+  },
+  {
+    "id": "bali-beach-resort",
+    "destinationId": "bali",
+    "name": "Bali Beach Resort",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "",
+    "address": "Kuta, Bali",
+    "amenities": [
+      "Beach Access",
+      "Breakfast",
+      "Free WiFi"
+    ],
+    "bookingUrl": "#"
+  }
+]
