@@ -104,51 +104,58 @@ if (destinationHotels.length) {
 
     destinationHotels.forEach(hotel => {
 
-        container.innerHTML += `
+    container.innerHTML += `
 
-        <div class="hotel-card">
+<div class="hotel-card">
 
-            <div class="hotel-image">
+    <img
+        class="hotel-photo"
+        src="${
+            hotel.image ||
+            `https://placehold.co/600x350?text=${encodeURIComponent(hotel.name)}`
+        }"
+        alt="${hotel.name}">
 
-                🏨
+    <div class="hotel-content">
 
-            </div>
+        <h3>${hotel.name}</h3>
 
-            <div class="hotel-content">
+        <p>⭐ ${hotel.rating} Stars</p>
 
-                <h3>${hotel.name}</h3>
+        <p class="hotel-price">
 
-                <p>⭐ ${hotel.rating} Stars</p>
+            ₹${hotel.price.toLocaleString()} / night
 
-                <p class="hotel-price">
+        </p>
 
-                    ₹${hotel.price.toLocaleString()} / night
+        <p>${hotel.address}</p>
 
-                </p>
+        <div class="hotel-amenities">
 
-                <p>
+            ${(hotel.amenities || []).map(a =>
 
-                    📍 ${hotel.address}
+                `<span>${a}</span>`
 
-                </p>
-
-                <a
-                    href="${hotel.bookingUrl}"
-                    target="_blank"
-                    class="hotel-btn">
-
-                    View Details
-
-                </a>
-
-            </div>
+            ).join("")}
 
         </div>
 
-        `;
+        <a
+            href="${hotel.bookingUrl}"
+            target="_blank"
+            class="hotel-btn">
 
-    });
+            Book Now
 
+        </a>
+
+    </div>
+
+</div>
+
+`;
+
+});
     container.innerHTML += `
 
         </div>
