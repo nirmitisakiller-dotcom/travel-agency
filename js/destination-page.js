@@ -225,3 +225,77 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Next section goes here...
+    // -----------------------------
+    // Attractions
+    // -----------------------------
+
+    const destinationAttractions =
+        attractions.filter(attraction =>
+            attraction.destinationId === destination.id
+        );
+
+    if (destinationAttractions.length > 0) {
+
+        container.innerHTML += `
+
+        <section class="attraction-section">
+
+            <h2 class="hotel-section-title">
+
+                Top Attractions
+
+            </h2>
+
+            <div class="hotel-grid">
+
+        `;
+
+        destinationAttractions.forEach(attraction => {
+
+            container.innerHTML += `
+
+            <div class="hotel-card">
+
+                <img
+                    class="hotel-photo"
+                    src="${
+                        attraction.image ||
+                        `https://placehold.co/600x350?text=${encodeURIComponent(attraction.name)}`
+                    }"
+                    alt="${attraction.name}">
+
+                <div class="hotel-content">
+
+                    <h3>${attraction.name}</h3>
+
+                    <p>⭐ ${attraction.rating}</p>
+
+                    <p>📍 ${attraction.type}</p>
+
+                    <p>${attraction.description}</p>
+
+                    <p class="hotel-price">
+
+                        ${attraction.price}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+        container.innerHTML += `
+
+            </div>
+
+        </section>
+
+        `;
+
+    }
+
+});
