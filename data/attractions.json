@@ -1,1 +1,52 @@
-
+[
+  {
+    "id": "eiffel",
+    "destinationId": "paris",
+    "name": "Eiffel Tower",
+    "type": "Landmark",
+    "rating": 4.9,
+    "price": "₹2,500",
+    "image": "",
+    "description": "The most famous landmark in Paris."
+  },
+  {
+    "id": "louvre",
+    "destinationId": "paris",
+    "name": "Louvre Museum",
+    "type": "Museum",
+    "rating": 4.8,
+    "price": "₹1,800",
+    "image": "",
+    "description": "Home of the Mona Lisa."
+  },
+  {
+    "id": "gardens",
+    "destinationId": "singapore",
+    "name": "Gardens by the Bay",
+    "type": "Nature",
+    "rating": 4.9,
+    "price": "₹1,200",
+    "image": "",
+    "description": "Singapore's iconic futuristic gardens."
+  },
+  {
+    "id": "sentosa",
+    "destinationId": "singapore",
+    "name": "Sentosa Island",
+    "type": "Island",
+    "rating": 4.8,
+    "price": "₹3,000",
+    "image": "",
+    "description": "Beaches, resorts and Universal Studios."
+  },
+  {
+    "id": "ubud",
+    "destinationId": "bali",
+    "name": "Ubud",
+    "type": "Culture",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "",
+    "description": "Rice terraces, temples and Balinese culture."
+  }
+]
