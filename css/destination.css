@@ -76,3 +76,36 @@
     margin-bottom:15px;
 
 }
+/* ==========================================
+   Destination Tags
+========================================== */
+
+.destination-tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:25px;
+
+}
+
+.destination-tag{
+
+    background:#e8f5e9;
+
+    color:#0f8b5f;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    border:1px solid #c8e6c9;
+
+}
