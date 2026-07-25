@@ -31,3 +31,48 @@
     color:#555;
 
 }
+/* ==========================================
+   DESTINATION HERO
+========================================== */
+
+.destination-banner{
+
+    width:100%;
+
+    height:420px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:35px;
+
+    background:#ddd;
+
+}
+
+.destination-banner img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.destination-info{
+
+    padding:10px 0;
+
+}
+
+.destination-info h1{
+
+    font-size:48px;
+
+    color:#16325c;
+
+    margin-bottom:15px;
+
+}
