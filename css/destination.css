@@ -1,111 +1,186 @@
-.destination-hero{
-
-    background:white;
-
-    border-radius:20px;
-
-    padding:40px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-    margin-bottom:40px;
-
-}
-
-.destination-info h1{
-
-    font-size:48px;
-
-    margin-bottom:20px;
-
-    color:#16325c;
-
-}
-
-.destination-info p{
-
-    font-size:18px;
-
-    margin:12px 0;
-
-    color:#555;
-
-}
 /* ==========================================
-   DESTINATION HERO
+   Nature Tours Destination Page
 ========================================== */
 
-.destination-banner{
-
-    width:100%;
-
-    height:420px;
-
-    border-radius:20px;
-
+.destination-hero{
+    max-width:1200px;
+    margin:0 auto 50px;
+    background:#fff;
+    border-radius:24px;
     overflow:hidden;
+    box-shadow:0 15px 45px rgba(0,0,0,.08);
+}
 
-    margin-bottom:35px;
-
-    background:#ddd;
-
+.destination-banner{
+    height:420px;
+    overflow:hidden;
+    position:relative;
 }
 
 .destination-banner img{
-
     width:100%;
-
     height:100%;
-
     object-fit:cover;
+    display:block;
+    transition:transform .6s ease;
+}
 
+.destination-banner:hover img{
+    transform:scale(1.05);
 }
 
 .destination-info{
-
-    padding:10px 0;
-
+    padding:40px;
 }
 
 .destination-info h1{
-
-    font-size:48px;
-
-    color:#16325c;
-
-    margin-bottom:15px;
-
+    font-size:3rem;
+    margin-bottom:10px;
+    color:#1d3557;
 }
-/* ==========================================
-   Destination Tags
-========================================== */
+
+.destination-location{
+    color:#666;
+    font-size:1.1rem;
+    margin-bottom:30px;
+}
+
+.destination-details{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:16px;
+    margin-bottom:30px;
+}
+
+.destination-details p{
+    margin:0;
+    padding:16px;
+    background:#f8fafc;
+    border-radius:12px;
+    border:1px solid #e9eef3;
+}
 
 .destination-tags{
-
     display:flex;
-
     flex-wrap:wrap;
-
     gap:12px;
-
-    margin-top:25px;
-
 }
 
 .destination-tag{
-
-    background:#e8f5e9;
-
-    color:#0f8b5f;
-
-    padding:8px 16px;
-
+    background:#1d3557;
+    color:#fff;
+    padding:8px 18px;
     border-radius:999px;
-
-    font-size:14px;
-
+    font-size:.9rem;
     font-weight:600;
+}
 
-    border:1px solid #c8e6c9;
+.hotel-section,
+.attraction-section{
+    max-width:1200px;
+    margin:50px auto;
+}
+
+.hotel-section-title{
+    font-size:2rem;
+    color:#1d3557;
+    margin-bottom:25px;
+}
+
+.hotel-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+.hotel-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.hotel-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 45px rgba(0,0,0,.15);
+}
+
+.hotel-photo{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    display:block;
+}
+
+.hotel-content{
+    padding:25px;
+}
+
+.hotel-content h3{
+    margin:0 0 12px;
+    color:#1d3557;
+    font-size:1.4rem;
+}
+
+.hotel-content p{
+    margin:8px 0;
+    color:#555;
+}
+
+.hotel-price{
+    color:#16a34a !important;
+    font-size:1.2rem;
+    font-weight:700;
+}
+
+.hotel-amenities{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:20px 0;
+}
+
+.hotel-amenities span{
+    background:#eef6ff;
+    color:#1d3557;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:.85rem;
+}
+
+.hotel-btn{
+    display:inline-block;
+    margin-top:10px;
+    background:#1d3557;
+    color:#fff;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.hotel-btn:hover{
+    background:#457b9d;
+}
+
+@media(max-width:768px){
+
+    .destination-banner{
+        height:250px;
+    }
+
+    .destination-info{
+        padding:25px;
+    }
+
+    .destination-info h1{
+        font-size:2.2rem;
+    }
+
+    .hotel-grid{
+        grid-template-columns:1fr;
+    }
 
 }
