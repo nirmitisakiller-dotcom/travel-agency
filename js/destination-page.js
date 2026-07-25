@@ -24,7 +24,7 @@ const hotels =
 
     const container =
         document.getElementById("destination-page");
-
+console.log("Container =", container);
     if (!destination) {
 
         container.innerHTML =
