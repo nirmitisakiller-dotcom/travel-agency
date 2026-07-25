@@ -134,3 +134,94 @@ document.addEventListener("DOMContentLoaded", async () => {
     </section>
 
     `;
+    // -----------------------------
+    // Hotels
+    // -----------------------------
+
+    const destinationHotels =
+        hotels.filter(hotel =>
+            hotel.destinationId === destination.id
+        );
+
+    if (destinationHotels.length > 0) {
+
+        container.innerHTML += `
+
+        <section class="hotel-section">
+
+            <h2 class="hotel-section-title">
+
+                Recommended Hotels
+
+            </h2>
+
+            <div class="hotel-grid">
+
+        `;
+
+        destinationHotels.forEach(hotel => {
+
+            container.innerHTML += `
+
+            <div class="hotel-card">
+
+                <img
+                    class="hotel-photo"
+                    src="${
+                        hotel.image ||
+                        `https://placehold.co/600x350?text=${encodeURIComponent(hotel.name)}`
+                    }"
+                    alt="${hotel.name}">
+
+                <div class="hotel-content">
+
+                    <h3>${hotel.name}</h3>
+
+                    <p>⭐ ${hotel.rating} Stars</p>
+
+                    <p class="hotel-price">
+
+                        ₹${hotel.price.toLocaleString()} / night
+
+                    </p>
+
+                    <p>${hotel.address}</p>
+
+                    <div class="hotel-amenities">
+
+                        ${(hotel.amenities || []).map(amenity =>
+
+                            `<span>${amenity}</span>`
+
+                        ).join("")}
+
+                    </div>
+
+                    <a
+                        href="${hotel.bookingUrl}"
+                        target="_blank"
+                        class="hotel-btn">
+
+                        Book Now
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+        container.innerHTML += `
+
+            </div>
+
+        </section>
+
+        `;
+
+    }
+
+    // Next section goes here...
