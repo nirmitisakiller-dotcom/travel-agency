@@ -81,11 +81,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     <section class="destination-hero">
 
         <div class="destination-banner">
-
-            <img
-                src="https://placehold.co/1200x500?text=${encodeURIComponent(destination.name)}"
-                alt="${destination.name}"
-                class="destination-banner-image">
+<img
+    src="${ImageService.getDestinationImage(destination.id)}"
+    alt="${destination.name}"
+    class="destination-banner-image">
 
         </div>
 
