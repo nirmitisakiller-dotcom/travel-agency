@@ -115,3 +115,57 @@
     background:#0c704c;
 
 }
+destinationHotels.forEach(hotel => {
+
+    container.innerHTML += `
+
+<div class="hotel-card">
+
+    <img
+        class="hotel-photo"
+        src="${
+            hotel.image ||
+            `https://placehold.co/600x350?text=${encodeURIComponent(hotel.name)}`
+        }"
+        alt="${hotel.name}">
+
+    <div class="hotel-content">
+
+        <h3>${hotel.name}</h3>
+
+        <p>⭐ ${hotel.rating} Stars</p>
+
+        <p class="hotel-price">
+
+            ₹${hotel.price.toLocaleString()} / night
+
+        </p>
+
+        <p>${hotel.address}</p>
+
+        <div class="hotel-amenities">
+
+            ${(hotel.amenities || []).map(a =>
+
+                `<span>${a}</span>`
+
+            ).join("")}
+
+        </div>
+
+        <a
+            href="${hotel.bookingUrl}"
+            target="_blank"
+            class="hotel-btn">
+
+            Book Now
+
+        </a>
+
+    </div>
+
+</div>
+
+`;
+
+});
