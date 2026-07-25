@@ -10,6 +10,11 @@ const hotelResponse =
 
 const hotels =
     await hotelResponse.json();
+    const attractionResponse =
+    await fetch("data/attractions.json");
+
+const attractions =
+    await attractionResponse.json();
     const destinations =
         window.DestinationEngine.destinations;
 
