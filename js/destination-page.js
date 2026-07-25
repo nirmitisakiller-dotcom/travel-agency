@@ -4,19 +4,30 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // -----------------------------
+    // Load Data
+    // -----------------------------
+
     await window.DestinationEngine.load();
-const hotelResponse =
-    await fetch("data/hotels.json");
 
-const hotels =
-    await hotelResponse.json();
+    const hotelResponse =
+        await fetch("data/hotels.json");
+
+    const hotels =
+        await hotelResponse.json();
+
     const attractionResponse =
-    await fetch("data/attractions.json");
+        await fetch("data/attractions.json");
 
-const attractions =
-    await attractionResponse.json();
+    const attractions =
+        await attractionResponse.json();
+
     const destinations =
         window.DestinationEngine.destinations;
+
+    // -----------------------------
+    // Read URL
+    // -----------------------------
 
     const params =
         new URLSearchParams(window.location.search);
@@ -24,226 +35,40 @@ const attractions =
     const id =
         params.get("id");
 
+    // -----------------------------
+    // Find Destination
+    // -----------------------------
+
     const destination =
         destinations.find(d => d.id === id);
 
     const container =
         document.getElementById("destination-page");
-console.log("Container =", container);
-    if (!destination) {
 
-        container.innerHTML =
-            "<h2>Destination not found.</h2>";
+    if (!container) {
+
+        console.error("destination-page element not found.");
 
         return;
 
     }
-container.innerHTML = `
 
-<div class="destination-hero">
+    if (!destination) {
 
-    <div class="destination-banner">
+        container.innerHTML = `
 
-        <img
-            src="https://placehold.co/1200x500?text=${encodeURIComponent(destination.name)}"
-            alt="${destination.name}">
+            <div class="glance-card">
 
-    </div>
+                <h2>Destination not found</h2>
 
-    <div class="destination-info">
+                <p>The requested destination does not exist.</p>
 
-        <h1>${destination.name}</h1>
+            </div>
 
-        <p>🌍 ${destination.country}</p>
+        `;
 
-        <p>📍 ${destination.region || destination.state || "-"}</p>
+        return;
 
-        <p>✈️ ${destination.airport || "-"}</p>
+    }
 
-        <p>💰 ${destination.currency || "-"}</p>
-
-        <p>🗣 ${destination.language || "-"}</p>
-
-        <p>🕒 ${destination.timezone || "-"}</p>
-
-        <p>🌸 Best Season: ${destination.bestSeason || "-"}</p>
-        <div class="destination-tags">
-
-    ${(destination.tags || []).map(tag => `
-
-        <span class="destination-tag">
-
-            ${tag}
-
-        </span>
-
-    `).join("")}
-
-</div>
-
-    </div>
-
-</div>
-
-`;
-const destinationHotels =
-    hotels.filter(hotel =>
-        hotel.destinationId === destination.id
-    );
-const destinationAttractions =
-    attractions.filter(attraction =>
-        attraction.destinationId === destination.id
-    );
-if (destinationHotels.length) {
-
-    container.innerHTML += `
-
-    <section class="hotel-section">
-
-        <h2 class="hotel-section-title">
-
-            Recommended Hotels
-
-        </h2>
-
-        <div class="hotel-grid">
-
-    `;
-
-    destinationHotels.forEach(hotel => {
-
-    container.innerHTML += `
-
-<div class="hotel-card">
-
-    <img
-        class="hotel-photo"
-        src="${
-            hotel.image ||
-            `https://placehold.co/600x350?text=${encodeURIComponent(hotel.name)}`
-        }"
-        alt="${hotel.name}">
-
-    <div class="hotel-content">
-
-        <h3>${hotel.name}</h3>
-
-        <p>⭐ ${hotel.rating} Stars</p>
-
-        <p class="hotel-price">
-
-            ₹${hotel.price.toLocaleString()} / night
-
-        </p>
-
-        <p>${hotel.address}</p>
-
-        <div class="hotel-amenities">
-
-            ${(hotel.amenities || []).map(a =>
-
-                `<span>${a}</span>`
-
-            ).join("")}
-
-        </div>
-
-        <a
-            href="${hotel.bookingUrl}"
-            target="_blank"
-            class="hotel-btn">
-
-            Book Now
-
-        </a>
-
-    </div>
-
-</div>
-
-`;
-
-});
-    container.innerHTML += `
-
-        </div>
-
-    </section>
-
-    `;
-
-}
-    if (destinationHotels.length) {
-
-    ...
-
-}
-
-// 👇 PASTE THE NEW CODE HERE
-
-if (destinationAttractions.length) {
-
-    container.innerHTML += `
-
-<section class="attraction-section">
-
-    <h2 class="hotel-section-title">
-
-        Top Attractions
-
-    </h2>
-
-    <div class="hotel-grid">
-
-`;
-
-    destinationAttractions.forEach(attraction => {
-
-        container.innerHTML += `
-
-<div class="hotel-card">
-
-    <img
-        class="hotel-photo"
-        src="${
-            attraction.image ||
-            `https://placehold.co/600x350?text=${encodeURIComponent(attraction.name)}`
-        }"
-        alt="${attraction.name}">
-
-    <div class="hotel-content">
-
-        <h3>${attraction.name}</h3>
-
-        <p>⭐ ${attraction.rating}</p>
-
-        <p>📍 ${attraction.type}</p>
-
-        <p>${attraction.description}</p>
-
-        <p class="hotel-price">
-
-            ${attraction.price}
-
-        </p>
-
-    </div>
-
-</div>
-
-`;
-
-    });
-
-    container.innerHTML += `
-
-    </div>
-
-</section>
-
-`;
-
-}
-
-});
-});
+    // Next section goes here...
