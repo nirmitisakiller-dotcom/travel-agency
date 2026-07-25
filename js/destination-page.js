@@ -62,6 +62,19 @@ container.innerHTML = `
         <p>🕒 ${destination.timezone || "-"}</p>
 
         <p>🌸 Best Season: ${destination.bestSeason || "-"}</p>
+        <div class="destination-tags">
+
+    ${(destination.tags || []).map(tag => `
+
+        <span class="destination-tag">
+
+            ${tag}
+
+        </span>
+
+    `).join("")}
+
+</div>
 
     </div>
 
