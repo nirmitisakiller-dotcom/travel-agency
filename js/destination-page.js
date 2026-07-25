@@ -37,6 +37,14 @@ container.innerHTML = `
 
 <div class="destination-hero">
 
+    <div class="destination-banner">
+
+        <img
+            src="https://placehold.co/1200x500?text=${encodeURIComponent(destination.name)}"
+            alt="${destination.name}">
+
+    </div>
+
     <div class="destination-info">
 
         <h1>${destination.name}</h1>
