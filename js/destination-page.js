@@ -90,7 +90,10 @@ const destinationHotels =
     hotels.filter(hotel =>
         hotel.destinationId === destination.id
     );
-
+const destinationAttractions =
+    attractions.filter(attraction =>
+        attraction.destinationId === destination.id
+    );
 if (destinationHotels.length) {
 
     container.innerHTML += `
