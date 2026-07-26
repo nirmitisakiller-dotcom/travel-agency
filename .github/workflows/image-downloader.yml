@@ -1,1 +1,21 @@
-# Nature Tours Image Automation 
+name: Nature Tours Image Downloader
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show secret exists
+        run: |
+          if [ -z "${{ secrets.PEXELS_API_KEY }}" ]; then
+            echo "PEXELS_API_KEY is missing."
+            exit 1
+          else
+            echo "PEXELS_API_KEY found."
+          fi
