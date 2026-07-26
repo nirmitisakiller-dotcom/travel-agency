@@ -11,11 +11,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Show secret exists
-        run: |
-          if [ -z "${{ secrets.PEXELS_API_KEY }}" ]; then
-            echo "PEXELS_API_KEY is missing."
-            exit 1
-          else
-            echo "PEXELS_API_KEY found."
-          fi
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run image downloader
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node scripts/download-images.js
