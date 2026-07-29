@@ -3,6 +3,9 @@ name: Nature Tours Image Downloader
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   download-images:
     runs-on: ubuntu-latest
@@ -10,18 +13,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-
-      - name: Verify files
-        run: |
-          pwd
-          ls -R
+          node-version: 20
 
       - name: Run image downloader
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: node scripts/download-images.js
+
+      - name: Commit downloaded images
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add assets/
+
+          git diff --cached --quiet || git commit -m "Auto download travel images"
+
+          git push
