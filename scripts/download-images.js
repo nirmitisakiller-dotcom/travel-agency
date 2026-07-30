@@ -1,11 +1,26 @@
 const fs = require("fs");
 const path = require("path");
 
-console.log("🚀 Nature Tours Image Downloader");
-
 const API_KEY = process.env.PEXELS_API_KEY;
 
-async function downloadImage(query, filename) {
+if (!API_KEY) {
+    console.error("❌ Missing PEXELS_API_KEY");
+    process.exit(1);
+}
+
+const destinations = JSON.parse(
+    fs.readFileSync("data/destinations.json", "utf8")
+);
+
+async function downloadImage(query, savePath) {
+
+    if (fs.existsSync(savePath)) {
+        console.log(`⏭ Skipping ${path.basename(savePath)}`);
+        return;
+    }
+
+    console.log(`🔍 Searching: ${query}`);
+
     const response = await fetch(
         `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=1`,
         {
@@ -15,34 +30,56 @@ async function downloadImage(query, filename) {
         }
     );
 
+    if (!response.ok) {
+        console.log(`❌ Search failed (${response.status})`);
+        return;
+    }
+
     const data = await response.json();
 
-    if (!data.photos?.length) {
-        console.log("No image found:", query);
+    if (!data.photos || data.photos.length === 0) {
+        console.log(`❌ No image found for ${query}`);
         return;
     }
 
     const imageUrl = data.photos[0].src.large2x;
 
-    const image = await fetch(imageUrl);
+    console.log(`⬇ Downloading ${query}`);
 
-    const buffer = Buffer.from(await image.arrayBuffer());
+    const imageResponse = await fetch(imageUrl);
 
-    fs.mkdirSync("assets", { recursive: true });
+    const buffer = Buffer.from(
+        await imageResponse.arrayBuffer()
+    );
 
-    fs.writeFileSync(path.join("assets", filename), buffer);
+    fs.mkdirSync(path.dirname(savePath), {
+        recursive: true
+    });
 
-    console.log("Saved", filename);
+    fs.writeFileSync(savePath, buffer);
+
+    console.log(`✅ Saved ${savePath}`);
 }
 
 async function main() {
 
-    await downloadImage("Paris France", "paris.jpg");
+    console.log(`\n🌍 ${destinations.length} destinations found\n`);
 
-    console.log("\nFiles inside assets:");
+    for (const destination of destinations) {
 
-    console.log(fs.readdirSync("assets"));
+        const searchQuery =
+            `${destination.name} ${destination.country} travel`;
 
+        const savePath =
+            `assets/destinations/${destination.id}.jpg`;
+
+        await downloadImage(
+            searchQuery,
+            savePath
+        );
+    }
+
+    console.log("\n🎉 Destination download completed!");
 }
 
 main();
