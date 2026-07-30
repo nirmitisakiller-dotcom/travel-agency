@@ -44,15 +44,15 @@ window.ImageService = {
 
     attractions: {
 
-        eiffel: "assets/destinations/paris.jpg",
+        eiffel: "assets/attractions/eiffel.jpg",
 
-        louvre: "assets/destinations/paris.jpg",
+        louvre: "assets/attractions/louvre.jpg",
 
-        gardens: "assets/destinations/singapore.jpg",
+        gardens: "assets/attractions/gardens.jpg",
 
-        sentosa: "assets/destinations/singapore.jpg",
+        sentosa: "assets/attractions/sentosa.jpg",
 
-        ubud: "assets/destinations/bali.jpg"
+        ubud: "assets/attractions/ubud.jpg"
 
     },
 
@@ -62,27 +62,40 @@ window.ImageService = {
 
     hotels: {
 
-        "marina-bay-sands": "assets/destinations/singapore.jpg",
+        "marina-bay-sands":
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945",
 
-        "pan-pacific": "assets/destinations/singapore.jpg",
+        "pan-pacific":
+            "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa",
 
-        "bali-beach-resort": "assets/destinations/bali.jpg"
+        "bali-beach-resort":
+            "https://images.unsplash.com/photo-1571896349842-33c89424de2"
 
     },
 
+    // --------------------------------------
+    // Functions
+    // --------------------------------------
+
     getDestinationImage(id) {
+
         return this.destinations[id] ||
             "https://placehold.co/1200x700?text=Destination";
+
     },
 
     getAttractionImage(id) {
+
         return this.attractions[id] ||
             "https://placehold.co/600x350?text=Attraction";
+
     },
 
     getHotelImage(id) {
+
         return this.hotels[id] ||
             "https://placehold.co/600x350?text=Hotel";
+
     }
 
 };
