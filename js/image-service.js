@@ -10,20 +10,31 @@ window.ImageService = {
 
     destinations: {
 
-        paris:
-            "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+        paris: "assets/images/paris.jpg",
 
-        singapore:
-            "https://images.unsplash.com/photo-1525625293386-3f8f99389edd",
+        tokyo: "assets/images/tokyo.jpg",
 
-        bali:
-            "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1",
+        bali: "assets/images/bali.jpg",
 
-        tokyo:
-            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf",
+        singapore: "assets/images/singapore.jpg",
 
-        maldives:
-            "https://images.unsplash.com/photo-1573843981267-be1999ff37cd"
+        maldives: "assets/images/maldives.jpg",
+
+        leh: "assets/images/leh.jpg",
+
+        ladakh: "assets/images/ladakh.jpg",
+
+        spiti: "assets/images/spiti.jpg",
+
+        hampi: "assets/images/hampi.jpg",
+
+        chhattisgarh: "assets/images/chhattisgarh.jpg",
+
+        mumbai: "assets/images/mumbai.jpg",
+
+        nashik: "assets/images/nashik.jpg",
+
+        jalgaon: "assets/images/jalgaon.jpg"
 
     },
 
@@ -33,20 +44,15 @@ window.ImageService = {
 
     attractions: {
 
-        eiffel:
-            "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f",
+        eiffel: "assets/images/paris.jpg",
 
-        louvre:
-            "https://images.unsplash.com/photo-1566139887280-c04d3f71d88f",
+        louvre: "assets/images/paris.jpg",
 
-        gardens:
-            "https://images.unsplash.com/photo-1525625293386-3f8f99389edd",
+        gardens: "assets/images/singapore.jpg",
 
-        sentosa:
-            "https://images.unsplash.com/photo-1508964942454-1a56651d54ac",
+        sentosa: "assets/images/singapore.jpg",
 
-        ubud:
-            "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1"
+        ubud: "assets/images/bali.jpg"
 
     },
 
@@ -56,14 +62,11 @@ window.ImageService = {
 
     hotels: {
 
-        "marina-bay-sands":
-            "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+        "marina-bay-sands": "assets/images/singapore.jpg",
 
-        "pan-pacific":
-            "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa",
+        "pan-pacific": "assets/images/singapore.jpg",
 
-        "bali-beach-resort":
-            "https://images.unsplash.com/photo-1571896349842-33c89424de2"
+        "bali-beach-resort": "assets/images/bali.jpg"
 
     },
 
@@ -74,21 +77,21 @@ window.ImageService = {
     getDestinationImage(id) {
 
         return this.destinations[id] ||
-            "https://placehold.co/1200x700?text=Destination";
+            "assets/images/paris.jpg";
 
     },
 
     getAttractionImage(id) {
 
         return this.attractions[id] ||
-            "https://placehold.co/600x350?text=Attraction";
+            "assets/images/paris.jpg";
 
     },
 
     getHotelImage(id) {
 
         return this.hotels[id] ||
-            "https://placehold.co/600x350?text=Hotel";
+            "assets/images/paris.jpg";
 
     }
 
