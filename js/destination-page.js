@@ -254,10 +254,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 <img
                     class="hotel-photo"
-                    src="${
-                        attraction.image ||
-                        `https://placehold.co/600x350?text=${encodeURIComponent(attraction.name)}`
-                    }"
+                  src="${ImageService.getAttractionImage(attraction.id)}"
                     alt="${attraction.name}">
 
                 <div class="hotel-content">
