@@ -10,31 +10,31 @@ window.ImageService = {
 
     destinations: {
 
-        paris: "assets/images/paris.jpg",
+        paris: "assets/destinations/paris.jpg",
 
-        tokyo: "assets/images/tokyo.jpg",
+        tokyo: "assets/destinations/tokyo.jpg",
 
-        bali: "assets/images/bali.jpg",
+        bali: "assets/destinations/bali.jpg",
 
-        singapore: "assets/images/singapore.jpg",
+        singapore: "assets/destinations/singapore.jpg",
 
-        maldives: "assets/images/maldives.jpg",
+        maldives: "assets/destinations/maldives.jpg",
 
-        leh: "assets/images/leh.jpg",
+        leh: "assets/destinations/leh.jpg",
 
-        ladakh: "assets/images/ladakh.jpg",
+        ladakh: "assets/destinations/ladakh.jpg",
 
-        spiti: "assets/images/spiti.jpg",
+        spiti: "assets/destinations/spiti.jpg",
 
-        hampi: "assets/images/hampi.jpg",
+        hampi: "assets/destinations/hampi.jpg",
 
-        chhattisgarh: "assets/images/chhattisgarh.jpg",
+        chhattisgarh: "assets/destinations/chhattisgarh.jpg",
 
-        mumbai: "assets/images/mumbai.jpg",
+        mumbai: "assets/destinations/mumbai.jpg",
 
-        nashik: "assets/images/nashik.jpg",
+        nashik: "assets/destinations/nashik.jpg",
 
-        jalgaon: "assets/images/jalgaon.jpg"
+        jalgaon: "assets/destinations/jalgaon.jpg"
 
     },
 
@@ -44,15 +44,15 @@ window.ImageService = {
 
     attractions: {
 
-        eiffel: "assets/images/paris.jpg",
+        eiffel: "assets/destinations/paris.jpg",
 
-        louvre: "assets/images/paris.jpg",
+        louvre: "assets/destinations/paris.jpg",
 
-        gardens: "assets/images/singapore.jpg",
+        gardens: "assets/destinations/singapore.jpg",
 
-        sentosa: "assets/images/singapore.jpg",
+        sentosa: "assets/destinations/singapore.jpg",
 
-        ubud: "assets/images/bali.jpg"
+        ubud: "assets/destinations/bali.jpg"
 
     },
 
@@ -62,37 +62,27 @@ window.ImageService = {
 
     hotels: {
 
-        "marina-bay-sands": "assets/images/singapore.jpg",
+        "marina-bay-sands": "assets/destinations/singapore.jpg",
 
-        "pan-pacific": "assets/images/singapore.jpg",
+        "pan-pacific": "assets/destinations/singapore.jpg",
 
-        "bali-beach-resort": "assets/images/bali.jpg"
+        "bali-beach-resort": "assets/destinations/bali.jpg"
 
     },
 
-    // --------------------------------------
-    // Functions
-    // --------------------------------------
-
     getDestinationImage(id) {
-
         return this.destinations[id] ||
-            "assets/images/paris.jpg";
-
+            "https://placehold.co/1200x700?text=Destination";
     },
 
     getAttractionImage(id) {
-
         return this.attractions[id] ||
-            "assets/images/paris.jpg";
-
+            "https://placehold.co/600x350?text=Attraction";
     },
 
     getHotelImage(id) {
-
         return this.hotels[id] ||
-            "assets/images/paris.jpg";
-
+            "https://placehold.co/600x350?text=Hotel";
     }
 
 };
