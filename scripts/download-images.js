@@ -10,9 +10,34 @@ if (!API_KEY) {
     process.exit(1);
 }
 
-async function downloadImage(query, outputPath) {
+// ----------------------------
+// Load JSON Data
+// ----------------------------
 
-    console.log(`Searching: ${query}`);
+const destinations = JSON.parse(
+    fs.readFileSync("data/destinations.json", "utf8")
+);
+
+const attractions = JSON.parse(
+    fs.readFileSync("data/attractions.json", "utf8")
+);
+
+const hotels = JSON.parse(
+    fs.readFileSync("data/hotels.json", "utf8")
+);
+
+// ----------------------------
+// Download Function
+// ----------------------------
+
+async function downloadImage(query, outputFile) {
+
+    if (fs.existsSync(outputFile)) {
+        console.log(`⏭ Skipped ${outputFile}`);
+        return;
+    }
+
+    console.log(`🔍 ${query}`);
 
     const response = await fetch(
         `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=1`,
@@ -23,10 +48,15 @@ async function downloadImage(query, outputPath) {
         }
     );
 
+    if (!response.ok) {
+        console.log(`❌ Failed: ${query}`);
+        return;
+    }
+
     const data = await response.json();
 
     if (!data.photos || data.photos.length === 0) {
-        console.log(`❌ No image found for ${query}`);
+        console.log(`❌ No image found: ${query}`);
         return;
     }
 
@@ -34,61 +64,69 @@ async function downloadImage(query, outputPath) {
 
     const imageResponse = await fetch(imageUrl);
 
-    const buffer = Buffer.from(await imageResponse.arrayBuffer());
+    const buffer = Buffer.from(
+        await imageResponse.arrayBuffer()
+    );
 
-    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.mkdirSync(path.dirname(outputFile), {
+        recursive: true
+    });
 
-    fs.writeFileSync(outputPath, buffer);
+    fs.writeFileSync(outputFile, buffer);
 
-    console.log(`✅ Saved ${outputPath}`);
+    console.log(`✅ Saved ${outputFile}`);
 }
+
+// ----------------------------
+// Main
+// ----------------------------
 
 async function main() {
 
-    // ===========================
-    // DESTINATIONS
-    // ===========================
+    console.log("\n🌍 Downloading Destination Images...\n");
 
-    const destinations = [
-        ["Paris France", "assets/destinations/paris.jpg"],
-        ["Tokyo Japan skyline", "assets/destinations/tokyo.jpg"],
-        ["Bali Indonesia beach", "assets/destinations/bali.jpg"],
-        ["Singapore skyline", "assets/destinations/singapore.jpg"],
-        ["Maldives overwater villas", "assets/destinations/maldives.jpg"],
-        ["Leh Ladakh mountains", "assets/destinations/leh.jpg"],
-        ["Ladakh India landscape", "assets/destinations/ladakh.jpg"],
-        ["Spiti Valley", "assets/destinations/spiti.jpg"],
-        ["Hampi ruins", "assets/destinations/hampi.jpg"],
-        ["Chhattisgarh waterfalls", "assets/destinations/chhattisgarh.jpg"],
-        ["Mumbai skyline", "assets/destinations/mumbai.jpg"],
-        ["Nashik vineyards", "assets/destinations/nashik.jpg"],
-        ["Jalgaon India", "assets/destinations/jalgaon.jpg"]
-    ];
+    for (const destination of destinations) {
 
-    // ===========================
-    // ATTRACTIONS
-    // ===========================
+        await downloadImage(
+            `${destination.name} ${destination.country} travel`,
+            `assets/destinations/${destination.id}.jpg`
+        );
 
-    const attractions = [
-        ["Eiffel Tower Paris", "assets/attractions/eiffel.jpg"],
-        ["Louvre Museum Paris", "assets/attractions/louvre.jpg"],
-        ["Gardens by the Bay Singapore", "assets/attractions/gardens.jpg"],
-        ["Sentosa Island Singapore", "assets/attractions/sentosa.jpg"],
-        ["Ubud Rice Terraces Bali", "assets/attractions/ubud.jpg"]
-    ];
-
-    for (const [query, file] of destinations) {
-        await downloadImage(query, file);
     }
 
-    for (const [query, file] of attractions) {
-        await downloadImage(query, file);
+    console.log("\n🏛 Downloading Attraction Images...\n");
+
+    for (const attraction of attractions) {
+
+        await downloadImage(
+            attraction.name,
+            `assets/attractions/${attraction.id}.jpg`
+        );
+
     }
 
-    console.log("🎉 All images downloaded successfully.");
+    console.log("\n🏨 Downloading Hotel Images...\n");
+
+    for (const hotel of hotels) {
+
+        const destination =
+            destinations.find(
+                d => d.id === hotel.destinationId
+            );
+
+        const searchQuery = destination
+            ? `${hotel.name} ${destination.name}`
+            : hotel.name;
+
+        await downloadImage(
+            searchQuery,
+            `assets/hotels/${hotel.id}.jpg`
+        );
+
+    }
+
+    console.log("\n🎉 All downloads completed!");
+
 }
 
-main().catch(err => {
-    console.error(err);
-    process.exit(1);
-});
+main().catch(console.error);
