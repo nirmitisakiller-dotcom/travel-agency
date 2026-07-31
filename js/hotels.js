@@ -1,552 +1,503 @@
-// ======================================================
-// Nature Tours
-// hotels.js
-// Part 1 of 5
-// ======================================================
+// ==========================================
+// Nature Tours Hotels
+// Version 2.0
+// ==========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+"use strict";
 
-     console.log("HOTELS.JS VERSION TEST");
-    // -----------------------------------
-    // Check page
-    // -----------------------------------
+// ------------------------------------------
+// Configuration
+// ------------------------------------------
 
-    const hotelGrid =
-        document.getElementById("hotel-cards-target-grid");
+const HotelApp = {
 
-    if (!hotelGrid)
-        return;
+    hotels: [],
 
-    // -----------------------------------
-    // Page Elements
-    // -----------------------------------
+    destination: null,
 
-    const loadingScreen =
-        document.getElementById("global-loading-screen");
+    loading: false,
 
-    const loadingText =
-        document.getElementById("loading-status-text-line");
+    container: null,
 
-    const loadingBar =
-        document.getElementById("loading-bar-progress-line");
+    apiBase: window.API_BASE || "",
 
-    const heroTitle =
-        document.getElementById("dynamic-hero-title");
+    whatsappNumber: "919999999999"
 
-    const featuredSection =
-        document.getElementById(
-            "popular-destinations-gallery-wrapper"
-        );
+};
 
-    const activeSection =
-        document.getElementById(
-            "active-hotels-section-wrapper"
-        );
+// ------------------------------------------
+// DOM Helpers
+// ------------------------------------------
 
-    const resultsCounter =
-        document.getElementById(
-            "hotel-results-counter"
-        );
+function $(id) {
 
-    // -----------------------------------
-    // Loading animation
-    // -----------------------------------
+    return document.getElementById(id);
 
-    function updateLoader(percent, message) {
+}
 
-        if (loadingBar)
-            loadingBar.style.width =
-                percent + "%";
+function createElement(tag, className = "") {
 
-        if (loadingText)
-            loadingText.textContent =
-                message;
+    const element = document.createElement(tag);
+
+    if (className) {
+
+        element.className = className;
 
     }
 
-    updateLoader(
-        5,
-        "Reading destination..."
-    );
+    return element;
 
-    // -----------------------------------
-    // Destination
-    // -----------------------------------
+}
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
+// ------------------------------------------
+// Image Helper
+// ------------------------------------------
 
-    let destination =
-        params.get("q");
+function getHotelImage(id) {
 
-    if (!destination) {
-
-        destination =
-            localStorage.getItem(
-                "natureToursDestination"
-            );
-
-    }
-
-    if (!destination) {
-
-        if (loadingScreen)
-            loadingScreen.style.display =
-                "none";
-
-        return;
-
-    }
-
-    heroTitle.textContent =
-        "Hotels in " + destination;
-
-    // -----------------------------------
-    // Start search
-    // -----------------------------------
-
-    searchHotels(destination);
-
-    // -----------------------------------
-    // Main Function
-    // -----------------------------------
-
-    async function searchHotels(city) {
-
-        try {
-
-            updateLoader(
-                20,
-                "Finding destination..."
-            );
-
-            const location =
-                await API.getCoordinates(city);
-
-            updateLoader(
-                45,
-                "Searching nearby hotels..."
-            );
-
-            const hotels =
-                await API.getHotels(
-                    location.lat,
-                    location.lon
-                );
-
-            updateLoader(
-                85,
-                "Preparing results..."
-            );
-
-            displayHotels(
-                hotels,
-                city
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(error);
-
-            if (loadingScreen)
-                loadingScreen.style.display =
-                    "none";
-
-            hotelGrid.innerHTML = `
-
-                <div class="glance-card">
-
-                    <div class="card-meta">
-
-                        <h3>
-                            Search Failed
-                        </h3>
-
-                        <p>
-
-                            ${error.message}
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-
-    }
-      // -----------------------------------
-    // Display Hotels
-    // -----------------------------------
-
-    function displayHotels(hotels, city) {
-
-        if (loadingScreen)
-            loadingScreen.style.display = "none";
-
-        if (featuredSection)
-            featuredSection.style.display = "none";
-
-        if (activeSection)
-            activeSection.style.display = "block";
-
-        if (resultsCounter) {
-
-            resultsCounter.textContent =
-                hotels.length +
-                " hotels found near " +
-                city;
-
-        }
-
-        hotelGrid.innerHTML = "";
-
-        if (!hotels.length) {
-
-            hotelGrid.innerHTML = `
-
-                <div class="glance-card">
-
-                    <div class="card-meta">
-
-                        <h3>No Hotels Found</h3>
-
-                        <p>
-
-                            We couldn't find any hotels
-                            near this destination.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-        updateLoader(
-            100,
-            "Completed"
-        );
-
-        hotels.forEach(hotel => {
-
-            hotelGrid.appendChild(
-
-                createHotelCard(
-                    hotel,
-                    city
-                )
-
-            );
-
-        });
-
-    }
-
-    // -----------------------------------
-    // Create Hotel Card
-    // -----------------------------------
-
-    function createHotelCard(
-        hotel,
-        city
+    if (
+        window.ImageService &&
+        typeof window.ImageService.getHotelImage === "function"
     ) {
 
-        const card =
-            document.createElement("div");
+        return window.ImageService.getHotelImage(id);
 
-        card.className =
-            "glance-card";
+    }
 
-        const whatsappMessage =
-            encodeURIComponent(
+    return `assets/hotels/${id}.jpg`;
 
-                `Hi Nature Tours,
+}
 
-I would like information about:
+// ------------------------------------------
+// Utility Functions
+// ------------------------------------------
 
-Hotel: ${hotel.name}
+function formatPrice(price) {
 
-Destination: ${city}
+    if (!price) return "Price unavailable";
 
-Please send me the best package and available options.`
+    return "₹" + Number(price).toLocaleString("en-IN");
 
-            );
+}
 
-        const mapsURL =
+function escapeHtml(text = "") {
 
-            `https://www.google.com/maps?q=${hotel.lat},${hotel.lon}`;
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-        card.innerHTML = `
+}
+// ------------------------------------------
+// Loading UI
+// ------------------------------------------
 
-            <div class="card-meta">
+function showLoading(message = "Searching hotels...") {
 
-                <h3>
+    if (!HotelApp.container) return;
 
-                    ${hotel.name}
+    HotelApp.loading = true;
 
-                </h3>
+    HotelApp.container.innerHTML = `
+        <div class="loading-section">
 
-                <p class="card-vibe">
+            <div class="loading-spinner"></div>
 
-                    📍 ${hotel.address}
+            <h2>${message}</h2>
 
-                </p>
+            <p>Please wait while we find the best hotels.</p>
 
-                <p>
+        </div>
+    `;
 
-                    ⭐ Stars:
-                    ${hotel.stars}
+}
 
-                </p>
-                                <div
-                    style="
-                        display:flex;
-                        gap:10px;
-                        flex-wrap:wrap;
-                        margin-top:20px;
-                    "
-                >
+function showError(message) {
 
-                    <a
-                        href="${mapsURL}"
-                        target="_blank"
-                        class="nav-cta-btn"
-                    >
-                        🗺 View on Map
-                    </a>
+    if (!HotelApp.container) return;
 
-                    <a
-                        href="https://wa.me/919822339466?text=${whatsappMessage}"
-                        target="_blank"
-                        class="nav-cta-btn"
-                    >
-                        💬 WhatsApp Enquiry
-                    </a>
+    HotelApp.loading = false;
 
-                </div>
+    HotelApp.container.innerHTML = `
+        <div class="error-section">
+
+            <h2>Oops!</h2>
+
+            <p>${escapeHtml(message)}</p>
+
+        </div>
+    `;
+
+}
+
+function showEmpty(message = "No hotels found.") {
+
+    if (!HotelApp.container) return;
+
+    HotelApp.loading = false;
+
+    HotelApp.container.innerHTML = `
+        <div class="empty-section">
+
+            <h2>No Results</h2>
+
+            <p>${escapeHtml(message)}</p>
+
+        </div>
+    `;
+
+}
+
+// ------------------------------------------
+// Destination Helpers
+// ------------------------------------------
+
+function getDestinationFromURL() {
+
+    const params = new URLSearchParams(window.location.search);
+
+    return (
+        params.get("q") ||
+        localStorage.getItem("natureToursDestination") ||
+        ""
+    );
+
+}
+
+// ------------------------------------------
+// Load Hotel Data
+// ------------------------------------------
+
+async function loadHotels() {
+
+    const response = await fetch("data/hotels.json");
+
+    if (!response.ok) {
+
+        throw new Error("Unable to load hotel database.");
+
+    }
+
+    HotelApp.hotels = await response.json();
+
+    return HotelApp.hotels;
+
+}
+
+// ------------------------------------------
+// Filter Hotels
+// ------------------------------------------
+
+function getHotelsForDestination(destinationName) {
+
+    if (!destinationName) return [];
+
+    const search = destinationName.toLowerCase();
+
+    return HotelApp.hotels.filter(hotel =>
+
+        hotel.destinationId.toLowerCase() === search ||
+
+        hotel.name.toLowerCase().includes(search)
+
+    );
+
+}
+// ------------------------------------------
+// Star Rating
+// ------------------------------------------
+
+function renderStars(rating = 0) {
+
+    let stars = "";
+
+    for (let i = 1; i <= 5; i++) {
+
+        stars += i <= rating ? "★" : "☆";
+
+    }
+
+    return stars;
+
+}
+
+// ------------------------------------------
+// Google Maps
+// ------------------------------------------
+
+function getGoogleMapsLink(hotel) {
+
+    const query = encodeURIComponent(
+
+        `${hotel.name} ${hotel.address}`
+
+    );
+
+    return `https://www.google.com/maps/search/?api=1&query=${query}`;
+
+}
+
+// ------------------------------------------
+// WhatsApp
+// ------------------------------------------
+
+function getWhatsAppLink(hotel) {
+
+    const text = encodeURIComponent(
+
+`Hello Nature Tours,
+
+I'm interested in booking:
+
+🏨 ${hotel.name}
+
+📍 ${hotel.address}
+
+Could you please provide more information?`
+
+    );
+
+    return `https://wa.me/${HotelApp.whatsappNumber}?text=${text}`;
+
+}
+
+// ------------------------------------------
+// Hotel Card
+// ------------------------------------------
+
+function createHotelCard(hotel) {
+
+    return `
+
+    <div class="hotel-card">
+
+        <img
+
+            class="hotel-photo"
+
+            src="${getHotelImage(hotel.id)}"
+
+            alt="${escapeHtml(hotel.name)}"
+
+            loading="lazy"
+
+            onerror="this.src='https://placehold.co/600x400?text=Hotel';"
+
+        >
+
+        <div class="hotel-content">
+
+            <h2>
+
+                ${escapeHtml(hotel.name)}
+
+            </h2>
+
+            <div class="hotel-rating">
+
+                ${renderStars(hotel.rating)}
+
+                <span>
+
+                    ${hotel.rating}/5
+
+                </span>
 
             </div>
 
-        `;
+            <p class="hotel-address">
 
-        return card;
-
-    }
-
-    // -----------------------------------
-    // Helper Function
-    // Create safe text
-    // -----------------------------------
-
-    function safe(value) {
-
-        if (
-            value === null ||
-            value === undefined ||
-            value === ""
-        ) {
-
-            return "Not Available";
-
-        }
-
-        return value;
-
-    }
-
-    // -----------------------------------
-    // Format Star Rating
-    // -----------------------------------
-
-    function formatStars(stars) {
-
-        if (
-            stars === "N/A" ||
-            stars === undefined ||
-            stars === null
-        ) {
-
-            return "Not Rated";
-
-        }
-
-        let output = "";
-
-        const count =
-            parseInt(stars);
-
-        if (!isNaN(count)) {
-
-            for (
-                let i = 0;
-                i < count;
-                i++
-            ) {
-
-                output += "⭐";
-
-            }
-
-            return output;
-
-        }
-
-        return stars;
-
-    }
-      // -----------------------------------
-    // Optional Information Helpers
-    // -----------------------------------
-
-    function createWebsiteButton(hotel) {
-
-        if (!hotel.website)
-            return "";
-
-        return `
-
-            <a
-                href="${hotel.website}"
-                target="_blank"
-                class="nav-cta-btn"
-            >
-                🌐 Website
-            </a>
-
-        `;
-
-    }
-
-    function createPhoneLine(hotel) {
-
-        if (!hotel.phone)
-            return "";
-
-        return `
-
-            <p>
-
-                ☎ ${hotel.phone}
+                📍 ${escapeHtml(hotel.address)}
 
             </p>
 
-        `;
+            <p class="hotel-price">
+
+                ${formatPrice(hotel.price)}
+
+                <small>/ night</small>
+
+            </p>
+
+            <div class="hotel-amenities">
+
+                ${
+
+                    (hotel.amenities || [])
+
+                        .map(a => `<span>${escapeHtml(a)}</span>`)
+
+                        .join("")
+
+                }
+
+            </div>
+
+            <div class="hotel-buttons">
+
+                <a
+
+                    class="hotel-btn"
+
+                    href="${hotel.bookingUrl || "#"}"
+
+                    target="_blank"
+
+                >
+
+                    Book Now
+
+                </a>
+
+                <a
+
+                    class="hotel-btn"
+
+                    href="${getGoogleMapsLink(hotel)}"
+
+                    target="_blank"
+
+                >
+
+                    Google Maps
+
+                </a>
+
+                <a
+
+                    class="hotel-btn"
+
+                    href="${getWhatsAppLink(hotel)}"
+
+                    target="_blank"
+
+                >
+
+                    WhatsApp
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+// ------------------------------------------
+// Render Hotels
+// ------------------------------------------
+
+function renderHotels(hotels) {
+
+    HotelApp.loading = false;
+
+    if (!HotelApp.container) return;
+
+    if (!hotels.length) {
+
+        showEmpty("No hotels available for this destination.");
+
+        return;
 
     }
 
-    // -----------------------------------
-    // Sort Hotels Alphabetically
-    // -----------------------------------
+    HotelApp.container.innerHTML = `
 
-    function sortHotels(hotels) {
+        <section class="hotel-results">
 
-        return hotels.sort((a, b) => {
+            <h1 class="hotel-page-title">
 
-            const first =
-                (a.name || "")
-                .toLowerCase();
+                Hotels in ${escapeHtml(HotelApp.destination)}
 
-            const second =
-                (b.name || "")
-                .toLowerCase();
+            </h1>
 
-            return first.localeCompare(second);
+            <div class="hotel-grid">
 
-        });
+                ${hotels.map(createHotelCard).join("")}
 
-    }
+            </div>
 
-    // -----------------------------------
-    // Remove Duplicate Hotels
-    // -----------------------------------
+        </section>
 
-    function removeDuplicates(hotels) {
+    `;
 
-        const seen = new Set();
+}
 
-        return hotels.filter(hotel => {
+// ------------------------------------------
+// Main Loader
+// ------------------------------------------
 
-            const key =
-                (
-                    hotel.name +
-                    "_" +
-                    hotel.lat +
-                    "_" +
-                    hotel.lon
-                ).toLowerCase();
+async function initializeHotels() {
 
-            if (seen.has(key))
-                return false;
+    HotelApp.container =
 
-            seen.add(key);
+        document.getElementById("hotel-results") ||
 
-            return true;
+        document.getElementById("hotels-container") ||
 
-        });
+        document.getElementById("hotels") ||
+
+        document.querySelector(".hotel-results") ||
+
+        document.querySelector("main");
+
+    if (!HotelApp.container) {
+
+        console.error("Hotel container not found.");
+
+        return;
 
     }
 
-    // -----------------------------------
-    // Improve Hotel Data
-    // -----------------------------------
+    HotelApp.destination = getDestinationFromURL();
 
-    function prepareHotels(hotels) {
+    if (!HotelApp.destination) {
 
-        hotels = removeDuplicates(hotels);
+        showError("No destination selected.");
 
-        hotels = sortHotels(hotels);
-
-        hotels.forEach(hotel => {
-
-            hotel.name =
-                safe(hotel.name);
-
-            hotel.address =
-                safe(hotel.address);
-
-            hotel.stars =
-                formatStars(hotel.stars);
-
-            hotel.phone =
-                safe(hotel.phone);
-
-            hotel.website =
-                hotel.website || "";
-
-        });
-
-        return hotels;
+        return;
 
     }
 
-    // -----------------------------------
-    // Replace displayHotels with cleaner data
-    // -----------------------------------
+    showLoading();
 
-    const originalDisplay =
-        displayHotels;
+    try {
 
-    displayHotels = function(hotels, city) {
+        await loadHotels();
 
-        hotels =
-            prepareHotels(hotels);
+        const hotels = getHotelsForDestination(
 
-        originalDisplay(
-            hotels,
-            city
+            HotelApp.destination
+
         );
 
-    };
-});
+        renderHotels(hotels);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showError(error.message);
+
+    }
+
+}
+
+// ------------------------------------------
+// Start Application
+// ------------------------------------------
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    initializeHotels
+
+);
