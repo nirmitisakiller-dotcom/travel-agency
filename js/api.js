@@ -1,128 +1,77 @@
 // ==========================================
-// Nature Tours API
-// Uses free OpenStreetMap services
-// No API key required
+// Nature Tours Destination Engine
 // ==========================================
 
-window.API = {
+window.DestinationEngine = {
 
-    // --------------------------------------
-    // Convert city name into coordinates
-    // --------------------------------------
-    async getCoordinates(place) {
+    destinations: [],
 
-        const url =
-            "https://nominatim.openstreetmap.org/search?" +
-            "q=" + encodeURIComponent(place) +
-            "&format=json&limit=1";
+    async load() {
 
-        const response = await fetch(url, {
-            headers: {
-                "Accept": "application/json"
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error("Unable to locate destination.");
+        if (this.destinations.length) {
+            return this.destinations;
         }
 
-        const data = await response.json();
+        const response = await fetch("data/destinations.json");
 
-        if (!data.length) {
-            throw new Error("Destination not found.");
-        }
+        this.destinations = await response.json();
 
-        return {
-            name: data[0].display_name,
-            lat: parseFloat(data[0].lat),
-            lon: parseFloat(data[0].lon)
-        };
+        return this.destinations;
+    },
+
+    async find(searchText) {
+
+        await this.load();
+
+        if (!searchText) return null;
+
+        const search = searchText.trim().toLowerCase();
+
+        return this.destinations.find(destination =>
+
+            destination.name.toLowerCase() === search ||
+
+            destination.country.toLowerCase() === search ||
+
+            destination.continent.toLowerCase() === search ||
+
+            (destination.region || "").toLowerCase() === search ||
+
+            (destination.tags || []).some(tag =>
+                tag.toLowerCase() === search
+            )
+
+        );
 
     },
 
-    // --------------------------------------
-    // Search nearby hotels
-    // Radius = 10 km
-    // --------------------------------------
-    async getHotels(lat, lon) {
+    async search(searchText) {
 
-        const query = `
-[out:json][timeout:25];
+        await this.load();
 
-(
-  node
-    ["tourism"="hotel"]
-    (around:10000,${lat},${lon});
+        if (!searchText) return [];
 
-  way
-    ["tourism"="hotel"]
-    (around:10000,${lat},${lon});
+        const search = searchText.trim().toLowerCase();
 
-  relation
-    ["tourism"="hotel"]
-    (around:10000,${lat},${lon});
-);
+        return this.destinations.filter(destination => {
 
-out center tags;
-`;
+            return (
 
-        const response = await fetch(
-       "https://overpass-api.de/api/interpreter",
-            {
-                method: "POST",
-                body: query
-            }
-        );
+                destination.name.toLowerCase().includes(search) ||
 
-        if (!response.ok) {
-            throw new Error("Unable to fetch hotel data.");
-        }
+                destination.country.toLowerCase().includes(search) ||
 
-        const data = await response.json();
+                destination.continent.toLowerCase().includes(search) ||
 
-        return data.elements.map(item => {
+                (destination.region || "")
+                    .toLowerCase()
+                    .includes(search) ||
 
-            const latitude =
-                item.lat ??
-                item.center?.lat ??
-                0;
+                (destination.tags || []).some(tag =>
+                    tag.toLowerCase().includes(search)
+                )
 
-            const longitude =
-                item.lon ??
-                item.center?.lon ??
-                0;
-
-            return {
-
-                id: item.id,
-
-                name:
-                    item.tags?.name ||
-                    "Unnamed Hotel",
-
-                address:
-                    item.tags?.["addr:full"] ||
-                    item.tags?.street ||
-                    item.tags?.city ||
-                    "Address unavailable",
-
-                stars:
-                    item.tags?.stars ||
-                    "N/A",
-
-                phone:
-                    item.tags?.phone ||
-                    "",
-
-                website:
-                    item.tags?.website ||
-                    "",
-
-                lat: latitude,
-
-                lon: longitude
-
-            };
+            );
 
         });
 
