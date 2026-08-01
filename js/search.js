@@ -2,20 +2,27 @@
 // Nature Tours Search
 // ==========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     const form = document.getElementById("header-search-form");
     const input = document.getElementById("search-input");
 
     if (!form || !input) return;
 
-   form.addEventListener("submit", async function (e) {
+    // Load destination database once
+    await window.DestinationEngine.load();
+
+    // --------------------------------------
+    // Search
+    // --------------------------------------
+
+    form.addEventListener("submit", async function (e) {
 
         e.preventDefault();
 
-        const destination = input.value.trim();
+        const query = input.value.trim();
 
-        if (destination === "") {
+        if (!query) {
 
             alert("Please enter a destination.");
             input.focus();
@@ -23,43 +30,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-        // Save destination for results page
         localStorage.setItem(
             "natureToursDestination",
-            destination
+            query
         );
 
-        // Route using your existing pages
-   const search = destination.toLowerCase();
+        const match = await window.DestinationEngine.find(query);
 
-const destinations =
-    await window.DestinationEngine.load();
+        if (!match) {
 
-const match = destinations.find(d =>
-    d.name.toLowerCase() === search
-);
+            alert("Destination not found.");
+            return;
 
-if (match) {
+        }
 
-    if (match.type === "domestic") {
-
+        // Open destination page directly
         window.location.href =
-            "domestic.html?q=" +
-            encodeURIComponent(match.name);
+            "destination.html?id=" +
+            encodeURIComponent(match.id);
 
-    } else {
-
-        window.location.href =
-            "international.html?q=" +
-            encodeURIComponent(match.name);
-
-    }
-
-} else {
-
-    alert("Destination not found.");
-
-}
     });
+
+    // --------------------------------------
+    // Simple Autocomplete
+    // --------------------------------------
+
+    const datalist = document.createElement("datalist");
+    datalist.id = "destination-list";
+
+    window.DestinationEngine.destinations.forEach(destination => {
+
+        const option = document.createElement("option");
+        option.value = destination.name;
+        datalist.appendChild(option);
+
+    });
+
+    document.body.appendChild(datalist);
+
+    input.setAttribute("list", "destination-list");
 
 });
