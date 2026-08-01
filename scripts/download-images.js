@@ -1,113 +1,132 @@
 const fs = require("fs");
 const path = require("path");
 
-const destinationsFile = path.join(__dirname, "../data/destinations.json");
-const hotelsFile = path.join(__dirname, "../data/hotels.json");
+const API_KEY = process.env.PEXELS_API_KEY;
+
+if (!API_KEY) {
+    console.error("❌ Missing PEXELS_API_KEY");
+    process.exit(1);
+}
 
 const destinations = JSON.parse(
-    fs.readFileSync(destinationsFile, "utf8")
+    fs.readFileSync(
+        path.join(__dirname, "../data/destinations.json"),
+        "utf8"
+    )
 );
 
-const hotelTemplates = [
-    {
-        prefix: "Grand",
-        stars: 5,
-        price: 18000
-    },
-    {
-        prefix: "Royal",
-        stars: 5,
-        price: 22000
-    },
-    {
-        prefix: "Plaza",
-        stars: 4,
-        price: 12000
-    },
-    {
-        prefix: "Suites",
-        stars: 4,
-        price: 9000
-    },
-    {
-        prefix: "Inn",
-        stars: 3,
-        price: 6000
+const hotels = JSON.parse(
+    fs.readFileSync(
+        path.join(__dirname, "../data/hotels.json"),
+        "utf8"
+    )
+);
+
+async function downloadImage(searchQuery, outputFile) {
+
+    if (fs.existsSync(outputFile)) {
+        console.log("✔ Exists:", outputFile);
+        return;
     }
-];
 
-const amenities = [
-    "Free WiFi",
-    "Breakfast",
-    "Swimming Pool",
-    "Spa",
-    "Gym",
-    "Airport Shuttle",
-    "Restaurant",
-    "Parking",
-    "Room Service"
-];
+    console.log("🔍 Searching:", searchQuery);
 
-function slug(text) {
-    return text
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-}
+    const response = await fetch(
+        `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=1`,
+        {
+            headers: {
+                Authorization: API_KEY
+            }
+        }
+    );
 
-function randomAmenities() {
+    if (!response.ok) {
+        console.log("❌ Pexels request failed:", searchQuery);
+        return;
+    }
 
-    const copy = [...amenities];
+    const data = await response.json();
 
-    copy.sort(() => Math.random() - 0.5);
+    if (!data.photos || data.photos.length === 0) {
+        console.log("❌ No image found:", searchQuery);
+        return;
+    }
 
-    return copy.slice(0, 4);
+    const imageUrl = data.photos[0].src.large2x;
 
-}
+    const imageResponse = await fetch(imageUrl);
 
-const hotels = [];
+    const buffer = Buffer.from(
+        await imageResponse.arrayBuffer()
+    );
 
-destinations.forEach(destination => {
-
-    hotelTemplates.forEach(template => {
-
-        const hotelName =
-            `${template.prefix} ${destination.name}`;
-
-        hotels.push({
-
-            id: slug(hotelName),
-
-            destinationId: destination.id,
-
-            name: hotelName,
-
-            rating: template.stars,
-
-            price: template.price,
-
-            currency: "INR",
-
-            image: `assets/hotels/${slug(hotelName)}.jpg`,
-
-            address:
-                `Central ${destination.name}, ${destination.country}`,
-
-            amenities: randomAmenities(),
-
-            bookingUrl: "#"
-
-        });
-
+    fs.mkdirSync(path.dirname(outputFile), {
+        recursive: true
     });
 
+    fs.writeFileSync(outputFile, buffer);
+
+    console.log("✅ Saved:", outputFile);
+
+}
+
+async function main() {
+
+    console.log("=================================");
+    console.log("Nature Tours Image Downloader");
+    console.log("=================================");
+
+    console.log("\nDownloading destination images...\n");
+
+    for (const destination of destinations) {
+
+        const output = path.join(
+            __dirname,
+            "../assets/destinations",
+            `${destination.id}.jpg`
+        );
+
+        await downloadImage(
+
+            `${destination.name} ${destination.country} travel`,
+
+            output
+
+        );
+
+    }
+
+    console.log("\nDownloading hotel images...\n");
+
+    for (const hotel of hotels) {
+
+        const destination =
+            destinations.find(
+                d => d.id === hotel.destinationId
+            );
+
+        const output = path.join(
+            __dirname,
+            "../assets/hotels",
+            `${hotel.id}.jpg`
+        );
+
+        const query = destination
+            ? `${hotel.name} ${destination.name} hotel`
+            : `${hotel.name} hotel`;
+
+        await downloadImage(query, output);
+
+    }
+
+    console.log("\n🎉 Finished downloading images.");
+
+}
+
+main().catch(error => {
+
+    console.error(error);
+
+    process.exit(1);
+
 });
-
-fs.writeFileSync(
-    hotelsFile,
-    JSON.stringify(hotels, null, 2)
-);
-
-console.log(
-    `✅ Generated ${hotels.length} hotels.`
-);
