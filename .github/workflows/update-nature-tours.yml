@@ -1,0 +1,51 @@
+name: Update Nature Tours
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+
+  update:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Generate Hotels
+        run: node scripts/generate-hotels.js
+
+      - name: Generate Attractions
+        run: node scripts/generate-attractions.js
+
+      - name: Download Images
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node scripts/download-images.js
+
+      - name: Commit Changes
+
+        run: |
+
+          git config --global user.name "github-actions"
+
+          git config --global user.email "github-actions@github.com"
+
+          git add .
+
+          git diff --cached --quiet || git commit -m "Auto update Nature Tours"
+
+          git push
