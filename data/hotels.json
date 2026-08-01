@@ -48,4 +48,56 @@
     ],
     "bookingUrl": "#"
   }
+  ,
+{
+  "id": "ritz-paris",
+  "destinationId": "paris",
+  "name": "Ritz Paris",
+  "rating": 5,
+  "price": 42000,
+  "currency": "INR",
+  "image": "",
+  "address": "15 Place Vendôme, Paris, France",
+  "amenities": [
+    "Free WiFi",
+    "Spa",
+    "Indoor Pool",
+    "Breakfast Included"
+  ],
+  "bookingUrl": "#"
+},
+{
+  "id": "hotel-lutetia",
+  "destinationId": "paris",
+  "name": "Hôtel Lutetia",
+  "rating": 5,
+  "price": 36000,
+  "currency": "INR",
+  "image": "",
+  "address": "45 Boulevard Raspail, Paris, France",
+  "amenities": [
+    "Free WiFi",
+    "Gym",
+    "Spa",
+    "Restaurant"
+  ],
+  "bookingUrl": "#"
+},
+{
+  "id": "novotel-paris-centre",
+  "destinationId": "paris",
+  "name": "Novotel Paris Centre",
+  "rating": 4,
+  "price": 16000,
+  "currency": "INR",
+  "image": "",
+  "address": "61 Quai de Grenelle, Paris, France",
+  "amenities": [
+    "Free WiFi",
+    "Breakfast",
+    "Fitness Centre",
+    "Family Rooms"
+  ],
+  "bookingUrl": "#"
+}
 ]
