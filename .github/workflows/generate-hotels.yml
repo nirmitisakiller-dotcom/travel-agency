@@ -1,0 +1,36 @@
+name: Generate Hotels
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-hotels:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate hotels
+        run: node scripts/generate-hotels.js
+
+      - name: Commit generated hotels
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add data/hotels.json
+
+          git diff --cached --quiet || git commit -m "Auto generate hotels"
+
+          git push
