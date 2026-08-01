@@ -1,52 +1,652 @@
 [
   {
-    "id": "eiffel",
+    "id": "paris-city-tour",
     "destinationId": "paris",
-    "name": "Eiffel Tower",
-    "type": "Landmark",
-    "rating": 4.9,
-    "price": "₹2,500",
-    "image": "",
-    "description": "The most famous landmark in Paris."
+    "name": "Paris City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/paris-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Paris."
   },
   {
-    "id": "louvre",
+    "id": "paris-museum",
     "destinationId": "paris",
-    "name": "Louvre Museum",
+    "name": "Paris Museum",
     "type": "Museum",
-    "rating": 4.8,
-    "price": "₹1,800",
-    "image": "",
-    "description": "Home of the Mona Lisa."
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/paris-museum.jpg",
+    "description": "One of the most popular museum attractions in Paris."
   },
   {
-    "id": "gardens",
-    "destinationId": "singapore",
-    "name": "Gardens by the Bay",
-    "type": "Nature",
+    "id": "paris-historic-fort",
+    "destinationId": "paris",
+    "name": "Paris Historic Fort",
+    "type": "Historical",
     "rating": 4.9,
-    "price": "₹1,200",
-    "image": "",
-    "description": "Singapore's iconic futuristic gardens."
+    "price": "₹500",
+    "image": "assets/attractions/paris-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Paris."
   },
   {
-    "id": "sentosa",
-    "destinationId": "singapore",
-    "name": "Sentosa Island",
-    "type": "Island",
-    "rating": 4.8,
-    "price": "₹3,000",
-    "image": "",
-    "description": "Beaches, resorts and Universal Studios."
+    "id": "paris-botanical-garden",
+    "destinationId": "paris",
+    "name": "Paris Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/paris-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Paris."
   },
   {
-    "id": "ubud",
-    "destinationId": "bali",
-    "name": "Ubud",
-    "type": "Culture",
+    "id": "paris-view-point",
+    "destinationId": "paris",
+    "name": "Paris View Point",
+    "type": "Scenic",
     "rating": 4.8,
     "price": "Free",
-    "image": "",
-    "description": "Rice terraces, temples and Balinese culture."
+    "image": "assets/attractions/paris-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Paris."
+  },
+  {
+    "id": "tokyo-city-tour",
+    "destinationId": "tokyo",
+    "name": "Tokyo City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/tokyo-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Tokyo."
+  },
+  {
+    "id": "tokyo-museum",
+    "destinationId": "tokyo",
+    "name": "Tokyo Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/tokyo-museum.jpg",
+    "description": "One of the most popular museum attractions in Tokyo."
+  },
+  {
+    "id": "tokyo-historic-fort",
+    "destinationId": "tokyo",
+    "name": "Tokyo Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/tokyo-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Tokyo."
+  },
+  {
+    "id": "tokyo-botanical-garden",
+    "destinationId": "tokyo",
+    "name": "Tokyo Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/tokyo-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Tokyo."
+  },
+  {
+    "id": "tokyo-view-point",
+    "destinationId": "tokyo",
+    "name": "Tokyo View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/tokyo-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Tokyo."
+  },
+  {
+    "id": "bali-city-tour",
+    "destinationId": "bali",
+    "name": "Bali City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/bali-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Bali."
+  },
+  {
+    "id": "bali-museum",
+    "destinationId": "bali",
+    "name": "Bali Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/bali-museum.jpg",
+    "description": "One of the most popular museum attractions in Bali."
+  },
+  {
+    "id": "bali-historic-fort",
+    "destinationId": "bali",
+    "name": "Bali Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/bali-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Bali."
+  },
+  {
+    "id": "bali-botanical-garden",
+    "destinationId": "bali",
+    "name": "Bali Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/bali-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Bali."
+  },
+  {
+    "id": "bali-view-point",
+    "destinationId": "bali",
+    "name": "Bali View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/bali-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Bali."
+  },
+  {
+    "id": "singapore-city-tour",
+    "destinationId": "singapore",
+    "name": "Singapore City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/singapore-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Singapore."
+  },
+  {
+    "id": "singapore-museum",
+    "destinationId": "singapore",
+    "name": "Singapore Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/singapore-museum.jpg",
+    "description": "One of the most popular museum attractions in Singapore."
+  },
+  {
+    "id": "singapore-historic-fort",
+    "destinationId": "singapore",
+    "name": "Singapore Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/singapore-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Singapore."
+  },
+  {
+    "id": "singapore-botanical-garden",
+    "destinationId": "singapore",
+    "name": "Singapore Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/singapore-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Singapore."
+  },
+  {
+    "id": "singapore-view-point",
+    "destinationId": "singapore",
+    "name": "Singapore View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/singapore-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Singapore."
+  },
+  {
+    "id": "maldives-city-tour",
+    "destinationId": "maldives",
+    "name": "Maldives City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/maldives-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Maldives."
+  },
+  {
+    "id": "maldives-museum",
+    "destinationId": "maldives",
+    "name": "Maldives Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/maldives-museum.jpg",
+    "description": "One of the most popular museum attractions in Maldives."
+  },
+  {
+    "id": "maldives-historic-fort",
+    "destinationId": "maldives",
+    "name": "Maldives Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/maldives-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Maldives."
+  },
+  {
+    "id": "maldives-botanical-garden",
+    "destinationId": "maldives",
+    "name": "Maldives Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/maldives-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Maldives."
+  },
+  {
+    "id": "maldives-view-point",
+    "destinationId": "maldives",
+    "name": "Maldives View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/maldives-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Maldives."
+  },
+  {
+    "id": "leh-city-tour",
+    "destinationId": "leh",
+    "name": "Leh City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/leh-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Leh."
+  },
+  {
+    "id": "leh-museum",
+    "destinationId": "leh",
+    "name": "Leh Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/leh-museum.jpg",
+    "description": "One of the most popular museum attractions in Leh."
+  },
+  {
+    "id": "leh-historic-fort",
+    "destinationId": "leh",
+    "name": "Leh Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/leh-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Leh."
+  },
+  {
+    "id": "leh-botanical-garden",
+    "destinationId": "leh",
+    "name": "Leh Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/leh-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Leh."
+  },
+  {
+    "id": "leh-view-point",
+    "destinationId": "leh",
+    "name": "Leh View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/leh-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Leh."
+  },
+  {
+    "id": "ladakh-city-tour",
+    "destinationId": "ladakh",
+    "name": "Ladakh City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/ladakh-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Ladakh."
+  },
+  {
+    "id": "ladakh-museum",
+    "destinationId": "ladakh",
+    "name": "Ladakh Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/ladakh-museum.jpg",
+    "description": "One of the most popular museum attractions in Ladakh."
+  },
+  {
+    "id": "ladakh-historic-fort",
+    "destinationId": "ladakh",
+    "name": "Ladakh Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/ladakh-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Ladakh."
+  },
+  {
+    "id": "ladakh-botanical-garden",
+    "destinationId": "ladakh",
+    "name": "Ladakh Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/ladakh-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Ladakh."
+  },
+  {
+    "id": "ladakh-view-point",
+    "destinationId": "ladakh",
+    "name": "Ladakh View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/ladakh-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Ladakh."
+  },
+  {
+    "id": "spiti-city-tour",
+    "destinationId": "spiti",
+    "name": "Spiti City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/spiti-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Spiti."
+  },
+  {
+    "id": "spiti-museum",
+    "destinationId": "spiti",
+    "name": "Spiti Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/spiti-museum.jpg",
+    "description": "One of the most popular museum attractions in Spiti."
+  },
+  {
+    "id": "spiti-historic-fort",
+    "destinationId": "spiti",
+    "name": "Spiti Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/spiti-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Spiti."
+  },
+  {
+    "id": "spiti-botanical-garden",
+    "destinationId": "spiti",
+    "name": "Spiti Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/spiti-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Spiti."
+  },
+  {
+    "id": "spiti-view-point",
+    "destinationId": "spiti",
+    "name": "Spiti View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/spiti-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Spiti."
+  },
+  {
+    "id": "hampi-city-tour",
+    "destinationId": "hampi",
+    "name": "Hampi City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/hampi-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Hampi."
+  },
+  {
+    "id": "hampi-museum",
+    "destinationId": "hampi",
+    "name": "Hampi Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/hampi-museum.jpg",
+    "description": "One of the most popular museum attractions in Hampi."
+  },
+  {
+    "id": "hampi-historic-fort",
+    "destinationId": "hampi",
+    "name": "Hampi Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/hampi-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Hampi."
+  },
+  {
+    "id": "hampi-botanical-garden",
+    "destinationId": "hampi",
+    "name": "Hampi Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/hampi-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Hampi."
+  },
+  {
+    "id": "hampi-view-point",
+    "destinationId": "hampi",
+    "name": "Hampi View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/hampi-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Hampi."
+  },
+  {
+    "id": "chhattisgarh-city-tour",
+    "destinationId": "chhattisgarh",
+    "name": "Chhattisgarh City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/chhattisgarh-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Chhattisgarh."
+  },
+  {
+    "id": "chhattisgarh-museum",
+    "destinationId": "chhattisgarh",
+    "name": "Chhattisgarh Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/chhattisgarh-museum.jpg",
+    "description": "One of the most popular museum attractions in Chhattisgarh."
+  },
+  {
+    "id": "chhattisgarh-historic-fort",
+    "destinationId": "chhattisgarh",
+    "name": "Chhattisgarh Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/chhattisgarh-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Chhattisgarh."
+  },
+  {
+    "id": "chhattisgarh-botanical-garden",
+    "destinationId": "chhattisgarh",
+    "name": "Chhattisgarh Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/chhattisgarh-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Chhattisgarh."
+  },
+  {
+    "id": "chhattisgarh-view-point",
+    "destinationId": "chhattisgarh",
+    "name": "Chhattisgarh View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/chhattisgarh-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Chhattisgarh."
+  },
+  {
+    "id": "mumbai-city-tour",
+    "destinationId": "mumbai",
+    "name": "Mumbai City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/mumbai-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Mumbai."
+  },
+  {
+    "id": "mumbai-museum",
+    "destinationId": "mumbai",
+    "name": "Mumbai Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/mumbai-museum.jpg",
+    "description": "One of the most popular museum attractions in Mumbai."
+  },
+  {
+    "id": "mumbai-historic-fort",
+    "destinationId": "mumbai",
+    "name": "Mumbai Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/mumbai-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Mumbai."
+  },
+  {
+    "id": "mumbai-botanical-garden",
+    "destinationId": "mumbai",
+    "name": "Mumbai Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/mumbai-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Mumbai."
+  },
+  {
+    "id": "mumbai-view-point",
+    "destinationId": "mumbai",
+    "name": "Mumbai View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/mumbai-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Mumbai."
+  },
+  {
+    "id": "nashik-city-tour",
+    "destinationId": "nashik",
+    "name": "Nashik City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/nashik-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Nashik."
+  },
+  {
+    "id": "nashik-museum",
+    "destinationId": "nashik",
+    "name": "Nashik Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/nashik-museum.jpg",
+    "description": "One of the most popular museum attractions in Nashik."
+  },
+  {
+    "id": "nashik-historic-fort",
+    "destinationId": "nashik",
+    "name": "Nashik Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/nashik-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Nashik."
+  },
+  {
+    "id": "nashik-botanical-garden",
+    "destinationId": "nashik",
+    "name": "Nashik Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/nashik-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Nashik."
+  },
+  {
+    "id": "nashik-view-point",
+    "destinationId": "nashik",
+    "name": "Nashik View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/nashik-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Nashik."
+  },
+  {
+    "id": "jalgaon-city-tour",
+    "destinationId": "jalgaon",
+    "name": "Jalgaon City Tour",
+    "type": "Sightseeing",
+    "rating": 4.8,
+    "price": "₹2,000",
+    "image": "assets/attractions/jalgaon-city-tour.jpg",
+    "description": "One of the most popular sightseeing attractions in Jalgaon."
+  },
+  {
+    "id": "jalgaon-museum",
+    "destinationId": "jalgaon",
+    "name": "Jalgaon Museum",
+    "type": "Museum",
+    "rating": 4.7,
+    "price": "₹800",
+    "image": "assets/attractions/jalgaon-museum.jpg",
+    "description": "One of the most popular museum attractions in Jalgaon."
+  },
+  {
+    "id": "jalgaon-historic-fort",
+    "destinationId": "jalgaon",
+    "name": "Jalgaon Historic Fort",
+    "type": "Historical",
+    "rating": 4.9,
+    "price": "₹500",
+    "image": "assets/attractions/jalgaon-historic-fort.jpg",
+    "description": "One of the most popular historical attractions in Jalgaon."
+  },
+  {
+    "id": "jalgaon-botanical-garden",
+    "destinationId": "jalgaon",
+    "name": "Jalgaon Botanical Garden",
+    "type": "Nature",
+    "rating": 4.6,
+    "price": "₹300",
+    "image": "assets/attractions/jalgaon-botanical-garden.jpg",
+    "description": "One of the most popular nature attractions in Jalgaon."
+  },
+  {
+    "id": "jalgaon-view-point",
+    "destinationId": "jalgaon",
+    "name": "Jalgaon View Point",
+    "type": "Scenic",
+    "rating": 4.8,
+    "price": "Free",
+    "image": "assets/attractions/jalgaon-view-point.jpg",
+    "description": "One of the most popular scenic attractions in Jalgaon."
   }
 ]
