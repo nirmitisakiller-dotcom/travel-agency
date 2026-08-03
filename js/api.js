@@ -1,4 +1,16 @@
 // ==========================================
+// Nature Tours API
+// ==========================================
+
+window.API = {
+
+    url: "https://zdrswsthupskzstfafqd.supabase.co/rest/v1",
+
+    key: "YOUR_SUPABASE_ANON_KEY"
+
+};
+
+// ==========================================
 // Nature Tours Destination Engine
 // ==========================================
 
@@ -12,11 +24,29 @@ window.DestinationEngine = {
             return this.destinations;
         }
 
-        const response = await fetch("data/destinations.json");
+        const response = await fetch(
+
+            `${window.API.url}/destinations?select=*`,
+
+            {
+                headers: {
+                    apikey: window.API.key,
+                    Authorization: `Bearer ${window.API.key}`
+                }
+            }
+
+        );
+
+        if (!response.ok) {
+
+            throw new Error("Unable to load destinations.");
+
+        }
 
         this.destinations = await response.json();
 
         return this.destinations;
+
     },
 
     async find(searchText) {
@@ -53,27 +83,23 @@ window.DestinationEngine = {
 
         const search = searchText.trim().toLowerCase();
 
-        return this.destinations.filter(destination => {
+        return this.destinations.filter(destination =>
 
-            return (
+            destination.name.toLowerCase().includes(search) ||
 
-                destination.name.toLowerCase().includes(search) ||
+            destination.country.toLowerCase().includes(search) ||
 
-                destination.country.toLowerCase().includes(search) ||
+            destination.continent.toLowerCase().includes(search) ||
 
-                destination.continent.toLowerCase().includes(search) ||
+            (destination.region || "")
+                .toLowerCase()
+                .includes(search) ||
 
-                (destination.region || "")
-                    .toLowerCase()
-                    .includes(search) ||
+            (destination.tags || []).some(tag =>
+                tag.toLowerCase().includes(search)
+            )
 
-                (destination.tags || []).some(tag =>
-                    tag.toLowerCase().includes(search)
-                )
-
-            );
-
-        });
+        );
 
     }
 
