@@ -6,7 +6,7 @@ window.API = {
 
     url: "https://zdrswsthupskzstfafqd.supabase.co/rest/v1",
 
-    key: "YOUR_SUPABASE_ANON_KEY"
+    key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkcnN3c3RodXBza3pzdGZhZnFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1OTI1MDcsImV4cCI6MjEwMTE2ODUwN30.scSJYKMykcEoMPnFEuqjy_tLSTBkBsJ0XpblHIWCck4"
 
 };
 
