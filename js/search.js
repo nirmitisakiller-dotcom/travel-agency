@@ -2,21 +2,17 @@
 // Nature Tours Search
 // ==========================================
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const form = document.getElementById("header-search-form");
-    const input = document.getElementById("search-input");
+    const form =
+        document.getElementById("header-search-form");
+
+    const input =
+        document.getElementById("search-input");
 
     if (!form || !input) return;
 
-    // Load destination database once
-    await window.DestinationEngine.load();
-
-    // --------------------------------------
-    // Search
-    // --------------------------------------
-
-    form.addEventListener("submit", async function (e) {
+    form.addEventListener("submit", async (e) => {
 
         e.preventDefault();
 
@@ -30,44 +26,82 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         }
 
-        localStorage.setItem(
-            "natureToursDestination",
-            query
-        );
+        try {
 
-        const match = await window.DestinationEngine.find(query);
+            // -------------------------
+            // Search existing destination
+            // -------------------------
 
-        if (!match) {
+            let response = await fetch(
 
-            alert("Destination not found.");
-            return;
+                `https://zdrswsthupskzstfafqd.supabase.co/functions/v1/search-destination?q=${encodeURIComponent(query)}`
+
+            );
+
+            let result = await response.json();
+
+            // -------------------------
+            // Import if not found
+            // -------------------------
+
+            if (!result.found) {
+
+                response = await fetch(
+
+                    "https://zdrswsthupskzstfafqd.supabase.co/functions/v1/import-destination",
+
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            query: query
+                        })
+                    }
+
+                );
+
+                if (!response.ok) {
+
+                    throw new Error("Unable to import destination.");
+
+                }
+
+                // Search again after import
+                response = await fetch(
+
+                    `https://zdrswsthupskzstfafqd.supabase.co/functions/v1/search-destination?q=${encodeURIComponent(query)}`
+
+                );
+
+                result = await response.json();
+
+            }
+
+            if (!result.found || !result.results || !result.results.length) {
+
+                alert("Destination not found.");
+                return;
+
+            }
+
+            const destination = result.results[0];
+
+            window.location.href =
+                "destination.html?id=" +
+                encodeURIComponent(destination.id);
 
         }
 
-        // Open destination page directly
-        window.location.href =
-            "destination.html?id=" +
-            encodeURIComponent(match.id);
+        catch (error) {
+
+            console.error(error);
+
+            alert(error.message);
+
+        }
 
     });
-
-    // --------------------------------------
-    // Simple Autocomplete
-    // --------------------------------------
-
-    const datalist = document.createElement("datalist");
-    datalist.id = "destination-list";
-
-    window.DestinationEngine.destinations.forEach(destination => {
-
-        const option = document.createElement("option");
-        option.value = destination.name;
-        datalist.appendChild(option);
-
-    });
-
-    document.body.appendChild(datalist);
-
-    input.setAttribute("list", "destination-list");
 
 });
