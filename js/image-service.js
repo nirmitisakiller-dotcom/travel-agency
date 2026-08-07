@@ -2,6 +2,8 @@
 // Nature Tours Image Service
 // ==========================================
 
+"use strict";
+
 window.ImageService = {
 
     // --------------------------------------
@@ -10,9 +12,14 @@ window.ImageService = {
 
     getDestinationImage(id) {
 
-        return `assets/destinations/${id}.jpg`;
+        if (!id) {
+            return "https://placehold.co/1200x600?text=Destination";
+        }
+
+        return `assets/destinations/${encodeURIComponent(id)}.jpg`;
 
     },
+
 
     // --------------------------------------
     // Attraction Images
@@ -20,9 +27,14 @@ window.ImageService = {
 
     getAttractionImage(id) {
 
-        return `assets/attractions/${id}.jpg`;
+        if (!id) {
+            return "https://placehold.co/800x500?text=Attraction";
+        }
+
+        return `assets/attractions/${encodeURIComponent(id)}.jpg`;
 
     },
+
 
     // --------------------------------------
     // Hotel Images
@@ -30,7 +42,22 @@ window.ImageService = {
 
     getHotelImage(id) {
 
-        return `assets/hotels/${id}.jpg`;
+        if (!id) {
+            return "https://placehold.co/800x500?text=Hotel";
+        }
+
+        return `assets/hotels/${encodeURIComponent(id)}.jpg`;
+
+    },
+
+
+    // --------------------------------------
+    // Generic Fallback
+    // --------------------------------------
+
+    getFallbackImage(type = "Image") {
+
+        return `https://placehold.co/800x500?text=${encodeURIComponent(type)}`;
 
     }
 
