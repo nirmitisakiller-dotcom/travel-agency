@@ -1,4 +1,4 @@
- import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
 serve(async (req) => {
   try {
@@ -52,19 +52,39 @@ serve(async (req) => {
     let summary = "";
 
     try {
-
       const wikiResponse = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(country.name.common)}`
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+          country.name.common
+        )}`
       );
 
       if (wikiResponse.ok) {
+        const wiki = await wikiResponse.json();
+        summary = wiki.extract || "";
+      }
+    } catch (_) {}
 
+    // ----------------------------------
+    // Wikipedia Image
+    // ----------------------------------
+
+    let image = "";
+
+    try {
+      const wikiResponse = await fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+          country.name.common
+        )}`
+      );
+
+      if (wikiResponse.ok) {
         const wiki = await wikiResponse.json();
 
-        summary = wiki.extract || "";
-
+        image =
+          wiki.originalimage?.source ||
+          wiki.thumbnail?.source ||
+          "";
       }
-
     } catch (_) {}
 
     // ----------------------------------
@@ -73,11 +93,17 @@ serve(async (req) => {
 
     const destination = {
 
-      id: country.cca2.toLowerCase(),
+      id:
+        country.cca2?.toLowerCase() ||
+        country.name.common
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-"),
 
-      name: country.name.common,
+      name:
+        country.name.common,
 
-      country: country.name.common,
+      country:
+        country.name.common,
 
       continent:
         country.continents?.[0] || "",
@@ -103,54 +129,37 @@ serve(async (req) => {
       flag:
         country.flags?.png || "",
 
-      image: "",
+      image:
 
-      raw: country
+        image,
+
+      raw:
+        country
 
     };
 
     return new Response(
-
       JSON.stringify(destination),
-
       {
-
         headers: {
-
-          "Content-Type":
-            "application/json"
-
+          "Content-Type": "application/json"
         }
-
       }
-
     );
 
   } catch (error) {
 
     return new Response(
-
       JSON.stringify({
-
         error: error.message
-
       }),
-
       {
-
         status: 500,
-
         headers: {
-
-          "Content-Type":
-            "application/json"
-
+          "Content-Type": "application/json"
         }
-
       }
-
     );
 
   }
-
 });
