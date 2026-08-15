@@ -1,67 +1,1107 @@
 [
-  {"id":"grand-paris","destinationId":"paris","name":"Louvre Garden Hotel","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-paris.jpg","address":"Rue de Rivoli, Paris, France","amenities":["Airport Shuttle","Parking","Room Service","Swimming Pool"],"bookingUrl":"#"},
-  {"id":"royal-paris","destinationId":"paris","name":"Seine Lumière Hotel","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-paris.jpg","address":"Saint-Germain, Paris, France","amenities":["Swimming Pool","Room Service","Spa","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"plaza-paris","destinationId":"paris","name":"Montmartre House","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-paris.jpg","address":"Montmartre, Paris, France","amenities":["Restaurant","Gym","Airport Shuttle","Spa"],"bookingUrl":"#"},
-  {"id":"suites-paris","destinationId":"paris","name":"Rivoli Grand Hotel","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-paris.jpg","address":"Le Marais, Paris, France","amenities":["Free WiFi","Breakfast","Room Service","Swimming Pool"],"bookingUrl":"#"},
-  {"id":"inn-paris","destinationId":"paris","name":"Saint-Germain Residence","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-paris.jpg","address":"Saint-Germain-des-Prés, Paris, France","amenities":["Spa","Room Service","Swimming Pool","Breakfast"],"bookingUrl":"#"},
-  {"id":"grand-tokyo","destinationId":"tokyo","name":"Shibuya Sakura Hotel","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-tokyo.jpg","address":"Shibuya, Tokyo, Japan","amenities":["Restaurant","Airport Shuttle","Gym","Spa"],"bookingUrl":"#"},
-  {"id":"royal-tokyo","destinationId":"tokyo","name":"Ginza Imperial Hotel","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-tokyo.jpg","address":"Ginza, Tokyo, Japan","amenities":["Spa","Swimming Pool","Airport Shuttle","Parking"],"bookingUrl":"#"},
-  {"id":"plaza-tokyo","destinationId":"tokyo","name":"Asakusa Lantern House","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-tokyo.jpg","address":"Asakusa, Tokyo, Japan","amenities":["Parking","Free WiFi","Breakfast","Swimming Pool"],"bookingUrl":"#"},
-  {"id":"suites-tokyo","destinationId":"tokyo","name":"Shinjuku Sky Hotel","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-tokyo.jpg","address":"Shinjuku, Tokyo, Japan","amenities":["Swimming Pool","Airport Shuttle","Breakfast","Gym"],"bookingUrl":"#"},
-  {"id":"inn-tokyo","destinationId":"tokyo","name":"Tokyo Bay Grand","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-tokyo.jpg","address":"Tokyo Bay, Tokyo, Japan","amenities":["Airport Shuttle","Breakfast","Room Service","Parking"],"bookingUrl":"#"},
-  {"id":"grand-bali","destinationId":"bali","name":"Ubud Rice Terrace Resort","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-bali.jpg","address":"Ubud, Bali, Indonesia","amenities":["Room Service","Airport Shuttle","Swimming Pool","Breakfast"],"bookingUrl":"#"},
-  {"id":"royal-bali","destinationId":"bali","name":"Seminyak Ocean House","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-bali.jpg","address":"Seminyak, Bali, Indonesia","amenities":["Swimming Pool","Free WiFi","Airport Shuttle","Breakfast"],"bookingUrl":"#"},
-  {"id":"plaza-bali","destinationId":"bali","name":"Uluwatu Cliff Retreat","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-bali.jpg","address":"Uluwatu, Bali, Indonesia","amenities":["Gym","Spa","Parking","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"suites-bali","destinationId":"bali","name":"Kuta Sunset Resort","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-bali.jpg","address":"Kuta, Bali, Indonesia","amenities":["Free WiFi","Breakfast","Swimming Pool","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"inn-bali","destinationId":"bali","name":"Canggu Palm Villas","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-bali.jpg","address":"Canggu, Bali, Indonesia","amenities":["Spa","Swimming Pool","Gym","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"grand-singapore","destinationId":"singapore","name":"Marina Bay Grand","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-singapore.jpg","address":"Marina Bay, Singapore","amenities":["Gym","Parking","Free WiFi","Restaurant"],"bookingUrl":"#"},
-  {"id":"royal-singapore","destinationId":"singapore","name":"Orchard Garden Hotel","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-singapore.jpg","address":"Orchard Road, Singapore","amenities":["Breakfast","Free WiFi","Room Service","Gym"],"bookingUrl":"#"},
-  {"id":"plaza-singapore","destinationId":"singapore","name":"Sentosa Cove Resort","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-singapore.jpg","address":"Sentosa Cove, Singapore","amenities":["Parking","Restaurant","Spa","Room Service"],"bookingUrl":"#"},
-  {"id":"suites-singapore","destinationId":"singapore","name":"Clarke Quay Riverside","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-singapore.jpg","address":"Clarke Quay, Singapore","amenities":["Spa","Parking","Free WiFi","Gym"],"bookingUrl":"#"},
-  {"id":"inn-singapore","destinationId":"singapore","name":"Marina View Suites","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-singapore.jpg","address":"Downtown Core, Singapore","amenities":["Room Service","Free WiFi","Parking","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"grand-maldives","destinationId":"maldives","name":"Coral Reef Retreat","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-maldives.jpg","address":"North Malé Atoll, Maldives","amenities":["Airport Shuttle","Free WiFi","Parking","Room Service"],"bookingUrl":"#"},
-  {"id":"royal-maldives","destinationId":"maldives","name":"Lagoon Pearl Resort","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-maldives.jpg","address":"South Malé Atoll, Maldives","amenities":["Free WiFi","Breakfast","Restaurant","Gym"],"bookingUrl":"#"},
-  {"id":"plaza-maldives","destinationId":"maldives","name":"Atoll Breeze Villas","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-maldives.jpg","address":"Ari Atoll, Maldives","amenities":["Spa","Swimming Pool","Free WiFi","Gym"],"bookingUrl":"#"},
-  {"id":"suites-maldives","destinationId":"maldives","name":"Ocean Crown Maldives","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-maldives.jpg","address":"Baa Atoll, Maldives","amenities":["Airport Shuttle","Spa","Gym","Swimming Pool"],"bookingUrl":"#"},
-  {"id":"inn-maldives","destinationId":"maldives","name":"Palm Island Retreat","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-maldives.jpg","address":"Lhaviyani Atoll, Maldives","amenities":["Spa","Swimming Pool","Breakfast","Gym"],"bookingUrl":"#"},
-  {"id":"grand-leh","destinationId":"leh","name":"Himalayan Gate Hotel","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-leh.jpg","address":"Leh, Ladakh, India","amenities":["Swimming Pool","Airport Shuttle","Gym","Parking"],"bookingUrl":"#"},
-  {"id":"royal-leh","destinationId":"leh","name":"Shanti Valley Lodge","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-leh.jpg","address":"Changspa, Leh, Ladakh, India","amenities":["Breakfast","Spa","Parking","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"plaza-leh","destinationId":"leh","name":"Leh Palace View Hotel","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-leh.jpg","address":"Old Town, Leh, Ladakh, India","amenities":["Spa","Swimming Pool","Breakfast","Gym"],"bookingUrl":"#"},
-  {"id":"suites-leh","destinationId":"leh","name":"Khardungla Heights","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-leh.jpg","address":"Fort Road, Leh, Ladakh, India","amenities":["Gym","Spa","Swimming Pool","Breakfast"],"bookingUrl":"#"},
-  {"id":"inn-leh","destinationId":"leh","name":"Indus Heritage Inn","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-leh.jpg","address":"Skara Road, Leh, Ladakh, India","amenities":["Free WiFi","Room Service","Breakfast","Swimming Pool"],"bookingUrl":"#"},
-  {"id":"grand-ladakh","destinationId":"ladakh","name":"Himalayan Horizon Ladakh","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-ladakh.jpg","address":"Leh District, Ladakh, India","amenities":["Breakfast","Free WiFi","Swimming Pool","Gym"],"bookingUrl":"#"},
-  {"id":"royal-ladakh","destinationId":"ladakh","name":"Indus Valley Retreat","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-ladakh.jpg","address":"Indus Valley, Ladakh, India","amenities":["Airport Shuttle","Free WiFi","Swimming Pool","Parking"],"bookingUrl":"#"},
-  {"id":"plaza-ladakh","destinationId":"ladakh","name":"Moonland Heights","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-ladakh.jpg","address":"Lamayuru, Ladakh, India","amenities":["Free WiFi","Gym","Swimming Pool","Breakfast"],"bookingUrl":"#"},
-  {"id":"suites-ladakh","destinationId":"ladakh","name":"Pangong View Lodge","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-ladakh.jpg","address":"Pangong Lake, Ladakh, India","amenities":["Airport Shuttle","Free WiFi","Room Service","Spa"],"bookingUrl":"#"},
-  {"id":"inn-ladakh","destinationId":"ladakh","name":"Mountain Crown Ladakh","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-ladakh.jpg","address":"Nubra Valley, Ladakh, India","amenities":["Gym","Free WiFi","Spa","Breakfast"],"bookingUrl":"#"},
-  {"id":"grand-spiti","destinationId":"spiti","name":"Kaza Valley Retreat","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-spiti.jpg","address":"Kaza, Spiti Valley, India","amenities":["Spa","Room Service","Parking","Restaurant"],"bookingUrl":"#"},
-  {"id":"royal-spiti","destinationId":"spiti","name":"Spiti River Lodge","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-spiti.jpg","address":"Tabo, Spiti Valley, India","amenities":["Spa","Parking","Breakfast","Free WiFi"],"bookingUrl":"#"},
-  {"id":"plaza-spiti","destinationId":"spiti","name":"Key Monastery View","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-spiti.jpg","address":"Kibber, Spiti Valley, India","amenities":["Gym","Room Service","Breakfast","Restaurant"],"bookingUrl":"#"},
-  {"id":"suites-spiti","destinationId":"spiti","name":"Kunzum Heights","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-spiti.jpg","address":"Losar, Spiti Valley, India","amenities":["Breakfast","Spa","Room Service","Parking"],"bookingUrl":"#"},
-  {"id":"inn-spiti","destinationId":"spiti","name":"Pin Valley Inn","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-spiti.jpg","address":"Pin Valley, Spiti, India","amenities":["Airport Shuttle","Gym","Restaurant","Spa"],"bookingUrl":"#"},
-  {"id":"grand-hampi","destinationId":"hampi","name":"Tungabhadra Heritage Resort","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-hampi.jpg","address":"Hampi, Karnataka, India","amenities":["Free WiFi","Parking","Swimming Pool","Restaurant"],"bookingUrl":"#"},
-  {"id":"royal-hampi","destinationId":"hampi","name":"Vijayanagara Retreat","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-hampi.jpg","address":"Hampi Bazaar, Karnataka, India","amenities":["Room Service","Airport Shuttle","Gym","Spa"],"bookingUrl":"#"},
-  {"id":"plaza-hampi","destinationId":"hampi","name":"Hampi Stone House","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-hampi.jpg","address":"Anegundi, Hampi, India","amenities":["Restaurant","Gym","Airport Shuttle","Room Service"],"bookingUrl":"#"},
-  {"id":"suites-hampi","destinationId":"hampi","name":"Virupaksha View Resort","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-hampi.jpg","address":"Virupaksha Temple Road, Hampi, India","amenities":["Spa","Restaurant","Breakfast","Free WiFi"],"bookingUrl":"#"},
-  {"id":"inn-hampi","destinationId":"hampi","name":"Royal Ruins Lodge","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-hampi.jpg","address":"Kampli Road, Hampi, India","amenities":["Room Service","Gym","Swimming Pool","Free WiFi"],"bookingUrl":"#"},
-  {"id":"grand-chhattisgarh","destinationId":"chhattisgarh","name":"Raipur Central Hotel","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-chhattisgarh.jpg","address":"Raipur, Chhattisgarh, India","amenities":["Spa","Room Service","Parking","Restaurant"],"bookingUrl":"#"},
-  {"id":"royal-chhattisgarh","destinationId":"chhattisgarh","name":"Mahanadi Grand","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-chhattisgarh.jpg","address":"Raipur, Chhattisgarh, India","amenities":["Room Service","Free WiFi","Parking","Spa"],"bookingUrl":"#"},
-  {"id":"plaza-chhattisgarh","destinationId":"chhattisgarh","name":"Bastar Heritage Lodge","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-chhattisgarh.jpg","address":"Jagdalpur, Chhattisgarh, India","amenities":["Spa","Parking","Swimming Pool","Breakfast"],"bookingUrl":"#"},
-  {"id":"suites-chhattisgarh","destinationId":"chhattisgarh","name":"Dandakarnya Retreat","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-chhattisgarh.jpg","address":"Bastar, Chhattisgarh, India","amenities":["Restaurant","Gym","Breakfast","Room Service"],"bookingUrl":"#"},
-  {"id":"inn-chhattisgarh","destinationId":"chhattisgarh","name":"Mahanadi Riverside Inn","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-chhattisgarh.jpg","address":"Bilaspur, Chhattisgarh, India","amenities":["Spa","Swimming Pool","Airport Shuttle","Breakfast"],"bookingUrl":"#"},
-  {"id":"grand-mumbai","destinationId":"mumbai","name":"Marine Drive Grand","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-mumbai.jpg","address":"Marine Drive, Mumbai, India","amenities":["Parking","Free WiFi","Room Service","Breakfast"],"bookingUrl":"#"},
-  {"id":"royal-mumbai","destinationId":"mumbai","name":"Colaba Heritage Hotel","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-mumbai.jpg","address":"Colaba, Mumbai, India","amenities":["Free WiFi","Breakfast","Gym","Swimming Pool"],"bookingUrl":"#"},
-  {"id":"plaza-mumbai","destinationId":"mumbai","name":"Bandra Bay Hotel","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-mumbai.jpg","address":"Bandra West, Mumbai, India","amenities":["Breakfast","Free WiFi","Parking","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"suites-mumbai","destinationId":"mumbai","name":"Gateway View Suites","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-mumbai.jpg","address":"Fort, Mumbai, India","amenities":["Gym","Restaurant","Airport Shuttle","Free WiFi"],"bookingUrl":"#"},
-  {"id":"inn-mumbai","destinationId":"mumbai","name":"Malabar Hill Retreat","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-mumbai.jpg","address":"Malabar Hill, Mumbai, India","amenities":["Spa","Restaurant","Airport Shuttle","Gym"],"bookingUrl":"#"},
-  {"id":"grand-nashik","destinationId":"nashik","name":"Godavari Grand Hotel","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-nashik.jpg","address":"Gangapur Road, Nashik, India","amenities":["Spa","Airport Shuttle","Breakfast","Restaurant"],"bookingUrl":"#"},
-  {"id":"royal-nashik","destinationId":"nashik","name":"Sula Valley Retreat","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-nashik.jpg","address":"Sula Vineyards, Nashik, India","amenities":["Spa","Swimming Pool","Restaurant","Breakfast"],"bookingUrl":"#"},
-  {"id":"plaza-nashik","destinationId":"nashik","name":"Panchavati Heritage Hotel","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-nashik.jpg","address":"Panchavati, Nashik, India","amenities":["Restaurant","Airport Shuttle","Gym","Spa"],"bookingUrl":"#"},
-  {"id":"suites-nashik","destinationId":"nashik","name":"Trimbakeshwar View Resort","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-nashik.jpg","address":"Trimbakeshwar, Nashik, India","amenities":["Free WiFi","Breakfast","Restaurant","Parking"],"bookingUrl":"#"},
-  {"id":"inn-nashik","destinationId":"nashik","name":"Vineyard Lane Inn","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-nashik.jpg","address":"Nashik Road, Nashik, India","amenities":["Free WiFi","Room Service","Gym","Airport Shuttle"],"bookingUrl":"#"},
-  {"id":"grand-jalgaon","destinationId":"jalgaon","name":"Tapi Riverside Hotel","rating":5,"price":18000,"currency":"INR","image":"assets/hotels/grand-jalgaon.jpg","address":"Tapi River Road, Jalgaon, India","amenities":["Room Service","Spa","Breakfast","Gym"],"bookingUrl":"#"},
-  {"id":"royal-jalgaon","destinationId":"jalgaon","name":"Ajanta Gateway Inn","rating":5,"price":22000,"currency":"INR","image":"assets/hotels/royal-jalgaon.jpg","address":"Jalgaon City, Maharashtra, India","amenities":["Restaurant","Airport Shuttle","Breakfast","Parking"],"bookingUrl":"#"},
-  {"id":"plaza-jalgaon","destinationId":"jalgaon","name":"Khandesh Grand Hotel","rating":4,"price":12000,"currency":"INR","image":"assets/hotels/plaza-jalgaon.jpg","address":"Station Road, Jalgaon, India","amenities":["Spa","Airport Shuttle","Room Service","Restaurant"],"bookingUrl":"#"},
-  {"id":"suites-jalgaon","destinationId":"jalgaon","name":"Jalgaon Central Suites","rating":4,"price":9000,"currency":"INR","image":"assets/hotels/suites-jalgaon.jpg","address":"Central Jalgaon, Maharashtra, India","amenities":["Swimming Pool","Breakfast","Airport Shuttle","Parking"],"bookingUrl":"#"},
-  {"id":"inn-jalgaon","destinationId":"jalgaon","name":"Girna View Residency","rating":3,"price":6000,"currency":"INR","image":"assets/hotels/inn-jalgaon.jpg","address":"Mehrun Road, Jalgaon, India","amenities":["Swimming Pool","Restaurant","Parking","Breakfast"],"bookingUrl":"#"}
+  {
+    "id": "grand-paris",
+    "destinationId": "paris",
+    "name": "Louvre Garden Hotel",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-paris.jpg",
+    "address": "Rue de Rivoli, Paris, France",
+    "amenities": [
+      "Breakfast",
+      "Gym",
+      "Airport Shuttle",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Louvre%20Garden%20Hotel%20Rue%20de%20Rivoli%2C%20Paris%2C%20France"
+  },
+  {
+    "id": "royal-paris",
+    "destinationId": "paris",
+    "name": "Seine Lumière Hotel",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-paris.jpg",
+    "address": "Saint-Germain, Paris, France",
+    "amenities": [
+      "Room Service",
+      "Free WiFi",
+      "Swimming Pool",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Seine%20Lumi%C3%A8re%20Hotel%20Saint-Germain%2C%20Paris%2C%20France"
+  },
+  {
+    "id": "plaza-paris",
+    "destinationId": "paris",
+    "name": "Montmartre House",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-paris.jpg",
+    "address": "Montmartre, Paris, France",
+    "amenities": [
+      "Free WiFi",
+      "Breakfast",
+      "Airport Shuttle",
+      "Parking"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Montmartre%20House%20Montmartre%2C%20Paris%2C%20France"
+  },
+  {
+    "id": "suites-paris",
+    "destinationId": "paris",
+    "name": "Rivoli Grand Hotel",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-paris.jpg",
+    "address": "Le Marais, Paris, France",
+    "amenities": [
+      "Restaurant",
+      "Airport Shuttle",
+      "Room Service",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Rivoli%20Grand%20Hotel%20Le%20Marais%2C%20Paris%2C%20France"
+  },
+  {
+    "id": "inn-paris",
+    "destinationId": "paris",
+    "name": "Saint-Germain Residence",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-paris.jpg",
+    "address": "Saint-Germain-des-Prés, Paris, France",
+    "amenities": [
+      "Restaurant",
+      "Airport Shuttle",
+      "Parking",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Saint-Germain%20Residence%20Saint-Germain-des-Pr%C3%A9s%2C%20Paris%2C%20France"
+  },
+  {
+    "id": "grand-tokyo",
+    "destinationId": "tokyo",
+    "name": "Shibuya Sakura Hotel",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-tokyo.jpg",
+    "address": "Shibuya, Tokyo, Japan",
+    "amenities": [
+      "Airport Shuttle",
+      "Spa",
+      "Restaurant",
+      "Free WiFi"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Shibuya%20Sakura%20Hotel%20Shibuya%2C%20Tokyo%2C%20Japan"
+  },
+  {
+    "id": "royal-tokyo",
+    "destinationId": "tokyo",
+    "name": "Ginza Imperial Hotel",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-tokyo.jpg",
+    "address": "Ginza, Tokyo, Japan",
+    "amenities": [
+      "Gym",
+      "Spa",
+      "Swimming Pool",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ginza%20Imperial%20Hotel%20Ginza%2C%20Tokyo%2C%20Japan"
+  },
+  {
+    "id": "plaza-tokyo",
+    "destinationId": "tokyo",
+    "name": "Asakusa Lantern House",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-tokyo.jpg",
+    "address": "Asakusa, Tokyo, Japan",
+    "amenities": [
+      "Free WiFi",
+      "Spa",
+      "Room Service",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Asakusa%20Lantern%20House%20Asakusa%2C%20Tokyo%2C%20Japan"
+  },
+  {
+    "id": "suites-tokyo",
+    "destinationId": "tokyo",
+    "name": "Shinjuku Sky Hotel",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-tokyo.jpg",
+    "address": "Shinjuku, Tokyo, Japan",
+    "amenities": [
+      "Parking",
+      "Swimming Pool",
+      "Gym",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Shinjuku%20Sky%20Hotel%20Shinjuku%2C%20Tokyo%2C%20Japan"
+  },
+  {
+    "id": "inn-tokyo",
+    "destinationId": "tokyo",
+    "name": "Tokyo Bay Grand",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-tokyo.jpg",
+    "address": "Tokyo Bay, Tokyo, Japan",
+    "amenities": [
+      "Restaurant",
+      "Free WiFi",
+      "Breakfast",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Tokyo%20Bay%20Grand%20Tokyo%20Bay%2C%20Tokyo%2C%20Japan"
+  },
+  {
+    "id": "grand-bali",
+    "destinationId": "bali",
+    "name": "Ubud Rice Terrace Resort",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-bali.jpg",
+    "address": "Ubud, Bali, Indonesia",
+    "amenities": [
+      "Room Service",
+      "Parking",
+      "Restaurant",
+      "Airport Shuttle"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ubud%20Rice%20Terrace%20Resort%20Ubud%2C%20Bali%2C%20Indonesia"
+  },
+  {
+    "id": "royal-bali",
+    "destinationId": "bali",
+    "name": "Seminyak Ocean House",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-bali.jpg",
+    "address": "Seminyak, Bali, Indonesia",
+    "amenities": [
+      "Airport Shuttle",
+      "Free WiFi",
+      "Spa",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Seminyak%20Ocean%20House%20Seminyak%2C%20Bali%2C%20Indonesia"
+  },
+  {
+    "id": "plaza-bali",
+    "destinationId": "bali",
+    "name": "Uluwatu Cliff Retreat",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-bali.jpg",
+    "address": "Uluwatu, Bali, Indonesia",
+    "amenities": [
+      "Free WiFi",
+      "Spa",
+      "Breakfast",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Uluwatu%20Cliff%20Retreat%20Uluwatu%2C%20Bali%2C%20Indonesia"
+  },
+  {
+    "id": "suites-bali",
+    "destinationId": "bali",
+    "name": "Kuta Sunset Resort",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-bali.jpg",
+    "address": "Kuta, Bali, Indonesia",
+    "amenities": [
+      "Room Service",
+      "Parking",
+      "Restaurant",
+      "Airport Shuttle"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kuta%20Sunset%20Resort%20Kuta%2C%20Bali%2C%20Indonesia"
+  },
+  {
+    "id": "inn-bali",
+    "destinationId": "bali",
+    "name": "Canggu Palm Villas",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-bali.jpg",
+    "address": "Canggu, Bali, Indonesia",
+    "amenities": [
+      "Airport Shuttle",
+      "Free WiFi",
+      "Breakfast",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Canggu%20Palm%20Villas%20Canggu%2C%20Bali%2C%20Indonesia"
+  },
+  {
+    "id": "grand-singapore",
+    "destinationId": "singapore",
+    "name": "Marina Bay Grand",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-singapore.jpg",
+    "address": "Marina Bay, Singapore",
+    "amenities": [
+      "Free WiFi",
+      "Airport Shuttle",
+      "Parking",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Marina%20Bay%20Grand%20Marina%20Bay%2C%20Singapore"
+  },
+  {
+    "id": "royal-singapore",
+    "destinationId": "singapore",
+    "name": "Orchard Garden Hotel",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-singapore.jpg",
+    "address": "Orchard Road, Singapore",
+    "amenities": [
+      "Restaurant",
+      "Parking",
+      "Gym",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Orchard%20Garden%20Hotel%20Orchard%20Road%2C%20Singapore"
+  },
+  {
+    "id": "plaza-singapore",
+    "destinationId": "singapore",
+    "name": "Sentosa Cove Resort",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-singapore.jpg",
+    "address": "Sentosa Cove, Singapore",
+    "amenities": [
+      "Airport Shuttle",
+      "Swimming Pool",
+      "Free WiFi",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Sentosa%20Cove%20Resort%20Sentosa%20Cove%2C%20Singapore"
+  },
+  {
+    "id": "suites-singapore",
+    "destinationId": "singapore",
+    "name": "Clarke Quay Riverside",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-singapore.jpg",
+    "address": "Clarke Quay, Singapore",
+    "amenities": [
+      "Free WiFi",
+      "Parking",
+      "Breakfast",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Clarke%20Quay%20Riverside%20Clarke%20Quay%2C%20Singapore"
+  },
+  {
+    "id": "inn-singapore",
+    "destinationId": "singapore",
+    "name": "Marina View Suites",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-singapore.jpg",
+    "address": "Downtown Core, Singapore",
+    "amenities": [
+      "Free WiFi",
+      "Breakfast",
+      "Gym",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Marina%20View%20Suites%20Downtown%20Core%2C%20Singapore"
+  },
+  {
+    "id": "grand-maldives",
+    "destinationId": "maldives",
+    "name": "Coral Reef Retreat",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-maldives.jpg",
+    "address": "North Malé Atoll, Maldives",
+    "amenities": [
+      "Spa",
+      "Parking",
+      "Free WiFi",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Coral%20Reef%20Retreat%20North%20Mal%C3%A9%20Atoll%2C%20Maldives"
+  },
+  {
+    "id": "royal-maldives",
+    "destinationId": "maldives",
+    "name": "Lagoon Pearl Resort",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-maldives.jpg",
+    "address": "South Malé Atoll, Maldives",
+    "amenities": [
+      "Gym",
+      "Swimming Pool",
+      "Airport Shuttle",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Lagoon%20Pearl%20Resort%20South%20Mal%C3%A9%20Atoll%2C%20Maldives"
+  },
+  {
+    "id": "plaza-maldives",
+    "destinationId": "maldives",
+    "name": "Atoll Breeze Villas",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-maldives.jpg",
+    "address": "Ari Atoll, Maldives",
+    "amenities": [
+      "Free WiFi",
+      "Room Service",
+      "Swimming Pool",
+      "Spa"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Atoll%20Breeze%20Villas%20Ari%20Atoll%2C%20Maldives"
+  },
+  {
+    "id": "suites-maldives",
+    "destinationId": "maldives",
+    "name": "Ocean Crown Maldives",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-maldives.jpg",
+    "address": "Baa Atoll, Maldives",
+    "amenities": [
+      "Spa",
+      "Restaurant",
+      "Room Service",
+      "Free WiFi"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ocean%20Crown%20Maldives%20Baa%20Atoll%2C%20Maldives"
+  },
+  {
+    "id": "inn-maldives",
+    "destinationId": "maldives",
+    "name": "Palm Island Retreat",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-maldives.jpg",
+    "address": "Lhaviyani Atoll, Maldives",
+    "amenities": [
+      "Restaurant",
+      "Spa",
+      "Room Service",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Palm%20Island%20Retreat%20Lhaviyani%20Atoll%2C%20Maldives"
+  },
+  {
+    "id": "grand-leh",
+    "destinationId": "leh",
+    "name": "Himalayan Gate Hotel",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-leh.jpg",
+    "address": "Leh, Ladakh, India",
+    "amenities": [
+      "Spa",
+      "Restaurant",
+      "Breakfast",
+      "Free WiFi"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Himalayan%20Gate%20Hotel%20Leh%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "royal-leh",
+    "destinationId": "leh",
+    "name": "Shanti Valley Lodge",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-leh.jpg",
+    "address": "Changspa, Leh, Ladakh, India",
+    "amenities": [
+      "Airport Shuttle",
+      "Gym",
+      "Spa",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Shanti%20Valley%20Lodge%20Changspa%2C%20Leh%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "plaza-leh",
+    "destinationId": "leh",
+    "name": "Leh Palace View Hotel",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-leh.jpg",
+    "address": "Old Town, Leh, Ladakh, India",
+    "amenities": [
+      "Breakfast",
+      "Free WiFi",
+      "Room Service",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Leh%20Palace%20View%20Hotel%20Old%20Town%2C%20Leh%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "suites-leh",
+    "destinationId": "leh",
+    "name": "Khardungla Heights",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-leh.jpg",
+    "address": "Fort Road, Leh, Ladakh, India",
+    "amenities": [
+      "Swimming Pool",
+      "Restaurant",
+      "Breakfast",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Khardungla%20Heights%20Fort%20Road%2C%20Leh%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "inn-leh",
+    "destinationId": "leh",
+    "name": "Indus Heritage Inn",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-leh.jpg",
+    "address": "Skara Road, Leh, Ladakh, India",
+    "amenities": [
+      "Swimming Pool",
+      "Room Service",
+      "Parking",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Indus%20Heritage%20Inn%20Skara%20Road%2C%20Leh%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "grand-ladakh",
+    "destinationId": "ladakh",
+    "name": "Himalayan Horizon Ladakh",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-ladakh.jpg",
+    "address": "Leh District, Ladakh, India",
+    "amenities": [
+      "Airport Shuttle",
+      "Swimming Pool",
+      "Parking",
+      "Spa"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Himalayan%20Horizon%20Ladakh%20Leh%20District%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "royal-ladakh",
+    "destinationId": "ladakh",
+    "name": "Indus Valley Retreat",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-ladakh.jpg",
+    "address": "Indus Valley, Ladakh, India",
+    "amenities": [
+      "Swimming Pool",
+      "Breakfast",
+      "Restaurant",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Indus%20Valley%20Retreat%20Indus%20Valley%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "plaza-ladakh",
+    "destinationId": "ladakh",
+    "name": "Moonland Heights",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-ladakh.jpg",
+    "address": "Lamayuru, Ladakh, India",
+    "amenities": [
+      "Gym",
+      "Breakfast",
+      "Restaurant",
+      "Free WiFi"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Moonland%20Heights%20Lamayuru%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "suites-ladakh",
+    "destinationId": "ladakh",
+    "name": "Pangong View Lodge",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-ladakh.jpg",
+    "address": "Pangong Lake, Ladakh, India",
+    "amenities": [
+      "Restaurant",
+      "Swimming Pool",
+      "Room Service",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Pangong%20View%20Lodge%20Pangong%20Lake%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "inn-ladakh",
+    "destinationId": "ladakh",
+    "name": "Mountain Crown Ladakh",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-ladakh.jpg",
+    "address": "Nubra Valley, Ladakh, India",
+    "amenities": [
+      "Room Service",
+      "Free WiFi",
+      "Restaurant",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Mountain%20Crown%20Ladakh%20Nubra%20Valley%2C%20Ladakh%2C%20India"
+  },
+  {
+    "id": "grand-spiti",
+    "destinationId": "spiti",
+    "name": "Kaza Valley Retreat",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-spiti.jpg",
+    "address": "Kaza, Spiti Valley, India",
+    "amenities": [
+      "Room Service",
+      "Gym",
+      "Spa",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kaza%20Valley%20Retreat%20Kaza%2C%20Spiti%20Valley%2C%20India"
+  },
+  {
+    "id": "royal-spiti",
+    "destinationId": "spiti",
+    "name": "Spiti River Lodge",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-spiti.jpg",
+    "address": "Tabo, Spiti Valley, India",
+    "amenities": [
+      "Parking",
+      "Gym",
+      "Restaurant",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Spiti%20River%20Lodge%20Tabo%2C%20Spiti%20Valley%2C%20India"
+  },
+  {
+    "id": "plaza-spiti",
+    "destinationId": "spiti",
+    "name": "Key Monastery View",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-spiti.jpg",
+    "address": "Kibber, Spiti Valley, India",
+    "amenities": [
+      "Spa",
+      "Breakfast",
+      "Restaurant",
+      "Airport Shuttle"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Key%20Monastery%20View%20Kibber%2C%20Spiti%20Valley%2C%20India"
+  },
+  {
+    "id": "suites-spiti",
+    "destinationId": "spiti",
+    "name": "Kunzum Heights",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-spiti.jpg",
+    "address": "Losar, Spiti Valley, India",
+    "amenities": [
+      "Restaurant",
+      "Swimming Pool",
+      "Parking",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kunzum%20Heights%20Losar%2C%20Spiti%20Valley%2C%20India"
+  },
+  {
+    "id": "inn-spiti",
+    "destinationId": "spiti",
+    "name": "Pin Valley Inn",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-spiti.jpg",
+    "address": "Pin Valley, Spiti, India",
+    "amenities": [
+      "Free WiFi",
+      "Breakfast",
+      "Swimming Pool",
+      "Spa"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Pin%20Valley%20Inn%20Pin%20Valley%2C%20Spiti%2C%20India"
+  },
+  {
+    "id": "grand-hampi",
+    "destinationId": "hampi",
+    "name": "Tungabhadra Heritage Resort",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-hampi.jpg",
+    "address": "Hampi, Karnataka, India",
+    "amenities": [
+      "Spa",
+      "Swimming Pool",
+      "Restaurant",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Tungabhadra%20Heritage%20Resort%20Hampi%2C%20Karnataka%2C%20India"
+  },
+  {
+    "id": "royal-hampi",
+    "destinationId": "hampi",
+    "name": "Vijayanagara Retreat",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-hampi.jpg",
+    "address": "Hampi Bazaar, Karnataka, India",
+    "amenities": [
+      "Free WiFi",
+      "Restaurant",
+      "Room Service",
+      "Spa"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Vijayanagara%20Retreat%20Hampi%20Bazaar%2C%20Karnataka%2C%20India"
+  },
+  {
+    "id": "plaza-hampi",
+    "destinationId": "hampi",
+    "name": "Hampi Stone House",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-hampi.jpg",
+    "address": "Anegundi, Hampi, India",
+    "amenities": [
+      "Restaurant",
+      "Gym",
+      "Airport Shuttle",
+      "Free WiFi"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hampi%20Stone%20House%20Anegundi%2C%20Hampi%2C%20India"
+  },
+  {
+    "id": "suites-hampi",
+    "destinationId": "hampi",
+    "name": "Virupaksha View Resort",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-hampi.jpg",
+    "address": "Virupaksha Temple Road, Hampi, India",
+    "amenities": [
+      "Restaurant",
+      "Breakfast",
+      "Parking",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Virupaksha%20View%20Resort%20Virupaksha%20Temple%20Road%2C%20Hampi%2C%20India"
+  },
+  {
+    "id": "inn-hampi",
+    "destinationId": "hampi",
+    "name": "Royal Ruins Lodge",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-hampi.jpg",
+    "address": "Kampli Road, Hampi, India",
+    "amenities": [
+      "Spa",
+      "Restaurant",
+      "Swimming Pool",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Royal%20Ruins%20Lodge%20Kampli%20Road%2C%20Hampi%2C%20India"
+  },
+  {
+    "id": "grand-chhattisgarh",
+    "destinationId": "chhattisgarh",
+    "name": "Raipur Central Hotel",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-chhattisgarh.jpg",
+    "address": "Raipur, Chhattisgarh, India",
+    "amenities": [
+      "Airport Shuttle",
+      "Free WiFi",
+      "Breakfast",
+      "Restaurant"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Raipur%20Central%20Hotel%20Raipur%2C%20Chhattisgarh%2C%20India"
+  },
+  {
+    "id": "royal-chhattisgarh",
+    "destinationId": "chhattisgarh",
+    "name": "Mahanadi Grand",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-chhattisgarh.jpg",
+    "address": "Raipur, Chhattisgarh, India",
+    "amenities": [
+      "Free WiFi",
+      "Breakfast",
+      "Gym",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Mahanadi%20Grand%20Raipur%2C%20Chhattisgarh%2C%20India"
+  },
+  {
+    "id": "plaza-chhattisgarh",
+    "destinationId": "chhattisgarh",
+    "name": "Bastar Heritage Lodge",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-chhattisgarh.jpg",
+    "address": "Jagdalpur, Chhattisgarh, India",
+    "amenities": [
+      "Parking",
+      "Gym",
+      "Airport Shuttle",
+      "Swimming Pool"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Bastar%20Heritage%20Lodge%20Jagdalpur%2C%20Chhattisgarh%2C%20India"
+  },
+  {
+    "id": "suites-chhattisgarh",
+    "destinationId": "chhattisgarh",
+    "name": "Dandakarnya Retreat",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-chhattisgarh.jpg",
+    "address": "Bastar, Chhattisgarh, India",
+    "amenities": [
+      "Airport Shuttle",
+      "Room Service",
+      "Gym",
+      "Spa"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Dandakarnya%20Retreat%20Bastar%2C%20Chhattisgarh%2C%20India"
+  },
+  {
+    "id": "inn-chhattisgarh",
+    "destinationId": "chhattisgarh",
+    "name": "Mahanadi Riverside Inn",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-chhattisgarh.jpg",
+    "address": "Bilaspur, Chhattisgarh, India",
+    "amenities": [
+      "Parking",
+      "Spa",
+      "Swimming Pool",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Mahanadi%20Riverside%20Inn%20Bilaspur%2C%20Chhattisgarh%2C%20India"
+  },
+  {
+    "id": "grand-mumbai",
+    "destinationId": "mumbai",
+    "name": "Marine Drive Grand",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-mumbai.jpg",
+    "address": "Marine Drive, Mumbai, India",
+    "amenities": [
+      "Free WiFi",
+      "Breakfast",
+      "Swimming Pool",
+      "Restaurant"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Marine%20Drive%20Grand%20Marine%20Drive%2C%20Mumbai%2C%20India"
+  },
+  {
+    "id": "royal-mumbai",
+    "destinationId": "mumbai",
+    "name": "Colaba Heritage Hotel",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-mumbai.jpg",
+    "address": "Colaba, Mumbai, India",
+    "amenities": [
+      "Parking",
+      "Free WiFi",
+      "Breakfast",
+      "Airport Shuttle"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Colaba%20Heritage%20Hotel%20Colaba%2C%20Mumbai%2C%20India"
+  },
+  {
+    "id": "plaza-mumbai",
+    "destinationId": "mumbai",
+    "name": "Bandra Bay Hotel",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-mumbai.jpg",
+    "address": "Bandra West, Mumbai, India",
+    "amenities": [
+      "Swimming Pool",
+      "Restaurant",
+      "Parking",
+      "Gym"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Bandra%20Bay%20Hotel%20Bandra%20West%2C%20Mumbai%2C%20India"
+  },
+  {
+    "id": "suites-mumbai",
+    "destinationId": "mumbai",
+    "name": "Gateway View Suites",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-mumbai.jpg",
+    "address": "Fort, Mumbai, India",
+    "amenities": [
+      "Free WiFi",
+      "Spa",
+      "Breakfast",
+      "Airport Shuttle"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Gateway%20View%20Suites%20Fort%2C%20Mumbai%2C%20India"
+  },
+  {
+    "id": "inn-mumbai",
+    "destinationId": "mumbai",
+    "name": "Malabar Hill Retreat",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-mumbai.jpg",
+    "address": "Malabar Hill, Mumbai, India",
+    "amenities": [
+      "Gym",
+      "Spa",
+      "Breakfast",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Malabar%20Hill%20Retreat%20Malabar%20Hill%2C%20Mumbai%2C%20India"
+  },
+  {
+    "id": "grand-nashik",
+    "destinationId": "nashik",
+    "name": "Godavari Grand Hotel",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-nashik.jpg",
+    "address": "Gangapur Road, Nashik, India",
+    "amenities": [
+      "Parking",
+      "Restaurant",
+      "Room Service",
+      "Spa"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Godavari%20Grand%20Hotel%20Gangapur%20Road%2C%20Nashik%2C%20India"
+  },
+  {
+    "id": "royal-nashik",
+    "destinationId": "nashik",
+    "name": "Sula Valley Retreat",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-nashik.jpg",
+    "address": "Sula Vineyards, Nashik, India",
+    "amenities": [
+      "Swimming Pool",
+      "Restaurant",
+      "Free WiFi",
+      "Parking"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Sula%20Valley%20Retreat%20Sula%20Vineyards%2C%20Nashik%2C%20India"
+  },
+  {
+    "id": "plaza-nashik",
+    "destinationId": "nashik",
+    "name": "Panchavati Heritage Hotel",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-nashik.jpg",
+    "address": "Panchavati, Nashik, India",
+    "amenities": [
+      "Airport Shuttle",
+      "Gym",
+      "Free WiFi",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Panchavati%20Heritage%20Hotel%20Panchavati%2C%20Nashik%2C%20India"
+  },
+  {
+    "id": "suites-nashik",
+    "destinationId": "nashik",
+    "name": "Trimbakeshwar View Resort",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-nashik.jpg",
+    "address": "Trimbakeshwar, Nashik, India",
+    "amenities": [
+      "Room Service",
+      "Gym",
+      "Spa",
+      "Free WiFi"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Trimbakeshwar%20View%20Resort%20Trimbakeshwar%2C%20Nashik%2C%20India"
+  },
+  {
+    "id": "inn-nashik",
+    "destinationId": "nashik",
+    "name": "Vineyard Lane Inn",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-nashik.jpg",
+    "address": "Nashik Road, Nashik, India",
+    "amenities": [
+      "Room Service",
+      "Airport Shuttle",
+      "Free WiFi",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Vineyard%20Lane%20Inn%20Nashik%20Road%2C%20Nashik%2C%20India"
+  },
+  {
+    "id": "grand-jalgaon",
+    "destinationId": "jalgaon",
+    "name": "Tapi Riverside Hotel",
+    "rating": 5,
+    "price": 18000,
+    "currency": "INR",
+    "image": "assets/hotels/grand-jalgaon.jpg",
+    "address": "Tapi River Road, Jalgaon, India",
+    "amenities": [
+      "Airport Shuttle",
+      "Free WiFi",
+      "Room Service",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Tapi%20Riverside%20Hotel%20Tapi%20River%20Road%2C%20Jalgaon%2C%20India"
+  },
+  {
+    "id": "royal-jalgaon",
+    "destinationId": "jalgaon",
+    "name": "Ajanta Gateway Inn",
+    "rating": 5,
+    "price": 22000,
+    "currency": "INR",
+    "image": "assets/hotels/royal-jalgaon.jpg",
+    "address": "Jalgaon City, Maharashtra, India",
+    "amenities": [
+      "Restaurant",
+      "Free WiFi",
+      "Parking",
+      "Spa"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ajanta%20Gateway%20Inn%20Jalgaon%20City%2C%20Maharashtra%2C%20India"
+  },
+  {
+    "id": "plaza-jalgaon",
+    "destinationId": "jalgaon",
+    "name": "Khandesh Grand Hotel",
+    "rating": 4,
+    "price": 12000,
+    "currency": "INR",
+    "image": "assets/hotels/plaza-jalgaon.jpg",
+    "address": "Station Road, Jalgaon, India",
+    "amenities": [
+      "Restaurant",
+      "Spa",
+      "Airport Shuttle",
+      "Room Service"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Khandesh%20Grand%20Hotel%20Station%20Road%2C%20Jalgaon%2C%20India"
+  },
+  {
+    "id": "suites-jalgaon",
+    "destinationId": "jalgaon",
+    "name": "Jalgaon Central Suites",
+    "rating": 4,
+    "price": 9000,
+    "currency": "INR",
+    "image": "assets/hotels/suites-jalgaon.jpg",
+    "address": "Central Jalgaon, Maharashtra, India",
+    "amenities": [
+      "Free WiFi",
+      "Spa",
+      "Breakfast",
+      "Parking"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Jalgaon%20Central%20Suites%20Central%20Jalgaon%2C%20Maharashtra%2C%20India"
+  },
+  {
+    "id": "inn-jalgaon",
+    "destinationId": "jalgaon",
+    "name": "Girna View Residency",
+    "rating": 3,
+    "price": 6000,
+    "currency": "INR",
+    "image": "assets/hotels/inn-jalgaon.jpg",
+    "address": "Mehrun Road, Jalgaon, India",
+    "amenities": [
+      "Parking",
+      "Spa",
+      "Swimming Pool",
+      "Breakfast"
+    ],
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Girna%20View%20Residency%20Mehrun%20Road%2C%20Jalgaon%2C%20India"
+  }
 ]
