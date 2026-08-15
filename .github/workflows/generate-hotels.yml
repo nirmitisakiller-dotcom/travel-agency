@@ -2,6 +2,10 @@ name: Generate Hotels
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/generate-hotels.js"
+      - ".github/workflows/generate-hotels.yml"
 
 permissions:
   contents: write
