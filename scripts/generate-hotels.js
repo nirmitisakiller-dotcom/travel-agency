@@ -122,13 +122,6 @@ const amenities = [
     "Room Service"
 ];
 
-function slug(text) {
-    return text
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-}
-
 function randomAmenities() {
     const copy = [...amenities];
     copy.sort(() => Math.random() - 0.5);
@@ -136,14 +129,13 @@ function randomAmenities() {
 }
 
 function bookingUrl(name, address) {
-    return `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(
-        `${name} ${address}`
-    )}`;
+    return `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(`${name} ${address}`)}`;
 }
 
 const hotels = [];
 
 destinations.forEach(destination => {
+
     const rows = profiles[destination.id] || fallbackTemplates.map(item => [
         item[0],
         `${item[1]} ${destination.name}`,
@@ -152,11 +144,10 @@ destinations.forEach(destination => {
         `Central ${destination.name}, ${destination.country || ""}`.replace(/, $/, "")
     ]);
 
-    rows.forEach(row => {
-        const [slot, name, rating, price, address] = row;
+    rows.forEach(([slot, name, rating, price, address]) => {
 
         hotels.push({
-            id: `${destination.id}-${slot}`,
+            id: `${slot}-${destination.id}`,
             destinationId: destination.id,
             name,
             rating,
@@ -167,7 +158,9 @@ destinations.forEach(destination => {
             amenities: randomAmenities(),
             bookingUrl: bookingUrl(name, address)
         });
+
     });
+
 });
 
 fs.writeFileSync(
