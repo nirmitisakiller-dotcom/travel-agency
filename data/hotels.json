@@ -9,9 +9,9 @@
     "image": "assets/hotels/grand-paris.jpg",
     "address": "Rue de Rivoli, Paris, France",
     "amenities": [
+      "Free WiFi",
+      "Restaurant",
       "Breakfast",
-      "Gym",
-      "Airport Shuttle",
       "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Louvre%20Garden%20Hotel%20Rue%20de%20Rivoli%2C%20Paris%2C%20France"
@@ -26,9 +26,9 @@
     "image": "assets/hotels/royal-paris.jpg",
     "address": "Saint-Germain, Paris, France",
     "amenities": [
-      "Room Service",
+      "Breakfast",
+      "Spa",
       "Free WiFi",
-      "Swimming Pool",
       "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Seine%20Lumi%C3%A8re%20Hotel%20Saint-Germain%2C%20Paris%2C%20France"
@@ -44,9 +44,9 @@
     "address": "Montmartre, Paris, France",
     "amenities": [
       "Free WiFi",
-      "Breakfast",
+      "Restaurant",
       "Airport Shuttle",
-      "Parking"
+      "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Montmartre%20House%20Montmartre%2C%20Paris%2C%20France"
   },
@@ -60,10 +60,10 @@
     "image": "assets/hotels/suites-paris.jpg",
     "address": "Le Marais, Paris, France",
     "amenities": [
-      "Restaurant",
-      "Airport Shuttle",
-      "Room Service",
-      "Swimming Pool"
+      "Free WiFi",
+      "Breakfast",
+      "Swimming Pool",
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Rivoli%20Grand%20Hotel%20Le%20Marais%2C%20Paris%2C%20France"
   },
@@ -77,10 +77,10 @@
     "image": "assets/hotels/inn-paris.jpg",
     "address": "Saint-Germain-des-Prés, Paris, France",
     "amenities": [
-      "Restaurant",
-      "Airport Shuttle",
-      "Parking",
-      "Breakfast"
+      "Free WiFi",
+      "Gym",
+      "Spa",
+      "Parking"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Saint-Germain%20Residence%20Saint-Germain-des-Pr%C3%A9s%2C%20Paris%2C%20France"
   },
@@ -94,10 +94,10 @@
     "image": "assets/hotels/grand-tokyo.jpg",
     "address": "Shibuya, Tokyo, Japan",
     "amenities": [
+      "Free WiFi",
+      "Breakfast",
       "Airport Shuttle",
-      "Spa",
-      "Restaurant",
-      "Free WiFi"
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Shibuya%20Sakura%20Hotel%20Shibuya%2C%20Tokyo%2C%20Japan"
   },
@@ -111,10 +111,10 @@
     "image": "assets/hotels/royal-tokyo.jpg",
     "address": "Ginza, Tokyo, Japan",
     "amenities": [
-      "Gym",
+      "Airport Shuttle",
       "Spa",
-      "Swimming Pool",
-      "Room Service"
+      "Breakfast",
+      "Parking"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ginza%20Imperial%20Hotel%20Ginza%2C%20Tokyo%2C%20Japan"
   },
@@ -128,10 +128,10 @@
     "image": "assets/hotels/plaza-tokyo.jpg",
     "address": "Asakusa, Tokyo, Japan",
     "amenities": [
-      "Free WiFi",
-      "Spa",
-      "Room Service",
-      "Gym"
+      "Parking",
+      "Swimming Pool",
+      "Breakfast",
+      "Airport Shuttle"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Asakusa%20Lantern%20House%20Asakusa%2C%20Tokyo%2C%20Japan"
   },
@@ -145,9 +145,9 @@
     "image": "assets/hotels/suites-tokyo.jpg",
     "address": "Shinjuku, Tokyo, Japan",
     "amenities": [
-      "Parking",
-      "Swimming Pool",
+      "Airport Shuttle",
       "Gym",
+      "Free WiFi",
       "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Shinjuku%20Sky%20Hotel%20Shinjuku%2C%20Tokyo%2C%20Japan"
@@ -162,8 +162,8 @@
     "image": "assets/hotels/inn-tokyo.jpg",
     "address": "Tokyo Bay, Tokyo, Japan",
     "amenities": [
-      "Restaurant",
       "Free WiFi",
+      "Parking",
       "Breakfast",
       "Swimming Pool"
     ],
@@ -179,10 +179,10 @@
     "image": "assets/hotels/grand-bali.jpg",
     "address": "Ubud, Bali, Indonesia",
     "amenities": [
-      "Room Service",
-      "Parking",
-      "Restaurant",
-      "Airport Shuttle"
+      "Airport Shuttle",
+      "Swimming Pool",
+      "Breakfast",
+      "Parking"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ubud%20Rice%20Terrace%20Resort%20Ubud%2C%20Bali%2C%20Indonesia"
   },
@@ -196,10 +196,10 @@
     "image": "assets/hotels/royal-bali.jpg",
     "address": "Seminyak, Bali, Indonesia",
     "amenities": [
-      "Airport Shuttle",
       "Free WiFi",
-      "Spa",
-      "Gym"
+      "Restaurant",
+      "Breakfast",
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Seminyak%20Ocean%20House%20Seminyak%2C%20Bali%2C%20Indonesia"
   },
@@ -213,10 +213,10 @@
     "image": "assets/hotels/plaza-bali.jpg",
     "address": "Uluwatu, Bali, Indonesia",
     "amenities": [
-      "Free WiFi",
+      "Airport Shuttle",
+      "Gym",
       "Spa",
-      "Breakfast",
-      "Room Service"
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Uluwatu%20Cliff%20Retreat%20Uluwatu%2C%20Bali%2C%20Indonesia"
   },
@@ -230,10 +230,10 @@
     "image": "assets/hotels/suites-bali.jpg",
     "address": "Kuta, Bali, Indonesia",
     "amenities": [
-      "Room Service",
-      "Parking",
+      "Swimming Pool",
       "Restaurant",
-      "Airport Shuttle"
+      "Breakfast",
+      "Free WiFi"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kuta%20Sunset%20Resort%20Kuta%2C%20Bali%2C%20Indonesia"
   },
@@ -247,10 +247,10 @@
     "image": "assets/hotels/inn-bali.jpg",
     "address": "Canggu, Bali, Indonesia",
     "amenities": [
-      "Airport Shuttle",
-      "Free WiFi",
-      "Breakfast",
-      "Swimming Pool"
+      "Swimming Pool",
+      "Spa",
+      "Gym",
+      "Room Service"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Canggu%20Palm%20Villas%20Canggu%2C%20Bali%2C%20Indonesia"
   },
@@ -264,10 +264,10 @@
     "image": "assets/hotels/grand-singapore.jpg",
     "address": "Marina Bay, Singapore",
     "amenities": [
-      "Free WiFi",
-      "Airport Shuttle",
+      "Restaurant",
+      "Spa",
       "Parking",
-      "Swimming Pool"
+      "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Marina%20Bay%20Grand%20Marina%20Bay%2C%20Singapore"
   },
@@ -281,10 +281,10 @@
     "image": "assets/hotels/royal-singapore.jpg",
     "address": "Orchard Road, Singapore",
     "amenities": [
-      "Restaurant",
-      "Parking",
-      "Gym",
-      "Swimming Pool"
+      "Spa",
+      "Airport Shuttle",
+      "Swimming Pool",
+      "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Orchard%20Garden%20Hotel%20Orchard%20Road%2C%20Singapore"
   },
@@ -298,10 +298,10 @@
     "image": "assets/hotels/plaza-singapore.jpg",
     "address": "Sentosa Cove, Singapore",
     "amenities": [
-      "Airport Shuttle",
-      "Swimming Pool",
-      "Free WiFi",
-      "Gym"
+      "Gym",
+      "Spa",
+      "Restaurant",
+      "Parking"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Sentosa%20Cove%20Resort%20Sentosa%20Cove%2C%20Singapore"
   },
@@ -315,10 +315,10 @@
     "image": "assets/hotels/suites-singapore.jpg",
     "address": "Clarke Quay, Singapore",
     "amenities": [
-      "Free WiFi",
+      "Gym",
+      "Spa",
       "Parking",
-      "Breakfast",
-      "Room Service"
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Clarke%20Quay%20Riverside%20Clarke%20Quay%2C%20Singapore"
   },
@@ -332,10 +332,10 @@
     "image": "assets/hotels/inn-singapore.jpg",
     "address": "Downtown Core, Singapore",
     "amenities": [
-      "Free WiFi",
-      "Breakfast",
-      "Gym",
-      "Swimming Pool"
+      "Parking",
+      "Swimming Pool",
+      "Spa",
+      "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Marina%20View%20Suites%20Downtown%20Core%2C%20Singapore"
   },
@@ -349,9 +349,9 @@
     "image": "assets/hotels/grand-maldives.jpg",
     "address": "North Malé Atoll, Maldives",
     "amenities": [
-      "Spa",
-      "Parking",
+      "Airport Shuttle",
       "Free WiFi",
+      "Parking",
       "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Coral%20Reef%20Retreat%20North%20Mal%C3%A9%20Atoll%2C%20Maldives"
@@ -366,10 +366,10 @@
     "image": "assets/hotels/royal-maldives.jpg",
     "address": "South Malé Atoll, Maldives",
     "amenities": [
-      "Gym",
-      "Swimming Pool",
+      "Breakfast",
       "Airport Shuttle",
-      "Breakfast"
+      "Spa",
+      "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Lagoon%20Pearl%20Resort%20South%20Mal%C3%A9%20Atoll%2C%20Maldives"
   },
@@ -383,10 +383,10 @@
     "image": "assets/hotels/plaza-maldives.jpg",
     "address": "Ari Atoll, Maldives",
     "amenities": [
-      "Free WiFi",
-      "Room Service",
+      "Restaurant",
+      "Gym",
       "Swimming Pool",
-      "Spa"
+      "Airport Shuttle"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Atoll%20Breeze%20Villas%20Ari%20Atoll%2C%20Maldives"
   },
@@ -400,10 +400,10 @@
     "image": "assets/hotels/suites-maldives.jpg",
     "address": "Baa Atoll, Maldives",
     "amenities": [
-      "Spa",
-      "Restaurant",
-      "Room Service",
-      "Free WiFi"
+      "Free WiFi",
+      "Gym",
+      "Breakfast",
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ocean%20Crown%20Maldives%20Baa%20Atoll%2C%20Maldives"
   },
@@ -417,10 +417,10 @@
     "image": "assets/hotels/inn-maldives.jpg",
     "address": "Lhaviyani Atoll, Maldives",
     "amenities": [
-      "Restaurant",
       "Spa",
-      "Room Service",
-      "Swimming Pool"
+      "Swimming Pool",
+      "Airport Shuttle",
+      "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Palm%20Island%20Retreat%20Lhaviyani%20Atoll%2C%20Maldives"
   },
@@ -434,10 +434,10 @@
     "image": "assets/hotels/grand-leh.jpg",
     "address": "Leh, Ladakh, India",
     "amenities": [
-      "Spa",
-      "Restaurant",
       "Breakfast",
-      "Free WiFi"
+      "Restaurant",
+      "Free WiFi",
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Himalayan%20Gate%20Hotel%20Leh%2C%20Ladakh%2C%20India"
   },
@@ -451,10 +451,10 @@
     "image": "assets/hotels/royal-leh.jpg",
     "address": "Changspa, Leh, Ladakh, India",
     "amenities": [
-      "Airport Shuttle",
+      "Swimming Pool",
+      "Breakfast",
       "Gym",
-      "Spa",
-      "Swimming Pool"
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Shanti%20Valley%20Lodge%20Changspa%2C%20Leh%2C%20Ladakh%2C%20India"
   },
@@ -468,10 +468,10 @@
     "image": "assets/hotels/plaza-leh.jpg",
     "address": "Old Town, Leh, Ladakh, India",
     "amenities": [
-      "Breakfast",
       "Free WiFi",
-      "Room Service",
-      "Gym"
+      "Airport Shuttle",
+      "Breakfast",
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Leh%20Palace%20View%20Hotel%20Old%20Town%2C%20Leh%2C%20Ladakh%2C%20India"
   },
@@ -486,9 +486,9 @@
     "address": "Fort Road, Leh, Ladakh, India",
     "amenities": [
       "Swimming Pool",
-      "Restaurant",
+      "Airport Shuttle",
       "Breakfast",
-      "Room Service"
+      "Free WiFi"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Khardungla%20Heights%20Fort%20Road%2C%20Leh%2C%20Ladakh%2C%20India"
   },
@@ -503,9 +503,9 @@
     "address": "Skara Road, Leh, Ladakh, India",
     "amenities": [
       "Swimming Pool",
-      "Room Service",
       "Parking",
-      "Breakfast"
+      "Restaurant",
+      "Room Service"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Indus%20Heritage%20Inn%20Skara%20Road%2C%20Leh%2C%20Ladakh%2C%20India"
   },
@@ -519,10 +519,10 @@
     "image": "assets/hotels/grand-ladakh.jpg",
     "address": "Leh District, Ladakh, India",
     "amenities": [
-      "Airport Shuttle",
-      "Swimming Pool",
       "Parking",
-      "Spa"
+      "Spa",
+      "Gym",
+      "Free WiFi"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Himalayan%20Horizon%20Ladakh%20Leh%20District%2C%20Ladakh%2C%20India"
   },
@@ -536,10 +536,10 @@
     "image": "assets/hotels/royal-ladakh.jpg",
     "address": "Indus Valley, Ladakh, India",
     "amenities": [
-      "Swimming Pool",
+      "Spa",
       "Breakfast",
-      "Restaurant",
-      "Gym"
+      "Swimming Pool",
+      "Free WiFi"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Indus%20Valley%20Retreat%20Indus%20Valley%2C%20Ladakh%2C%20India"
   },
@@ -553,10 +553,10 @@
     "image": "assets/hotels/plaza-ladakh.jpg",
     "address": "Lamayuru, Ladakh, India",
     "amenities": [
-      "Gym",
-      "Breakfast",
+      "Parking",
+      "Room Service",
       "Restaurant",
-      "Free WiFi"
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Moonland%20Heights%20Lamayuru%2C%20Ladakh%2C%20India"
   },
@@ -570,9 +570,9 @@
     "image": "assets/hotels/suites-ladakh.jpg",
     "address": "Pangong Lake, Ladakh, India",
     "amenities": [
+      "Spa",
+      "Free WiFi",
       "Restaurant",
-      "Swimming Pool",
-      "Room Service",
       "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Pangong%20View%20Lodge%20Pangong%20Lake%2C%20Ladakh%2C%20India"
@@ -587,10 +587,10 @@
     "image": "assets/hotels/inn-ladakh.jpg",
     "address": "Nubra Valley, Ladakh, India",
     "amenities": [
-      "Room Service",
-      "Free WiFi",
       "Restaurant",
-      "Swimming Pool"
+      "Parking",
+      "Spa",
+      "Free WiFi"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Mountain%20Crown%20Ladakh%20Nubra%20Valley%2C%20Ladakh%2C%20India"
   },
@@ -604,10 +604,10 @@
     "image": "assets/hotels/grand-spiti.jpg",
     "address": "Kaza, Spiti Valley, India",
     "amenities": [
-      "Room Service",
       "Gym",
       "Spa",
-      "Swimming Pool"
+      "Airport Shuttle",
+      "Parking"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kaza%20Valley%20Retreat%20Kaza%2C%20Spiti%20Valley%2C%20India"
   },
@@ -622,9 +622,9 @@
     "address": "Tabo, Spiti Valley, India",
     "amenities": [
       "Parking",
-      "Gym",
+      "Free WiFi",
       "Restaurant",
-      "Room Service"
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Spiti%20River%20Lodge%20Tabo%2C%20Spiti%20Valley%2C%20India"
   },
@@ -638,10 +638,10 @@
     "image": "assets/hotels/plaza-spiti.jpg",
     "address": "Kibber, Spiti Valley, India",
     "amenities": [
-      "Spa",
       "Breakfast",
-      "Restaurant",
-      "Airport Shuttle"
+      "Spa",
+      "Gym",
+      "Parking"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Key%20Monastery%20View%20Kibber%2C%20Spiti%20Valley%2C%20India"
   },
@@ -656,9 +656,9 @@
     "address": "Losar, Spiti Valley, India",
     "amenities": [
       "Restaurant",
-      "Swimming Pool",
-      "Parking",
-      "Breakfast"
+      "Free WiFi",
+      "Breakfast",
+      "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kunzum%20Heights%20Losar%2C%20Spiti%20Valley%2C%20India"
   },
@@ -673,9 +673,9 @@
     "address": "Pin Valley, Spiti, India",
     "amenities": [
       "Free WiFi",
+      "Restaurant",
       "Breakfast",
-      "Swimming Pool",
-      "Spa"
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Pin%20Valley%20Inn%20Pin%20Valley%2C%20Spiti%2C%20India"
   },
@@ -689,10 +689,10 @@
     "image": "assets/hotels/grand-hampi.jpg",
     "address": "Hampi, Karnataka, India",
     "amenities": [
-      "Spa",
-      "Swimming Pool",
-      "Restaurant",
-      "Breakfast"
+      "Free WiFi",
+      "Parking",
+      "Room Service",
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Tungabhadra%20Heritage%20Resort%20Hampi%2C%20Karnataka%2C%20India"
   },
@@ -706,10 +706,10 @@
     "image": "assets/hotels/royal-hampi.jpg",
     "address": "Hampi Bazaar, Karnataka, India",
     "amenities": [
+      "Spa",
       "Free WiFi",
-      "Restaurant",
-      "Room Service",
-      "Spa"
+      "Breakfast",
+      "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Vijayanagara%20Retreat%20Hampi%20Bazaar%2C%20Karnataka%2C%20India"
   },
@@ -723,10 +723,10 @@
     "image": "assets/hotels/plaza-hampi.jpg",
     "address": "Anegundi, Hampi, India",
     "amenities": [
-      "Restaurant",
       "Gym",
+      "Restaurant",
       "Airport Shuttle",
-      "Free WiFi"
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hampi%20Stone%20House%20Anegundi%2C%20Hampi%2C%20India"
   },
@@ -740,10 +740,10 @@
     "image": "assets/hotels/suites-hampi.jpg",
     "address": "Virupaksha Temple Road, Hampi, India",
     "amenities": [
-      "Restaurant",
-      "Breakfast",
-      "Parking",
-      "Room Service"
+      "Free WiFi",
+      "Airport Shuttle",
+      "Room Service",
+      "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Virupaksha%20View%20Resort%20Virupaksha%20Temple%20Road%2C%20Hampi%2C%20India"
   },
@@ -757,10 +757,10 @@
     "image": "assets/hotels/inn-hampi.jpg",
     "address": "Kampli Road, Hampi, India",
     "amenities": [
-      "Spa",
-      "Restaurant",
-      "Swimming Pool",
-      "Breakfast"
+      "Parking",
+      "Free WiFi",
+      "Breakfast",
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Royal%20Ruins%20Lodge%20Kampli%20Road%2C%20Hampi%2C%20India"
   },
@@ -774,10 +774,10 @@
     "image": "assets/hotels/grand-chhattisgarh.jpg",
     "address": "Raipur, Chhattisgarh, India",
     "amenities": [
-      "Airport Shuttle",
-      "Free WiFi",
-      "Breakfast",
-      "Restaurant"
+      "Parking",
+      "Gym",
+      "Room Service",
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Raipur%20Central%20Hotel%20Raipur%2C%20Chhattisgarh%2C%20India"
   },
@@ -791,10 +791,10 @@
     "image": "assets/hotels/royal-chhattisgarh.jpg",
     "address": "Raipur, Chhattisgarh, India",
     "amenities": [
-      "Free WiFi",
-      "Breakfast",
+      "Airport Shuttle",
+      "Room Service",
       "Gym",
-      "Swimming Pool"
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Mahanadi%20Grand%20Raipur%2C%20Chhattisgarh%2C%20India"
   },
@@ -808,10 +808,10 @@
     "image": "assets/hotels/plaza-chhattisgarh.jpg",
     "address": "Jagdalpur, Chhattisgarh, India",
     "amenities": [
-      "Parking",
       "Gym",
-      "Airport Shuttle",
-      "Swimming Pool"
+      "Swimming Pool",
+      "Spa",
+      "Room Service"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Bastar%20Heritage%20Lodge%20Jagdalpur%2C%20Chhattisgarh%2C%20India"
   },
@@ -825,10 +825,10 @@
     "image": "assets/hotels/suites-chhattisgarh.jpg",
     "address": "Bastar, Chhattisgarh, India",
     "amenities": [
-      "Airport Shuttle",
       "Room Service",
       "Gym",
-      "Spa"
+      "Free WiFi",
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Dandakarnya%20Retreat%20Bastar%2C%20Chhattisgarh%2C%20India"
   },
@@ -842,10 +842,10 @@
     "image": "assets/hotels/inn-chhattisgarh.jpg",
     "address": "Bilaspur, Chhattisgarh, India",
     "amenities": [
-      "Parking",
       "Spa",
-      "Swimming Pool",
-      "Room Service"
+      "Free WiFi",
+      "Breakfast",
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Mahanadi%20Riverside%20Inn%20Bilaspur%2C%20Chhattisgarh%2C%20India"
   },
@@ -859,10 +859,10 @@
     "image": "assets/hotels/grand-mumbai.jpg",
     "address": "Marine Drive, Mumbai, India",
     "amenities": [
-      "Free WiFi",
-      "Breakfast",
+      "Restaurant",
       "Swimming Pool",
-      "Restaurant"
+      "Room Service",
+      "Spa"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Marine%20Drive%20Grand%20Marine%20Drive%2C%20Mumbai%2C%20India"
   },
@@ -876,10 +876,10 @@
     "image": "assets/hotels/royal-mumbai.jpg",
     "address": "Colaba, Mumbai, India",
     "amenities": [
-      "Parking",
       "Free WiFi",
-      "Breakfast",
-      "Airport Shuttle"
+      "Spa",
+      "Airport Shuttle",
+      "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Colaba%20Heritage%20Hotel%20Colaba%2C%20Mumbai%2C%20India"
   },
@@ -894,9 +894,9 @@
     "address": "Bandra West, Mumbai, India",
     "amenities": [
       "Swimming Pool",
-      "Restaurant",
+      "Breakfast",
       "Parking",
-      "Gym"
+      "Free WiFi"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Bandra%20Bay%20Hotel%20Bandra%20West%2C%20Mumbai%2C%20India"
   },
@@ -910,10 +910,10 @@
     "image": "assets/hotels/suites-mumbai.jpg",
     "address": "Fort, Mumbai, India",
     "amenities": [
-      "Free WiFi",
+      "Swimming Pool",
+      "Gym",
       "Spa",
-      "Breakfast",
-      "Airport Shuttle"
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Gateway%20View%20Suites%20Fort%2C%20Mumbai%2C%20India"
   },
@@ -927,10 +927,10 @@
     "image": "assets/hotels/inn-mumbai.jpg",
     "address": "Malabar Hill, Mumbai, India",
     "amenities": [
-      "Gym",
+      "Room Service",
       "Spa",
-      "Breakfast",
-      "Room Service"
+      "Swimming Pool",
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Malabar%20Hill%20Retreat%20Malabar%20Hill%2C%20Mumbai%2C%20India"
   },
@@ -944,10 +944,10 @@
     "image": "assets/hotels/grand-nashik.jpg",
     "address": "Gangapur Road, Nashik, India",
     "amenities": [
-      "Parking",
       "Restaurant",
-      "Room Service",
-      "Spa"
+      "Free WiFi",
+      "Parking",
+      "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Godavari%20Grand%20Hotel%20Gangapur%20Road%2C%20Nashik%2C%20India"
   },
@@ -961,10 +961,10 @@
     "image": "assets/hotels/royal-nashik.jpg",
     "address": "Sula Vineyards, Nashik, India",
     "amenities": [
-      "Swimming Pool",
-      "Restaurant",
-      "Free WiFi",
-      "Parking"
+      "Airport Shuttle",
+      "Gym",
+      "Spa",
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Sula%20Valley%20Retreat%20Sula%20Vineyards%2C%20Nashik%2C%20India"
   },
@@ -978,10 +978,10 @@
     "image": "assets/hotels/plaza-nashik.jpg",
     "address": "Panchavati, Nashik, India",
     "amenities": [
-      "Airport Shuttle",
+      "Parking",
       "Gym",
-      "Free WiFi",
-      "Breakfast"
+      "Airport Shuttle",
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Panchavati%20Heritage%20Hotel%20Panchavati%2C%20Nashik%2C%20India"
   },
@@ -995,10 +995,10 @@
     "image": "assets/hotels/suites-nashik.jpg",
     "address": "Trimbakeshwar, Nashik, India",
     "amenities": [
-      "Room Service",
-      "Gym",
+      "Swimming Pool",
       "Spa",
-      "Free WiFi"
+      "Breakfast",
+      "Restaurant"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Trimbakeshwar%20View%20Resort%20Trimbakeshwar%2C%20Nashik%2C%20India"
   },
@@ -1012,10 +1012,10 @@
     "image": "assets/hotels/inn-nashik.jpg",
     "address": "Nashik Road, Nashik, India",
     "amenities": [
-      "Room Service",
+      "Swimming Pool",
       "Airport Shuttle",
-      "Free WiFi",
-      "Breakfast"
+      "Spa",
+      "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Vineyard%20Lane%20Inn%20Nashik%20Road%2C%20Nashik%2C%20India"
   },
@@ -1029,10 +1029,10 @@
     "image": "assets/hotels/grand-jalgaon.jpg",
     "address": "Tapi River Road, Jalgaon, India",
     "amenities": [
-      "Airport Shuttle",
+      "Parking",
       "Free WiFi",
-      "Room Service",
-      "Breakfast"
+      "Breakfast",
+      "Swimming Pool"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Tapi%20Riverside%20Hotel%20Tapi%20River%20Road%2C%20Jalgaon%2C%20India"
   },
@@ -1046,10 +1046,10 @@
     "image": "assets/hotels/royal-jalgaon.jpg",
     "address": "Jalgaon City, Maharashtra, India",
     "amenities": [
-      "Restaurant",
-      "Free WiFi",
       "Parking",
-      "Spa"
+      "Breakfast",
+      "Swimming Pool",
+      "Gym"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ajanta%20Gateway%20Inn%20Jalgaon%20City%2C%20Maharashtra%2C%20India"
   },
@@ -1063,9 +1063,9 @@
     "image": "assets/hotels/plaza-jalgaon.jpg",
     "address": "Station Road, Jalgaon, India",
     "amenities": [
-      "Restaurant",
-      "Spa",
-      "Airport Shuttle",
+      "Swimming Pool",
+      "Gym",
+      "Free WiFi",
       "Room Service"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Khandesh%20Grand%20Hotel%20Station%20Road%2C%20Jalgaon%2C%20India"
@@ -1080,10 +1080,10 @@
     "image": "assets/hotels/suites-jalgaon.jpg",
     "address": "Central Jalgaon, Maharashtra, India",
     "amenities": [
+      "Parking",
+      "Airport Shuttle",
       "Free WiFi",
-      "Spa",
-      "Breakfast",
-      "Parking"
+      "Breakfast"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Jalgaon%20Central%20Suites%20Central%20Jalgaon%2C%20Maharashtra%2C%20India"
   },
@@ -1098,9 +1098,9 @@
     "address": "Mehrun Road, Jalgaon, India",
     "amenities": [
       "Parking",
-      "Spa",
-      "Swimming Pool",
-      "Breakfast"
+      "Breakfast",
+      "Airport Shuttle",
+      "Free WiFi"
     ],
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Girna%20View%20Residency%20Mehrun%20Road%2C%20Jalgaon%2C%20India"
   }
