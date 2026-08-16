@@ -4,6 +4,8 @@
 
 "use strict";
 
+const CLIENT_WHATSAPP = "919822339466";
+
 function escapeDestinationHtml(text = "") {
     return String(text)
         .replace(/&/g, "&amp;")
@@ -13,16 +15,23 @@ function escapeDestinationHtml(text = "") {
         .replace(/'/g, "&#039;");
 }
 
-function getDestinationHotelBookingLink(hotel) {
-    const configuredUrl = String(hotel?.bookingUrl || "").trim();
+function getHotelEnquiryLink(hotel, destination) {
+    const message = encodeURIComponent(
+`Hello Nature Tours,
 
-    if (configuredUrl && configuredUrl !== "#") {
-        return configuredUrl;
-    }
+I would like to enquire about this hotel:
 
-    const searchText = `${hotel?.name || "Hotel"} ${hotel?.address || ""}`.trim();
+🏨 Hotel: ${hotel?.name || ""}
+📍 Location: ${hotel?.address || destination?.name || ""}
+⭐ Rating: ${hotel?.rating || "N/A"}/5
+💰 Listed price: ₹${Number(hotel?.price || 0).toLocaleString("en-IN")} per night
 
-    return `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(searchText)}`;
+Please contact me regarding availability and booking.
+
+Thank you.`
+    );
+
+    return `https://wa.me/${CLIENT_WHATSAPP}?text=${message}`;
 }
 
 function getDestinationMapsLink(hotel) {
@@ -31,22 +40,6 @@ function getDestinationMapsLink(hotel) {
     );
 
     return `https://www.google.com/maps/search/?api=1&query=${query}`;
-}
-
-function getDestinationWhatsAppLink(hotel) {
-    const text = encodeURIComponent(
-`Hello Nature Tours,
-
-I'm interested in booking:
-
-🏨 ${hotel?.name || ""}
-
-📍 ${hotel?.address || ""}
-
-Could you please provide more information?`
-    );
-
-    return `https://wa.me/919999999999?text=${text}`;
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -72,10 +65,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
             return;
         }
-
-        // --------------------------------------
-        // Resolve destination
-        // --------------------------------------
 
         let destination = null;
 
@@ -118,10 +107,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // --------------------------------------
-        // Load hotels and attractions
-        // --------------------------------------
-
         let hotels = [];
         let attractions = [];
 
@@ -142,10 +127,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.warn("Hotels/attractions could not be loaded:", error);
         }
 
-        // --------------------------------------
-        // Destination image
-        // --------------------------------------
-
         let destinationImage = "";
 
         if (destination.image) {
@@ -157,13 +138,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             destinationImage = ImageService.getDestinationImage(destination.id);
         }
 
-        // --------------------------------------
-        // Hero
-        // --------------------------------------
-
         container.innerHTML = `
             <section class="destination-hero">
-
                 <div class="destination-banner">
                     <img
                         src="${escapeDestinationHtml(destinationImage)}"
@@ -177,7 +153,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
 
                 <div class="destination-info">
-
                     <h1>${escapeDestinationHtml(destination.name || "-")}</h1>
 
                     <p class="destination-location">
@@ -219,14 +194,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                         `
                         : ""
                     }
-
                 </div>
             </section>
         `;
-
-        // --------------------------------------
-        // Coordinates
-        // --------------------------------------
 
         if (
             destination.latitude !== undefined ||
@@ -242,16 +212,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
         }
 
-        // --------------------------------------
-        // Hotels
-        // --------------------------------------
-
         const destinationHotels = hotels.filter(
             hotel => hotel.destinationId === destination.id
         );
 
         if (destinationHotels.length > 0) {
-
             container.innerHTML += `
                 <section class="hotel-section">
                     <h2 class="hotel-section-title">Recommended Hotels</h2>
@@ -259,20 +224,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
 
             destinationHotels.forEach(hotel => {
-
                 const hotelImage =
                     window.ImageService &&
                     typeof ImageService.getHotelImage === "function"
                         ? ImageService.getHotelImage(hotel.id)
                         : hotel.image || `assets/hotels/${hotel.id}.jpg`;
 
-                const bookingLink = getDestinationHotelBookingLink(hotel);
+                const enquiryLink = getHotelEnquiryLink(hotel, destination);
                 const mapsLink = getDestinationMapsLink(hotel);
-                const whatsappLink = getDestinationWhatsAppLink(hotel);
 
                 container.innerHTML += `
                     <div class="hotel-card">
-
                         <img
                             class="hotel-photo"
                             src="${escapeDestinationHtml(hotelImage)}"
@@ -285,7 +247,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         >
 
                         <div class="hotel-content">
-
                             <h3>${escapeDestinationHtml(hotel.name || "-")}</h3>
 
                             <p>⭐ ${escapeDestinationHtml(hotel.rating || "-")} Stars</p>
@@ -306,14 +267,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                             </div>
 
                             <div class="hotel-buttons">
-
                                 <a
-                                    href="${escapeDestinationHtml(bookingLink)}"
+                                    href="${escapeDestinationHtml(enquiryLink)}"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     class="hotel-btn"
                                 >
-                                    Find &amp; Book
+                                    Send Enquiry
                                 </a>
 
                                 <a
@@ -324,18 +284,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 >
                                     Google Maps
                                 </a>
-
-                                <a
-                                    href="${escapeDestinationHtml(whatsappLink)}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="hotel-btn"
-                                >
-                                    WhatsApp
-                                </a>
-
                             </div>
-
                         </div>
                     </div>
                 `;
@@ -347,16 +296,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
         }
 
-        // --------------------------------------
-        // Attractions
-        // --------------------------------------
-
         const destinationAttractions = attractions.filter(
             attraction => attraction.destinationId === destination.id
         );
 
         if (destinationAttractions.length > 0) {
-
             container.innerHTML += `
                 <section class="attraction-section">
                     <h2 class="hotel-section-title">Top Attractions</h2>
@@ -364,7 +308,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
 
             destinationAttractions.forEach(attraction => {
-
                 const attractionImage =
                     window.ImageService &&
                     typeof ImageService.getAttractionImage === "function"
@@ -373,7 +316,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 container.innerHTML += `
                     <div class="hotel-card">
-
                         <img
                             class="hotel-photo"
                             src="${escapeDestinationHtml(attractionImage)}"
@@ -400,7 +342,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 : ""
                             }
                         </div>
-
                     </div>
                 `;
             });
@@ -414,7 +355,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("Destination page loaded:", destination.name);
 
     } catch (error) {
-
         console.error("Destination page error:", error);
 
         container.innerHTML = `
