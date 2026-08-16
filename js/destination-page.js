@@ -42,6 +42,112 @@ function getDestinationMapsLink(hotel) {
     return `https://www.google.com/maps/search/?api=1&query=${query}`;
 }
 
+// ------------------------------------------
+// Curated attraction names
+// ------------------------------------------
+
+const CURATED_ATTRACTIONS = {
+    paris: [
+        { name: "Eiffel Tower", type: "Landmark", rating: 4.9, price: "₹2,500", description: "Iconic Paris landmark with panoramic views across the city.", image: "assets/attractions/eiffel.jpg" },
+        { name: "Louvre Museum", type: "Museum", rating: 4.8, price: "₹1,800", description: "World-famous museum home to an extraordinary collection of art and antiquities.", image: "assets/attractions/louvre.jpg" },
+        { name: "Jardin du Luxembourg", type: "Garden", rating: 4.7, price: "Free", description: "Elegant Parisian gardens with fountains, promenades and quiet green spaces.", image: "assets/attractions/gardens.jpg" },
+        { name: "Montmartre & Sacré-Cœur", type: "Historic", rating: 4.8, price: "Free", description: "Historic hilltop district known for art, views and the Basilica of Sacré-Cœur.", image: "assets/attractions/louvre.jpg" },
+        { name: "Seine River Cruise", type: "Scenic", rating: 4.8, price: "₹1,500", description: "See Paris landmarks from the Seine on a relaxing sightseeing cruise.", image: "assets/attractions/eiffel.jpg" }
+    ],
+    tokyo: [
+        { name: "Senso-ji Temple", type: "Temple", rating: 4.8, price: "Free", description: "Tokyo's famous historic Buddhist temple in Asakusa.", image: "assets/attractions/tokyo-sensoji.jpg" },
+        { name: "Shibuya Crossing", type: "Landmark", rating: 4.8, price: "Free", description: "One of the world's best-known pedestrian crossings in the heart of Tokyo.", image: "assets/attractions/tokyo-shibuya.jpg" },
+        { name: "Tokyo Skytree", type: "Observation", rating: 4.7, price: "₹1,900", description: "Towering observation deck with sweeping views over Tokyo.", image: "assets/attractions/tokyo-skytree.jpg" },
+        { name: "Meiji Shrine", type: "Shrine", rating: 4.8, price: "Free", description: "Peaceful Shinto shrine surrounded by a forested area near Harajuku.", image: "assets/attractions/tokyo-meiji.jpg" },
+        { name: "teamLab Borderless", type: "Immersive Art", rating: 4.8, price: "₹2,800", description: "Large-scale immersive digital art experience in Tokyo.", image: "assets/attractions/tokyo-teamlab.jpg" }
+    ],
+    bali: [
+        { name: "Ubud Rice Terraces", type: "Nature", rating: 4.8, price: "₹500", description: "Lush terraced landscapes around Ubud showcasing Bali's farming heritage.", image: "assets/attractions/ubud.jpg" },
+        { name: "Tanah Lot Temple", type: "Temple", rating: 4.8, price: "₹600", description: "Scenic sea temple perched on a rocky coastal outcrop.", image: "assets/attractions/ubud.jpg" },
+        { name: "Uluwatu Temple", type: "Temple", rating: 4.9, price: "₹700", description: "Clifftop Balinese temple overlooking the Indian Ocean.", image: "assets/attractions/ubud.jpg" },
+        { name: "Tegallalang Village", type: "Cultural", rating: 4.7, price: "₹400", description: "Beautiful rice terraces, crafts and village scenery north of Ubud.", image: "assets/attractions/ubud.jpg" },
+        { name: "Nusa Penida Day Trip", type: "Island", rating: 4.8, price: "₹2,500", description: "Explore dramatic coastlines, viewpoints and beaches on Nusa Penida.", image: "assets/attractions/ubud.jpg" }
+    ],
+    singapore: [
+        { name: "Gardens by the Bay", type: "Nature", rating: 4.8, price: "₹1,200", description: "Futuristic gardens famous for Supertrees, conservatories and waterfront views.", image: "assets/attractions/gardens.jpg" },
+        { name: "Marina Bay Sands SkyPark", type: "Observation", rating: 4.7, price: "₹2,000", description: "Observation deck overlooking Singapore's skyline and Marina Bay.", image: "assets/attractions/gardens.jpg" },
+        { name: "Sentosa Island", type: "Island", rating: 4.7, price: "₹1,500", description: "Resort island packed with beaches, attractions and entertainment.", image: "assets/attractions/sentosa.jpg" },
+        { name: "Merlion Park", type: "Landmark", rating: 4.6, price: "Free", description: "Waterfront home of Singapore's iconic Merlion statue.", image: "assets/attractions/sentosa.jpg" },
+        { name: "Singapore Zoo", type: "Wildlife", rating: 4.8, price: "₹2,000", description: "Major wildlife park known for immersive habitats and animal encounters.", image: "assets/attractions/sentosa.jpg" }
+    ],
+    maldives: [
+        { name: "Malé Old Friday Mosque", type: "Historic", rating: 4.5, price: "Free", description: "Historic mosque and one of the best-known landmarks in Malé.", image: "assets/destinations/maldives.jpg" },
+        { name: "Hulhumalé Beach", type: "Beach", rating: 4.6, price: "Free", description: "Popular urban beach with calm waters and sunset views.", image: "assets/destinations/maldives.jpg" },
+        { name: "National Museum of Maldives", type: "Museum", rating: 4.4, price: "₹400", description: "Museum showcasing the history and cultural heritage of the Maldives.", image: "assets/destinations/maldives.jpg" },
+        { name: "Manta Ray Snorkeling", type: "Marine Life", rating: 4.9, price: "₹4,500", description: "Guided snorkeling experience focused on Maldives marine life.", image: "assets/destinations/maldives.jpg" },
+        { name: "Island Sunset Cruise", type: "Scenic", rating: 4.8, price: "₹2,500", description: "Relaxing cruise through tropical waters around the islands.", image: "assets/destinations/maldives.jpg" }
+    ],
+    leh: [
+        { name: "Leh Palace", type: "Historic", rating: 4.6, price: "₹300", description: "Historic royal palace overlooking Leh town and the surrounding mountains.", image: "assets/destinations/leh.jpg" },
+        { name: "Shanti Stupa", type: "Landmark", rating: 4.8, price: "Free", description: "White-domed Buddhist stupa with sweeping views over Leh.", image: "assets/destinations/leh.jpg" },
+        { name: "Thiksey Monastery", type: "Monastery", rating: 4.8, price: "₹50", description: "Striking hilltop monastery known for its architecture and Buddhist art.", image: "assets/destinations/leh.jpg" },
+        { name: "Khardung La", type: "Mountain Pass", rating: 4.7, price: "Free", description: "High-altitude mountain pass and classic Ladakh road-trip stop.", image: "assets/destinations/leh.jpg" },
+        { name: "Pangong Lake", type: "Lake", rating: 4.9, price: "₹500", description: "High-altitude lake famous for dramatic blue water and mountain scenery.", image: "assets/destinations/leh.jpg" }
+    ],
+    ladakh: [
+        { name: "Pangong Lake", type: "Lake", rating: 4.9, price: "₹500", description: "Spectacular high-altitude lake stretching between India and Tibet.", image: "assets/destinations/ladakh.jpg" },
+        { name: "Nubra Valley", type: "Valley", rating: 4.9, price: "₹1,000", description: "Mountain valley known for monasteries, dunes and Himalayan landscapes.", image: "assets/destinations/ladakh.jpg" },
+        { name: "Khardung La", type: "Mountain Pass", rating: 4.7, price: "Free", description: "Legendary high-altitude pass on the road from Leh toward Nubra.", image: "assets/destinations/ladakh.jpg" },
+        { name: "Magnetic Hill", type: "Scenic", rating: 4.5, price: "Free", description: "Popular roadside attraction surrounded by the barren mountains of Ladakh.", image: "assets/destinations/ladakh.jpg" },
+        { name: "Thiksey Monastery", type: "Monastery", rating: 4.8, price: "₹50", description: "Large hilltop monastery with traditional Ladakhi architecture.", image: "assets/destinations/ladakh.jpg" }
+    ],
+    spiti: [
+        { name: "Key Monastery", type: "Monastery", rating: 4.9, price: "Free", description: "Spiti Valley's iconic hilltop monastery overlooking Kaza.", image: "assets/destinations/spiti.jpg" },
+        { name: "Chandratal Lake", type: "Lake", rating: 4.9, price: "Free", description: "High-altitude crescent-shaped lake surrounded by Himalayan peaks.", image: "assets/destinations/spiti.jpg" },
+        { name: "Tabo Monastery", type: "Monastery", rating: 4.8, price: "₹200", description: "Ancient monastery complex known for murals and Buddhist heritage.", image: "assets/destinations/spiti.jpg" },
+        { name: "Kibber Village", type: "Village", rating: 4.7, price: "Free", description: "High-altitude village offering sweeping landscapes and traditional Spitian culture.", image: "assets/destinations/spiti.jpg" },
+        { name: "Dhankar Monastery", type: "Monastery", rating: 4.8, price: "Free", description: "Dramatic monastery perched high above the Spiti River valley.", image: "assets/destinations/spiti.jpg" }
+    ],
+    hampi: [
+        { name: "Virupaksha Temple", type: "Temple", rating: 4.9, price: "Free", description: "Historic temple complex and one of Hampi's most important landmarks.", image: "assets/destinations/hampi.jpg" },
+        { name: "Vijaya Vittala Temple", type: "Historic", rating: 4.9, price: "₹40", description: "Famous for its stone chariot and remarkable musical pillars.", image: "assets/destinations/hampi.jpg" },
+        { name: "Lotus Mahal", type: "Palace", rating: 4.7, price: "₹40", description: "Elegant palace structure set among the royal enclosures of Hampi.", image: "assets/destinations/hampi.jpg" },
+        { name: "Hampi Bazaar", type: "Historic", rating: 4.6, price: "Free", description: "Historic market street lined with the remains of Vijayanagara-era buildings.", image: "assets/destinations/hampi.jpg" },
+        { name: "Matanga Hill", type: "Viewpoint", rating: 4.8, price: "Free", description: "Excellent sunrise and sunset viewpoint over Hampi's boulder-strewn landscape.", image: "assets/destinations/hampi.jpg" }
+    ],
+    chhattisgarh: [
+        { name: "Chitrakote Waterfalls", type: "Waterfall", rating: 4.8, price: "Free", description: "Large horseshoe-shaped waterfall on the Indravati River.", image: "assets/destinations/chhattisgarh.jpg" },
+        { name: "Tirathgarh Waterfalls", type: "Waterfall", rating: 4.7, price: "Free", description: "Multi-tiered waterfall surrounded by forest in Bastar.", image: "assets/destinations/chhattisgarh.jpg" },
+        { name: "Kanger Valley National Park", type: "Wildlife", rating: 4.8, price: "₹200", description: "Dense forest landscape with caves, wildlife and waterfalls.", image: "assets/destinations/chhattisgarh.jpg" },
+        { name: "Kutumsar Caves", type: "Cave", rating: 4.6, price: "₹100", description: "Famous limestone cave system inside Kanger Valley.", image: "assets/destinations/chhattisgarh.jpg" },
+        { name: "Bastar Tribal Village Tour", type: "Cultural", rating: 4.7, price: "₹1,000", description: "Cultural experience focused on traditional Bastar crafts and village life.", image: "assets/destinations/chhattisgarh.jpg" }
+    ],
+    nashik: [
+        { name: "Sula Vineyards", type: "Vineyard", rating: 4.7, price: "₹600", description: "Popular vineyard destination with tours, tastings and hill views.", image: "assets/destinations/nashik.jpg" },
+        { name: "Trimbakeshwar Temple", type: "Temple", rating: 4.8, price: "Free", description: "Important Shiva temple near the origin region of the Godavari River.", image: "assets/destinations/nashik.jpg" },
+        { name: "Pandavleni Caves", type: "Cave", rating: 4.6, price: "₹20", description: "Historic rock-cut Buddhist caves overlooking Nashik.", image: "assets/destinations/nashik.jpg" },
+        { name: "Godavari Ghat", type: "Historic", rating: 4.6, price: "Free", description: "Riverside ghats and spiritual center in the heart of Nashik.", image: "assets/destinations/nashik.jpg" },
+        { name: "Anjaneri Hills", type: "Nature", rating: 4.7, price: "Free", description: "Scenic hills and trekking area associated with the Ramayana tradition.", image: "assets/destinations/nashik.jpg" }
+    ],
+    jalgaon: [
+        { name: "Ajanta Caves", type: "Heritage", rating: 4.9, price: "₹40", description: "World-famous rock-cut Buddhist caves with ancient murals and sculptures.", image: "assets/destinations/jalgaon.jpg" },
+        { name: "Patnadevi Temple", type: "Temple", rating: 4.5, price: "Free", description: "Historic temple site surrounded by the natural landscape near Jalgaon.", image: "assets/destinations/jalgaon.jpg" },
+        { name: "Mehrun Lake", type: "Nature", rating: 4.4, price: "Free", description: "Popular local lake and green space inside Jalgaon.", image: "assets/destinations/jalgaon.jpg" },
+        { name: "Gandhi Research Foundation", type: "Museum", rating: 4.6, price: "Free", description: "Museum and research center dedicated to the life and ideas of Mahatma Gandhi.", image: "assets/destinations/jalgaon.jpg" },
+        { name: "Jalgaon City Heritage Walk", type: "Sightseeing", rating: 4.3, price: "₹300", description: "Local guided walk covering notable city landmarks and cultural sites.", image: "assets/destinations/jalgaon.jpg" }
+    ]
+};
+
+function getCuratedAttraction(attraction, destination, index) {
+    const key = String(destination?.id || "").toLowerCase();
+    const curated = CURATED_ATTRACTIONS[key]?.[index];
+
+    if (!curated) {
+        return attraction;
+    }
+
+    return {
+        ...attraction,
+        ...curated,
+        id: attraction.id
+    };
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
 
     const container = document.getElementById("destination-page");
@@ -307,19 +413,26 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="hotel-grid">
             `;
 
-            destinationAttractions.forEach(attraction => {
+            destinationAttractions.forEach((attraction, index) => {
+                const displayAttraction = getCuratedAttraction(
+                    attraction,
+                    destination,
+                    index
+                );
+
                 const attractionImage =
-                    window.ImageService &&
+                    displayAttraction.image ||
+                    (window.ImageService &&
                     typeof ImageService.getAttractionImage === "function"
-                        ? ImageService.getAttractionImage(attraction.id)
-                        : attraction.image || `assets/attractions/${attraction.id}.jpg`;
+                        ? ImageService.getAttractionImage(displayAttraction.id)
+                        : `assets/attractions/${displayAttraction.id}.jpg`);
 
                 container.innerHTML += `
                     <div class="hotel-card">
                         <img
                             class="hotel-photo"
                             src="${escapeDestinationHtml(attractionImage)}"
-                            alt="${escapeDestinationHtml(attraction.name || "Attraction") }"
+                            alt="${escapeDestinationHtml(displayAttraction.name || "Attraction") }"
                             loading="lazy"
                             onerror="
                                 this.onerror=null;
@@ -328,15 +441,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                         >
 
                         <div class="hotel-content">
-                            <h3>${escapeDestinationHtml(attraction.name || "-")}</h3>
-                            <p>⭐ ${escapeDestinationHtml(attraction.rating || "-")}</p>
-                            <p>📍 ${escapeDestinationHtml(attraction.type || "-")}</p>
-                            <p>${escapeDestinationHtml(attraction.description || "")}</p>
+                            <h3>${escapeDestinationHtml(displayAttraction.name || "-")}</h3>
+                            <p>⭐ ${escapeDestinationHtml(displayAttraction.rating || "-")}</p>
+                            <p>📍 ${escapeDestinationHtml(displayAttraction.type || "-")}</p>
+                            <p>${escapeDestinationHtml(displayAttraction.description || "")}</p>
 
-                            ${attraction.price
+                            ${displayAttraction.price
                                 ? `
                                     <p class="hotel-price">
-                                        ${escapeDestinationHtml(attraction.price)}
+                                        ${escapeDestinationHtml(displayAttraction.price)}
                                     </p>
                                 `
                                 : ""
