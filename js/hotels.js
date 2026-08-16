@@ -1,6 +1,6 @@
 // ==========================================
 // Nature Tours Hotels
-// Version 3.1
+// Version 4.0
 // ==========================================
 
 "use strict";
@@ -11,8 +11,7 @@ const HotelApp = {
     loading: false,
     container: null,
     wrapper: null,
-    apiBase: window.API_BASE || "",
-    whatsappNumber: "919999999999"
+    whatsappNumber: "919822339466"
 };
 
 function $(id) {
@@ -105,7 +104,6 @@ function getHotelsForDestination(destinationName) {
     return HotelApp.hotels.filter(hotel => {
         const destinationId = String(hotel.destinationId || "").toLowerCase();
         const hotelName = String(hotel.name || "").toLowerCase();
-
         return (
             destinationId === search ||
             hotelName.includes(search)
@@ -129,36 +127,23 @@ function getGoogleMapsLink(hotel) {
     return `https://www.google.com/maps/search/?api=1&query=${query}`;
 }
 
-function getWhatsAppLink(hotel) {
-    const text = encodeURIComponent(
+function getClientWhatsAppLink(hotel) {
+    const message = encodeURIComponent(
 `Hello Nature Tours,
 
-I'm interested in booking:
+I would like to enquire about this hotel:
 
-🏨 ${hotel.name || ""}
+🏨 Hotel: ${hotel.name || ""}
+📍 Location: ${hotel.address || ""}
+⭐ Rating: ${hotel.rating || "N/A"}/5
+💰 Listed price: ${formatPrice(hotel.price)} per night
 
-📍 ${hotel.address || ""}
+Please contact me regarding availability and booking.
 
-Could you please provide more information?`
+Thank you.`
     );
-    return `https://wa.me/${HotelApp.whatsappNumber}?text=${text}`;
-}
 
-// ------------------------------------------
-// Booking
-// ------------------------------------------
-// The hotel database may contain a direct booking URL in the future.
-// For placeholder (#) or missing URLs, send the visitor to Booking.com
-// with the exact hotel and address pre-filled in the search.
-function getBookingLink(hotel) {
-    const configuredUrl = String(hotel.bookingUrl || "").trim();
-
-    if (configuredUrl && configuredUrl !== "#") {
-        return configuredUrl;
-    }
-
-    const searchText = `${hotel.name || "Hotel"} ${hotel.address || ""}`.trim();
-    return `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(searchText)}`;
+    return `https://wa.me/${HotelApp.whatsappNumber}?text=${message}`;
 }
 
 function createHotelCard(hotel) {
@@ -198,11 +183,11 @@ function createHotelCard(hotel) {
                 <div class="hotel-buttons">
                     <a
                         class="hotel-btn"
-                        href="${getBookingLink(hotel)}"
+                        href="${getClientWhatsAppLink(hotel)}"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Find &amp; Book
+                        Send Enquiry
                     </a>
 
                     <a
@@ -212,15 +197,6 @@ function createHotelCard(hotel) {
                         rel="noopener noreferrer"
                     >
                         Google Maps
-                    </a>
-
-                    <a
-                        class="hotel-btn"
-                        href="${getWhatsAppLink(hotel)}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        WhatsApp
                     </a>
                 </div>
             </div>
@@ -242,7 +218,7 @@ function renderHotels(hotels) {
     const counter = $("hotel-results-counter");
     if (counter) {
         counter.textContent =
-            `Showing ${hotels.length} verified hotel option${hotels.length === 1 ? "" : "s"}`;
+            `Showing ${hotels.length} hotel option${hotels.length === 1 ? "" : "s"}`;
     }
 }
 
