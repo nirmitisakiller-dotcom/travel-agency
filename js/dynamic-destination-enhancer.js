@@ -44,24 +44,37 @@ Thank you.`
         return `https://wa.me/${DYNAMIC_CLIENT_WHATSAPP}?text=${message}`;
     }
 
+    function firstUseful(...values) {
+        return values.find(value => {
+            if (value === null || value === undefined) return false;
+            return String(value).trim() !== "";
+        }) || "";
+    }
+
     function renderDetails(destination) {
         const details = document.querySelector("#destination-page .destination-details");
         if (!details) return;
 
         const currency = destination.currencyName
             ? `${destination.currencyName}${destination.currencySymbol ? ` (${destination.currencySymbol})` : ""}`
-            : destination.currency || "Not available";
+            : firstUseful(destination.currency, "Not available");
+
+        const population = Number(destination.population || 0);
 
         const items = [
-            ["Region", destination.region || "Not available"],
+            ["Country", firstUseful(destination.country, "Not available")],
+            ["Region", firstUseful(destination.region, "Not available")],
+            ["Capital", firstUseful(destination.capital, "Not available")],
+            ["Continent", firstUseful(destination.continent, "Not available")],
             ["Airport", destination.airport ? String(destination.airport).split(",")[0] : "Not available"],
             ["Currency", currency],
-            ["Language", destination.language || "Not available"],
-            ["Timezone", destination.timezone || "Not available"],
-            ["Capital", destination.capital || "Not available"],
-            ["Continent", destination.continent || "Not available"],
-            ["Population", Number(destination.population || 0).toLocaleString("en-IN") || "Not available"]
+            ["Language", firstUseful(destination.language, Array.isArray(destination.languages) ? destination.languages.join(", ") : "", "Not available")],
+            ["Timezone", firstUseful(destination.timezone, Array.isArray(destination.timezones) ? destination.timezones[0] : "", "Not available")]
         ];
+
+        if (population > 0) {
+            items.push(["Population", population.toLocaleString("en-IN")]);
+        }
 
         details.innerHTML = items.map(([label, value]) => `
             <p><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</p>
@@ -72,22 +85,51 @@ Thank you.`
         const existing = document.querySelector("#destination-page .dynamic-attraction-section");
         if (existing) return;
 
-        const attractions = Array.isArray(destination.dynamicAttractions)
+        const rawAttractions = Array.isArray(destination.dynamicAttractions)
             ? destination.dynamicAttractions
             : [];
 
-        if (!attractions.length) return;
+        const seen = new Set();
+        const attractions = rawAttractions.filter(item => {
+            const key = String(item?.name || "").trim().toLowerCase();
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        }).slice(0, 5);
+
+        if (!attractions.length) {
+            const page = document.getElementById("destination-page");
+            if (page && !page.querySelector(".dynamic-attraction-empty")) {
+                const section = document.createElement("section");
+                section.className = "attraction-section dynamic-attraction-empty";
+                section.innerHTML = `
+                    <h2 class="hotel-section-title">Top Attractions</h2>
+                    <div class="glance-card" style="text-align:center;">
+                        <p>Attraction information is being prepared for this destination.</p>
+                    </div>
+                `;
+                page.appendChild(section);
+            }
+            return;
+        }
 
         const section = document.createElement("section");
         section.className = "attraction-section dynamic-attraction-section";
         section.innerHTML = `
             <h2 class="hotel-section-title">Top Attractions</h2>
             <div class="hotel-grid">
-                ${attractions.map(item => `
+                ${attractions.map(item => {
+                    const image = firstUseful(
+                        item.image,
+                        destination.image,
+                        "https://placehold.co/800x500?text=Attraction"
+                    );
+
+                    return `
                     <div class="hotel-card">
                         <img
                             class="hotel-photo"
-                            src="${escapeHtml(item.image || destination.image || "https://placehold.co/800x500?text=Attraction")}" 
+                            src="${escapeHtml(image)}"
                             alt="${escapeHtml(item.name || "Attraction")}" 
                             loading="lazy"
                             onerror="this.onerror=null;this.src='https://placehold.co/800x500?text=Attraction';"
@@ -99,7 +141,8 @@ Thank you.`
                             ${item.price ? `<p class="hotel-price">${escapeHtml(item.price)}</p>` : ""}
                         </div>
                     </div>
-                `).join("")}
+                    `;
+                }).join("")}
             </div>
         `;
 
@@ -131,6 +174,19 @@ Thank you.`
         if (page) page.appendChild(section);
     }
 
+    function renderDynamicNote(destination) {
+        const page = document.getElementById("destination-page");
+        if (!page || page.querySelector(".dynamic-destination-note")) return;
+
+        const note = document.createElement("p");
+        note.className = "dynamic-destination-note";
+        note.textContent = destination.engineVersion
+            ? `Dynamic destination data • Engine ${destination.engineVersion}`
+            : "Destination information and attractions are dynamically discovered from live reference data.";
+        note.style.cssText = "margin:12px 0 0;font-size:12px;opacity:.7;text-align:center;";
+        page.appendChild(note);
+    }
+
     function enhance() {
         const destination = getDynamicDestination();
         if (!destination) return false;
@@ -138,15 +194,7 @@ Thank you.`
         renderDetails(destination);
         renderAttractions(destination);
         renderStayEnquiry(destination);
-
-        const note = document.querySelector("#destination-page .dynamic-destination-note");
-        if (!note) {
-            const p = document.createElement("p");
-            p.className = "dynamic-destination-note";
-            p.textContent = "Destination information and attractions are dynamically discovered from live reference data.";
-            p.style.cssText = "margin:12px 0 0;font-size:12px;opacity:.7;";
-            document.getElementById("destination-page")?.appendChild(p);
-        }
+        renderDynamicNote(destination);
 
         return true;
     }
