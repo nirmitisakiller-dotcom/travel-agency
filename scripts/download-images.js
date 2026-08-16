@@ -99,7 +99,7 @@ async function main() {
         );
 
         await downloadImage(
-            `${destination.name} ${destination.country} travel",
+            `${destination.name} ${destination.country} travel`,
             output,
             false
         );
