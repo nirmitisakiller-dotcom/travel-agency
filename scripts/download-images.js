@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const API_KEY = process.env.PEXELS_API_KEY;
+const FORCE_REFRESH = process.env.FORCE_REFRESH_IMAGES === "true";
 
 if (!API_KEY) {
     console.error("❌ Missing PEXELS_API_KEY");
@@ -22,9 +23,16 @@ const hotels = JSON.parse(
     )
 );
 
-async function downloadImage(searchQuery, outputFile) {
+const attractions = JSON.parse(
+    fs.readFileSync(
+        path.join(__dirname, "../data/attractions.json"),
+        "utf8"
+    )
+);
 
-    if (fs.existsSync(outputFile)) {
+async function downloadImage(searchQuery, outputFile, forceRefresh = false) {
+
+    if (!forceRefresh && fs.existsSync(outputFile)) {
         console.log("✔ Exists:", outputFile);
         return;
     }
@@ -53,8 +61,12 @@ async function downloadImage(searchQuery, outputFile) {
     }
 
     const imageUrl = data.photos[0].src.large2x;
-
     const imageResponse = await fetch(imageUrl);
+
+    if (!imageResponse.ok) {
+        console.log("❌ Image download failed:", searchQuery);
+        return;
+    }
 
     const buffer = Buffer.from(
         await imageResponse.arrayBuffer()
@@ -67,7 +79,6 @@ async function downloadImage(searchQuery, outputFile) {
     fs.writeFileSync(outputFile, buffer);
 
     console.log("✅ Saved:", outputFile);
-
 }
 
 async function main() {
@@ -75,6 +86,7 @@ async function main() {
     console.log("=================================");
     console.log("Nature Tours Image Downloader");
     console.log("=================================");
+    console.log("Force refresh:", FORCE_REFRESH);
 
     console.log("\nDownloading destination images...\n");
 
@@ -87,23 +99,19 @@ async function main() {
         );
 
         await downloadImage(
-
-            `${destination.name} ${destination.country} travel`,
-
-            output
-
+            `${destination.name} ${destination.country} travel",
+            output,
+            false
         );
-
     }
 
-    console.log("\nDownloading hotel images...\n");
+    console.log("\nDownloading representative hotel images...\n");
 
     for (const hotel of hotels) {
 
-        const destination =
-            destinations.find(
-                d => d.id === hotel.destinationId
-            );
+        const destination = destinations.find(
+            d => d.id === hotel.destinationId
+        );
 
         const output = path.join(
             __dirname,
@@ -112,21 +120,37 @@ async function main() {
         );
 
         const query = destination
-            ? `${hotel.name} ${destination.name} hotel`
-            : `${hotel.name} hotel`;
+            ? `${destination.name} ${destination.country} hotel exterior`
+            : `${hotel.name} hotel exterior`;
 
-        await downloadImage(query, output);
+        await downloadImage(query, output, FORCE_REFRESH);
+    }
 
+    console.log("\nDownloading attraction images...\n");
+
+    for (const attraction of attractions) {
+
+        const destination = destinations.find(
+            d => d.id === attraction.destinationId
+        );
+
+        const output = path.join(
+            __dirname,
+            "../assets/attractions",
+            `${attraction.id}.jpg`
+        );
+
+        const query = destination
+            ? `${attraction.name} ${destination.name} ${attraction.type || "attraction"}`
+            : `${attraction.name} ${attraction.type || "attraction"}`;
+
+        await downloadImage(query, output, FORCE_REFRESH);
     }
 
     console.log("\n🎉 Finished downloading images.");
-
 }
 
 main().catch(error => {
-
     console.error(error);
-
     process.exit(1);
-
 });
