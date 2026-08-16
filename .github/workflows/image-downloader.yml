@@ -24,6 +24,7 @@ jobs:
       - name: Run image downloader
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          FORCE_REFRESH_IMAGES: "true"
         run: node scripts/download-images.js
 
       - name: Commit downloaded images
@@ -33,6 +34,6 @@ jobs:
 
           git add assets/
 
-          git diff --cached --quiet || git commit -m "Auto download travel images"
+          git diff --cached --quiet || git commit -m "Refresh travel attraction and hotel images"
 
           git push
