@@ -39,6 +39,17 @@
         tag.setAttribute("href", url);
     }
 
+    function setStructuredData(id, data) {
+        let script = document.getElementById(id);
+        if (!script) {
+            script = document.createElement("script");
+            script.type = "application/ld+json";
+            script.id = id;
+            document.head.appendChild(script);
+        }
+        script.textContent = JSON.stringify(data);
+    }
+
     function apply(destination) {
         if (!destination) return;
 
@@ -68,10 +79,23 @@
         setMeta("twitter:title", title);
         setMeta("twitter:description", description.slice(0, 200));
         setMeta("twitter:image", destination.image || `${SITE}logo.png`);
+
+        setStructuredData("nature-tours-destination-schema", {
+            "@context": "https://schema.org",
+            "@type": "TouristDestination",
+            "name": name,
+            "description": description,
+            "url": canonical,
+            ...(destination.image ? { image: destination.image } : {}),
+            ...(country ? { containedInPlace: { "@type": "Country", name: country } } : {})
+        });
     }
 
     function applyStatic() {
         const path = window.location.pathname.split("/").pop() || "index.html";
+        const query = new URLSearchParams(window.location.search);
+        const continent = query.get("continent");
+
         const values = {
             "index.html": {
                 title: "Nature Tours | Custom Travel Experiences & Holiday Planning",
@@ -86,28 +110,50 @@
                 description: "Discover international travel ideas, destinations and hotel options with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo."
             },
             "continent.html": {
-                title: "Explore Travel Destinations by Continent | Nature Tours",
-                description: "Browse Nature Tours destinations by continent and discover travel ideas around the world."
+                title: continent
+                    ? `${continent} Travel Destinations | Nature Tours`
+                    : "Explore Travel Destinations by Continent | Nature Tours",
+                description: continent
+                    ? `Explore ${continent} travel destinations, attractions and holiday ideas with Nature Tours.`
+                    : "Browse Nature Tours destinations by continent and discover travel ideas around the world."
             }
         };
 
         const current = values[path];
         if (!current) return;
 
+        const canonical = path === "index.html"
+            ? SITE
+            : path === "continent.html" && continent
+                ? `${SITE}continent.html?continent=${encodeURIComponent(continent)}`
+                : `${SITE}${path}`;
+
         document.title = current.title;
         setMeta("description", current.description);
         setMeta("robots", "index,follow,max-image-preview:large");
-        setCanonical(`${SITE}${path === "index.html" ? "" : path}`);
+        setCanonical(canonical);
         setProperty("og:type", "website");
         setProperty("og:title", current.title);
         setProperty("og:description", current.description);
         setProperty("og:site_name", "Nature Tours");
-        setProperty("og:url", `${SITE}${path === "index.html" ? "" : path}`);
+        setProperty("og:url", canonical);
         setProperty("og:image", `${SITE}logo.png`);
         setMeta("twitter:card", "summary_large_image");
         setMeta("twitter:title", current.title);
         setMeta("twitter:description", current.description);
         setMeta("twitter:image", `${SITE}logo.png`);
+
+        if (path === "index.html") {
+            setStructuredData("nature-tours-organization-schema", {
+                "@context": "https://schema.org",
+                "@type": "TravelAgency",
+                "name": "Nature Tours",
+                "url": SITE,
+                "logo": `${SITE}logo.png`,
+                "telephone": "+91 9822339466",
+                "description": current.description
+            });
+        }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
