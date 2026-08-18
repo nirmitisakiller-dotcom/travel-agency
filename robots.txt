@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nirmitisakiller-dotcom.github.io/travel-agency/sitemap.xml
