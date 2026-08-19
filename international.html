@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Discover international travel ideas, destinations and hotel options with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
@@ -18,7 +16,6 @@
     <meta name="twitter:title" content="International Tour Packages & Destinations | Nature Tours">
     <meta name="twitter:description" content="Discover international travel ideas, destinations and hotel options with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
     <meta name="twitter:image" content="https://nirmitisakiller-dotcom.github.io/travel-agency/logo.png">
-
     <title>International Tour Packages & Destinations | Nature Tours</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
@@ -26,7 +23,6 @@
 </head>
 <body style="background-color: var(--sand-neutral); min-height: 100vh; position: relative;">
 
-    <!-- 1. STICKY INTERACTIVE NAVIGATION HEADER -->
     <header class="main-header">
         <div class="header-container">
             <div class="logo-area">
@@ -34,40 +30,37 @@
                 <div class="brand-text">Nature<span>Tours</span></div>
             </div>
             <div class="search-wrapper">
-             <form action="international.html" method="GET" class="search-bar">
-    <input type="text" name="globalSearch" id="search-input" placeholder="Search 'Ladakh', 'Bali'..." required>
-    <button type="submit" class="search-btn">🔍</button>
-</form>
+                <form action="international.html" method="GET" class="search-bar">
+                    <input type="text" name="globalSearch" id="search-input" placeholder="Search 'Ladakh', 'Bali'..." required>
+                    <button type="submit" class="search-btn">🔍</button>
+                </form>
             </div>
             <nav class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="domestic.html" class="nav-link">Domestic</a>
                 <a href="international.html" class="nav-link active">International</a>
-                <a href="https://wa.me" target="_blank" class="nav-cta-btn">Enquire Now</a>
+                <a href="https://wa.me/919822339466?text=Hello%20Nature%20Tours,%20I%20would%20like%20to%20enquire%20about%20an%20international%20trip." target="_blank" rel="noopener noreferrer" class="nav-cta-btn">Enquire Now</a>
             </nav>
         </div>
     </header>
 
-    <!-- 2. VISUAL HERO LAYOUT CONTAINER -->
-    <section id="catalog-hero-banner" class="catalog-hero-box" style="background: linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('https://unsplash.com') center/cover fixed;">
+    <section id="catalog-hero-banner" class="catalog-hero-box" style="background: linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('assets/maldives.jpg') center/cover fixed;">
         <div class="section-container" style="text-align: center; color: var(--white); padding: 50px 0;">
             <h1 id="dynamic-hero-title" style="font-family: var(--heading-font); font-size: 38px; font-weight: 800; margin-bottom: 8px;">Explore Global Hubs</h1>
-            <p style="color: rgba(255,255,255,0.85); font-size: 14px;">Real-time verified allocations filtered to premium 3-Star, 4-Star, and 5-Star luxury tiers.</p>
+            <p style="color: rgba(255,255,255,0.85); font-size: 14px;">Explore destination ideas and hotel options across popular international travel markets.</p>
         </div>
     </section>
 
-    <!-- 3. PROGRESSIVE ANIMATED LOADING OVERLAY MATRIX -->
     <div id="global-loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; transition: all 0.5s ease;">
         <div style="width: 400px; padding: 30px; background: #1e293b; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
-            <h3 style="font-family: var(--heading-font); font-size: 18px; margin-bottom: 12px; text-align: center;">⚡ Establishing Secure API Connection</h3>
+            <h3 style="font-family: var(--heading-font); font-size: 18px; margin-bottom: 12px; text-align: center;">⚡ Loading Travel Options</h3>
             <div style="width: 100%; height: 8px; background: #334155; border-radius: 10px; overflow: hidden; margin-bottom: 15px;">
                 <div id="loading-bar-progress-line" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--secondary-blue), var(--primary-green)); transition: width 0.1s linear;"></div>
             </div>
-            <p id="loading-status-text-line" style="font-size: 13px; color: #94a3b8; text-align: center; font-weight: 500;">Initializing database matrices...</p>
+            <p id="loading-status-text-line" style="font-size: 13px; color: #94a3b8; text-align: center; font-weight: 500;">Loading destination options...</p>
         </div>
     </div>
 
-    <!-- 4. TWO-COLUMN MARKETPLACE DISPLAY WRAPPER -->
     <div class="marketplace-wrapper">
         <div class="marketplace-container">
             <aside class="filter-sidebar">
@@ -98,35 +91,30 @@
             <section class="catalog-main-feed" style="display: flex; flex-direction: column; gap: 40px;">
                 <div id="popular-destinations-gallery-wrapper">
                     <div class="results-counter-bar" style="margin-bottom: 20px; border-left-color: var(--secondary-blue);">
-                        <span>🌟 Featured Worldwide Circuits Available Right Now</span>
+                        <span>🌟 Featured International Circuits</span>
                     </div>
                     <div class="glance-grid" style="padding-top:0;">
                         <div class="glance-card" style="border-radius:12px; overflow:hidden; background:#ffffff; box-shadow:var(--shadow-premium);">
-                            <div style="height:160px;"><img src="https://unsplash.com" style="width:100%; height:100%; object-fit:cover;"></div>
-                            <div style="padding:15px;"><h4 style="font-family:var(--heading-font); font-size:16px;">Parisian Romantic Tour</h4><p style="font-size:12px; color:#64748b; margin-top:2px;">Explore hotel options from ₹12,000/Night</p></div>
+                            <div style="height:160px;"><img src="assets/paris.jpg" alt="Paris travel" style="width:100%; height:100%; object-fit:cover;"></div>
+                            <div style="padding:15px;"><h4 style="font-family:var(--heading-font); font-size:16px;">Parisian Romantic Tour</h4><p style="font-size:12px; color:#64748b; margin-top:2px;">Explore curated hotel options and personalised itineraries.</p></div>
                         </div>
-
                         <div class="glance-card" style="border-radius:12px; overflow:hidden; background:#ffffff; box-shadow:var(--shadow-premium);">
-                            <div style="height:160px;"><img src="https://unsplash.com" style="width:100%; height:100%; object-fit:cover;"></div>
-                            <div style="padding:15px;"><h4 style="font-family:var(--heading-font); font-size:16px;">Tokyo Skyline Journey</h4><p style="font-size:12px; color:#64748b; margin-top:2px;">Explore hotel options from ₹18,500/Night</p></div>
+                            <div style="height:160px;"><img src="assets/tokyo.jpg" alt="Tokyo travel" style="width:100%; height:100%; object-fit:cover;"></div>
+                            <div style="padding:15px;"><h4 style="font-family:var(--heading-font); font-size:16px;">Tokyo Skyline Journey</h4><p style="font-size:12px; color:#64748b; margin-top:2px;">Explore curated hotel options and personalised itineraries.</p></div>
                         </div>
-
                         <div class="glance-card" style="border-radius:12px; overflow:hidden; background:#ffffff; box-shadow:var(--shadow-premium);">
-                            <div style="height:160px;"><img src="https://unsplash.com" style="width:100%; height:100%; object-fit:cover;"></div>
-                            <div style="padding:15px;"><h4 style="font-family:var(--heading-font); font-size:16px;">Alibaug Luxury Staycation</h4><p style="font-size:12px; color:#64748b; margin-top:2px;">Explore villa options from ₹4,500/Night</p></div>
+                            <div style="height:160px;"><img src="assets/maldives.jpg" alt="Maldives travel" style="width:100%; height:100%; object-fit:cover;"></div>
+                            <div style="padding:15px;"><h4 style="font-family:var(--heading-font); font-size:16px;">Maldives Luxury Escape</h4><p style="font-size:12px; color:#64748b; margin-top:2px;">Explore curated hotel options and personalised itineraries.</p></div>
                         </div>
-
                     </div>
                 </div>
 
                 <div id="active-hotels-section-wrapper" style="display: none;">
                     <div class="results-counter-bar" style="margin-bottom: 20px;">
-                        <span id="hotel-results-counter">Showing verified local accommodations</span>
+                        <span id="hotel-results-counter">Available hotel options</span>
                     </div>
-                    <div id="hotel-cards-target-grid" class="glance-grid" style="padding-top: 0;">
-                    </div>
+                    <div id="hotel-cards-target-grid" class="glance-grid" style="padding-top: 0;"></div>
                 </div>
-
             </section>
         </div>
     </div>
