@@ -50,6 +50,25 @@
         script.textContent = JSON.stringify(data);
     }
 
+    function addLegalNavigation() {
+        const footer = document.querySelector(".master-footer");
+        if (!footer || footer.querySelector(".legal-navigation")) return;
+
+        const bar = document.createElement("div");
+        bar.className = "legal-navigation";
+        bar.style.cssText = "text-align:center;padding:12px 20px;font-size:13px;color:#64748b;border-top:1px solid rgba(100,116,139,.14);";
+        bar.innerHTML = `
+            <a href="about.html" style="color:inherit;text-decoration:none;margin:0 8px;">About</a>
+            <span aria-hidden="true">·</span>
+            <a href="contact.html" style="color:inherit;text-decoration:none;margin:0 8px;">Contact</a>
+            <span aria-hidden="true">·</span>
+            <a href="privacy.html" style="color:inherit;text-decoration:none;margin:0 8px;">Privacy</a>
+            <span aria-hidden="true">·</span>
+            <a href="terms.html" style="color:inherit;text-decoration:none;margin:0 8px;">Terms</a>
+        `;
+        footer.insertBefore(bar, footer.firstChild);
+    }
+
     function apply(destination) {
         if (!destination) return;
 
@@ -158,6 +177,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         applyStatic();
+        addLegalNavigation();
 
         const dynamic = document.getElementById("destination-page");
         if (!dynamic) return;
