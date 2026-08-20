@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover international travel ideas, destinations and hotel options with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
+    <meta name="description" content="Discover international travel ideas, destinations and sample itineraries with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://nirmitisakiller-dotcom.github.io/travel-agency/international.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="International Tour Packages & Destinations | Nature Tours">
-    <meta property="og:description" content="Discover international travel ideas, destinations and hotel options with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
+    <meta property="og:description" content="Discover international travel ideas, destinations and sample itineraries with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
     <meta property="og:url" content="https://nirmitisakiller-dotcom.github.io/travel-agency/international.html">
     <meta property="og:site_name" content="Nature Tours">
     <meta property="og:image" content="https://nirmitisakiller-dotcom.github.io/travel-agency/logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="International Tour Packages & Destinations | Nature Tours">
-    <meta name="twitter:description" content="Discover international travel ideas, destinations and hotel options with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
+    <meta name="twitter:description" content="Discover international travel ideas, destinations and sample itineraries with Nature Tours, including Paris, Bali, Maldives, Singapore and Tokyo.">
     <meta name="twitter:image" content="https://nirmitisakiller-dotcom.github.io/travel-agency/logo.png">
     <title>International Tour Packages & Destinations | Nature Tours</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/itineraries.css">
 </head>
 <body style="background-color: var(--sand-neutral); min-height: 100vh; position: relative;">
 
     <header class="main-header">
         <div class="header-container">
             <div class="logo-area">
-                <img src="logo.png" alt="Nature Tours Logo" class="brand-logo">
-                <div class="brand-text">Nature<span>Tours</span></div>
+                <a href="index.html" style="text-decoration:none;display:flex;align-items:center;">
+                    <img src="logo.png" alt="Nature Tours Logo" class="brand-logo">
+                    <div class="brand-text">Nature<span>Tours</span></div>
+                </a>
             </div>
             <div class="search-wrapper">
                 <form action="international.html" method="GET" class="search-bar">
@@ -47,7 +50,18 @@
     <section id="catalog-hero-banner" class="catalog-hero-box" style="background: linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('assets/maldives.jpg') center/cover fixed;">
         <div class="section-container" style="text-align: center; color: var(--white); padding: 50px 0;">
             <h1 id="dynamic-hero-title" style="font-family: var(--heading-font); font-size: 38px; font-weight: 800; margin-bottom: 8px;">Explore Global Hubs</h1>
-            <p style="color: rgba(255,255,255,0.85); font-size: 14px;">Explore destination ideas and hotel options across popular international travel markets.</p>
+            <p style="color: rgba(255,255,255,0.85); font-size: 14px;">Explore destination ideas, sample itineraries and hotel options across popular international travel markets.</p>
+        </div>
+    </section>
+
+    <section id="international-itineraries" class="itinerary-section">
+        <div class="section-container">
+            <div class="section-header itinerary-header">
+                <span class="sub-badge">Travel Ideas</span>
+                <h2>Sample International Itineraries</h2>
+                <p>Ready-made trip ideas to help you decide. Every plan can be customised for your dates, budget and travel style.</p>
+            </div>
+            <div id="itinerary-grid" class="itinerary-grid"></div>
         </div>
     </section>
 
@@ -118,9 +132,25 @@
             </section>
         </div>
     </div>
+
+    <footer class="master-footer">
+        <div class="footer-copyright-bar">
+            <p>
+                <a href="about.html">About</a> ·
+                <a href="contact.html">Contact</a> ·
+                <a href="privacy.html">Privacy</a> ·
+                <a href="terms.html">Terms</a>
+            </p>
+            <p>© 2026 Nature Tours</p>
+        </div>
+    </footer>
+
     <script src="js/api.js"></script>
+    <script src="js/destinations.js"></script>
+    <script src="js/autocomplete.js"></script>
     <script src="js/search.js"></script>
     <script src="js/hotels.js"></script>
+    <script src="js/itineraries.js?v=1"></script>
     <script src="js/seo.js?v=1"></script>
 </body>
 </html>
