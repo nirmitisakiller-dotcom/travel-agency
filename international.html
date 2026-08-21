@@ -21,6 +21,7 @@
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/itineraries.css">
+    <link rel="stylesheet" href="css/plan-cart.css">
 </head>
 <body style="background-color: var(--sand-neutral); min-height: 100vh; position: relative;">
 
@@ -46,6 +47,10 @@
             </nav>
         </div>
     </header>
+
+    <button id="open-plan-cart" class="plan-cart-open-btn" type="button">
+        🧳 My Plan Cart <span class="plan-cart-badge" data-plan-cart-count hidden>0</span>
+    </button>
 
     <section id="catalog-hero-banner" class="catalog-hero-box" style="background: linear-gradient(rgba(15,23,42,0.65), rgba(15,23,42,0.85)), url('assets/maldives.jpg') center/cover fixed;">
         <div class="section-container" style="text-align: center; color: var(--white); padding: 50px 0;">
@@ -133,6 +138,46 @@
         </div>
     </div>
 
+    <div id="plan-cart-panel" class="plan-cart-panel" aria-hidden="true">
+        <div id="plan-cart-backdrop" class="plan-cart-backdrop"></div>
+        <aside class="plan-cart-drawer" aria-label="My travel plan cart">
+            <div class="plan-cart-head">
+                <div>
+                    <span class="sub-badge">My Trip</span>
+                    <h2>Plan Cart</h2>
+                </div>
+                <button id="close-plan-cart" class="plan-cart-close" type="button" aria-label="Close plan cart">×</button>
+            </div>
+
+            <div id="plan-cart-empty" class="plan-cart-empty">
+                Add an itinerary above and it will appear here. This is an enquiry basket — visitors do not pay online.
+            </div>
+
+            <div id="plan-cart-list"></div>
+
+            <form id="plan-cart-enquiry-form" class="plan-cart-form">
+                <div>
+                    <label for="plan-cart-dates">Travel dates</label>
+                    <input id="plan-cart-dates" name="travelDates" type="text" placeholder="e.g. 12–18 December 2026">
+                </div>
+                <div>
+                    <label for="plan-cart-travellers">Travellers</label>
+                    <input id="plan-cart-travellers" name="travellers" type="text" placeholder="e.g. 2 adults + 1 child">
+                </div>
+                <div>
+                    <label for="plan-cart-budget">Budget</label>
+                    <input id="plan-cart-budget" name="budget" type="text" placeholder="e.g. ₹2–3 lakh">
+                </div>
+                <div>
+                    <label for="plan-cart-notes">Special requirements</label>
+                    <textarea id="plan-cart-notes" name="notes" rows="3" placeholder="Hotel preference, flights, food, accessibility, honeymoon, etc."></textarea>
+                </div>
+                <button class="plan-cart-submit" type="submit">Send Complete Enquiry on WhatsApp</button>
+                <p class="plan-cart-note">Your details are sent to the Nature Tours team. No online payment or automatic booking is made.</p>
+            </form>
+        </aside>
+    </div>
+
     <footer class="master-footer">
         <div class="footer-copyright-bar">
             <p>
@@ -150,7 +195,8 @@
     <script src="js/autocomplete.js"></script>
     <script src="js/search.js"></script>
     <script src="js/hotels.js"></script>
-    <script src="js/itineraries.js?v=1"></script>
+    <script src="js/itineraries.js?v=2"></script>
+    <script src="js/plan-cart.js?v=1"></script>
     <script src="js/seo.js?v=1"></script>
 </body>
 </html>
