@@ -21,6 +21,14 @@ function planCartWrite(items) {
     document.dispatchEvent(new CustomEvent("natureToursPlanCartUpdated"));
 }
 
+function planCartAdd(item) {
+    const existing = planCartRead();
+    if (existing.some(entry => entry.id === item.id)) return false;
+    existing.push(item);
+    planCartWrite(existing);
+    return true;
+}
+
 function planCartEscape(value = "") {
     return String(value)
         .replace(/&/g, "&amp;")
@@ -64,9 +72,7 @@ function ensurePlanCartMarkup() {
                 <div><span class="sub-badge">My Trip</span><h2>Plan Cart</h2></div>
                 <button id="close-plan-cart" class="plan-cart-close" type="button" aria-label="Close plan cart">×</button>
             </div>
-            <div id="plan-cart-empty" class="plan-cart-empty">
-                Add an itinerary to your plan and it will appear here. This is an enquiry basket — visitors do not pay online.
-            </div>
+            <div id="plan-cart-empty" class="plan-cart-empty">Add an itinerary to your plan and it will appear here. This is an enquiry basket — visitors do not pay online.</div>
             <div id="plan-cart-list"></div>
             <form id="plan-cart-enquiry-form" class="plan-cart-form">
                 <div><label for="plan-cart-dates">Travel dates</label><input id="plan-cart-dates" name="travelDates" type="text" placeholder="e.g. 12–18 December 2026"></div>
@@ -80,6 +86,14 @@ function ensurePlanCartMarkup() {
     document.body.appendChild(panel);
 }
 
+function ensureCardButtonStyles() {
+    if (document.getElementById("nature-plan-card-button-style")) return;
+    const style = document.createElement("style");
+    style.id = "nature-plan-card-button-style";
+    style.textContent = `.nature-plan-card-action{margin-top:12px;width:100%;border:0;border-radius:9px;padding:9px 12px;background:#168bd3;color:#fff;font-weight:800;font-size:12px;cursor:pointer}.nature-plan-card-action:hover{filter:brightness(.96)}.nature-plan-card-action.is-added{background:#0f9d58}`;
+    document.head.appendChild(style);
+}
+
 function updatePlanCartButtons() {
     const count = planCartCount();
     document.querySelectorAll("[data-plan-cart-count]").forEach(el => {
@@ -89,9 +103,7 @@ function updatePlanCartButtons() {
 }
 
 function buildWhatsAppLink(items, form) {
-    const destinationList = items.map(item =>
-        `• ${item.destination}, ${item.country} — ${item.duration} (${item.style})`
-    ).join("%0A");
+    const destinationList = items.map(item => `• ${item.destination}${item.country ? `, ${item.country}` : ""} — ${item.duration || "Custom plan"} (${item.style || "Custom itinerary"})`).join("%0A");
     const dates = encodeURIComponent(form?.travelDates?.value?.trim() || "Not specified");
     const travellers = encodeURIComponent(form?.travellers?.value?.trim() || "Not specified");
     const budget = encodeURIComponent(form?.budget?.value?.trim() || "Not specified");
@@ -115,7 +127,7 @@ function renderPlanCart() {
     empty.hidden = true;
     list.innerHTML = items.map(item => `
         <article class="plan-cart-item">
-            <div><h3>${planCartEscape(item.destination)}, ${planCartEscape(item.country)}</h3><p>${planCartEscape(item.duration)} · ${planCartEscape(item.style)}</p></div>
+            <div><h3>${planCartEscape(item.destination)}${item.country ? `, ${planCartEscape(item.country)}` : ""}</h3><p>${planCartEscape(item.duration || "Custom plan")} · ${planCartEscape(item.style || "Custom itinerary")}</p></div>
             <button type="button" class="plan-cart-remove" data-remove-plan="${planCartEscape(item.id)}">Remove</button>
         </article>`).join("");
     list.querySelectorAll("[data-remove-plan]").forEach(button => {
@@ -142,9 +154,41 @@ function closePlanCart() {
     panel.setAttribute("aria-hidden", "true");
 }
 
+function cardPlanData(card) {
+    const heading = card.querySelector("h3, h4, h2");
+    const image = card.querySelector("img");
+    if (!heading || !image) return null;
+    const destination = heading.textContent.trim();
+    if (!destination || /nature tours|wild safaris|honeymoon packages|medical tourism/i.test(destination)) return null;
+    const id = `card-${window.location.pathname}-${destination.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    return { id, destination, country: "", duration: "Custom plan", style: "Custom itinerary" };
+}
+
+function enhancePlanCards() {
+    ensureCardButtonStyles();
+    document.querySelectorAll(".glance-card").forEach(card => {
+        if (card.querySelector(".nature-plan-card-action") || card.querySelector(".itinerary-secondary")) return;
+        const item = cardPlanData(card);
+        if (!item) return;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "nature-plan-card-action";
+        button.textContent = "🧳 Add to Plan";
+        button.addEventListener("click", () => {
+            const added = planCartAdd(item);
+            button.textContent = added ? "✓ Added to Plan" : "✓ Already Added";
+            button.classList.add("is-added");
+            openPlanCart();
+        });
+        const target = card.querySelector(".card-meta") || card;
+        target.appendChild(button);
+    });
+}
+
 function initializePlanCart() {
     ensurePlanCartStyles();
     ensurePlanCartMarkup();
+    enhancePlanCards();
 
     const openButton = document.getElementById("open-plan-cart");
     const closeButton = document.getElementById("close-plan-cart");
@@ -163,14 +207,6 @@ function initializePlanCart() {
         backdrop.addEventListener("click", closePlanCart);
         backdrop.dataset.planCartBound = "true";
     }
-
-    if (!document.body.dataset.planCartKeyBound) {
-        document.addEventListener("keydown", event => {
-            if (event.key === "Escape") closePlanCart();
-        });
-        document.body.dataset.planCartKeyBound = "true";
-    }
-
     if (form && !form.dataset.planCartBound) {
         form.addEventListener("submit", event => {
             event.preventDefault();
@@ -184,18 +220,17 @@ function initializePlanCart() {
         form.dataset.planCartBound = "true";
     }
 
-    if (!document.body.dataset.planCartUpdateBound) {
-        document.addEventListener("natureToursPlanCartUpdated", () => {
-            updatePlanCartButtons();
-            renderPlanCart();
-        });
-        window.addEventListener("storage", event => {
-            if (event.key === PLAN_CART_KEY) {
-                updatePlanCartButtons();
-                renderPlanCart();
-            }
-        });
-        document.body.dataset.planCartUpdateBound = "true";
+    if (!document.body.dataset.planCartKeyBound) {
+        document.addEventListener("keydown", event => { if (event.key === "Escape") closePlanCart(); });
+        document.addEventListener("natureToursPlanCartUpdated", () => { updatePlanCartButtons(); renderPlanCart(); enhancePlanCards(); });
+        window.addEventListener("storage", event => { if (event.key === PLAN_CART_KEY) { updatePlanCartButtons(); renderPlanCart(); } });
+        document.body.dataset.planCartKeyBound = "true";
+    }
+
+    if (!document.body.dataset.planCartObserverBound) {
+        const observer = new MutationObserver(() => enhancePlanCards());
+        observer.observe(document.body, { childList: true, subtree: true });
+        document.body.dataset.planCartObserverBound = "true";
     }
 
     updatePlanCartButtons();
@@ -205,6 +240,7 @@ function initializePlanCart() {
 window.NatureToursPlanCart = {
     read: planCartRead,
     write: planCartWrite,
+    add: planCartAdd,
     count: planCartCount,
     open: openPlanCart,
     close: closePlanCart,
