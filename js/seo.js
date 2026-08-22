@@ -196,3 +196,12 @@
         setTimeout(tryDynamic, 1800);
     });
 })();
+
+// Load the global Plan Cart on every page that uses this shared SEO script.
+(function loadGlobalPlanCart() {
+    if (document.querySelector('script[src*="plan-cart.js"]')) return;
+    const script = document.createElement("script");
+    script.src = "js/plan-cart.js?v=2";
+    script.dataset.planCartLoader = "true";
+    document.head.appendChild(script);
+})();
