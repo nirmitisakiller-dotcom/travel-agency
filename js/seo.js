@@ -17,6 +17,6 @@
 (function loadGlobalPlanCart(){
  if(document.querySelector('script[src*="plan-cart.js"]'))return;
  const fix=document.createElement("script");fix.src="js/plan-cart-runtime-fix.js?v=1";fix.dataset.planCartRuntimeFix="true";
- fix.onload=()=>{const script=document.createElement("script");script.src="js/plan-cart.js?v=7";script.dataset.planCartLoader="true";document.head.appendChild(script)};
+ fix.onload=()=>{const script=document.createElement("script");script.src="js/plan-cart.js?v=8";script.dataset.planCartLoader="true";script.onload=()=>{const enhance=document.createElement("script");enhance.src="js/plan-cart-enhancements.js?v=1";enhance.dataset.planCartEnhancements="true";document.head.appendChild(enhance)};document.head.appendChild(script)};
  document.head.appendChild(fix);
 })();
