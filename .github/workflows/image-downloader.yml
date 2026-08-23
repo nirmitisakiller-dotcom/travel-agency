@@ -10,6 +10,12 @@ on:
 permissions:
   contents: write
 
+# Image generation changes only assets/. Keep one image run active so two
+# refreshes cannot race and push competing commits over each other.
+concurrency:
+  group: nature-tours-image-downloader
+  cancel-in-progress: false
+
 jobs:
   download-images:
     runs-on: ubuntu-latest
@@ -19,6 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -38,6 +45,9 @@ jobs:
 
           git add assets/
 
-          git diff --cached --quiet || git commit -m "Refresh travel attraction and hotel images"
-
-          git push
+          if git diff --cached --quiet; then
+            echo "No image changes to commit."
+          else
+            git commit -m "Refresh travel attraction and hotel images"
+            git push
+          fi
