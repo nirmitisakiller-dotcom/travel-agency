@@ -10,7 +10,15 @@ window.DestinationEngine = {
         const baseResponse = await fetch("data/destinations.json");
         let destinations = await baseResponse.json();
 
-        const extraFiles = ["data/india-extra.json", "data/india-destinations-batch-3.json"];
+        const extraFiles = [
+            "data/india-extra.json",
+            "data/india-destinations-batch-3.json",
+            "data/india-destinations-batch-4.json",
+            "data/india-destinations-batch-5.json",
+            "data/india-destinations-batch-6.json",
+            "data/india-destinations-batch-7.json",
+            "data/india-destinations-batch-8.json"
+        ];
         const seen = new Set(destinations.map(item => String(item.id)));
 
         for (const file of extraFiles) {
