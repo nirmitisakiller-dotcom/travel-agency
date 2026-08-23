@@ -7,7 +7,7 @@ window.DestinationEngine = {
     async load() {
         if (this.destinations.length) return this.destinations;
 
-        const baseResponse = await fetch("data/destinations.json");
+        const baseResponse = await fetch("data/destinations.json?engine=1");
         let destinations = await baseResponse.json();
 
         const extraFiles = [
@@ -19,33 +19,30 @@ window.DestinationEngine = {
             "data/india-destinations-batch-7.json",
             "data/india-destinations-batch-8.json"
         ];
-        const seen = new Set(destinations.map(item => String(item.id)));
+        const seen = new Set(destinations.map(item => String(item.id).trim().toLowerCase()));
 
         for (const file of extraFiles) {
             try {
-                const response = await fetch(file);
+                const response = await fetch(file + "?engine=1");
                 if (!response.ok) continue;
                 const extra = await response.json();
                 if (!Array.isArray(extra)) continue;
                 extra.forEach(item => {
-                    const id = String(item.id);
-                    if (!seen.has(id)) {
-                        destinations.push(item);
-                        seen.add(id);
-                    }
+                    const id = String(item.id || "").trim().toLowerCase();
+                    if (!id || seen.has(id)) return;
+                    destinations.push(item);
+                    seen.add(id);
                 });
             } catch (_) {}
         }
 
-        // Jim Corbett was explicitly removed from the catalogue.
-        destinations = destinations.filter(item => String(item.id) !== "jim-corbett");
+        destinations = destinations.filter(item => String(item.id || "").trim().toLowerCase() !== "jim-corbett");
 
-        // Keep the first occurrence of each destination name as well as each id.
-        const unique = new Set();
+        const uniqueNames = new Set();
         destinations = destinations.filter(item => {
-            const key = String(item.name || item.id).trim().toLowerCase();
-            if (unique.has(key)) return false;
-            unique.add(key);
+            const key = String(item.name || item.id || "").trim().toLowerCase();
+            if (!key || uniqueNames.has(key)) return false;
+            uniqueNames.add(key);
             return true;
         });
 
@@ -55,11 +52,33 @@ window.DestinationEngine = {
 
     async find(searchText) {
         await this.load();
-        const search = searchText.trim().toLowerCase();
-        return this.destinations.find(item => (
-            String(item.name || "").toLowerCase() === search ||
-            String(item.country || "").toLowerCase() === search ||
-            String(item.state || "").toLowerCase() === search
-        ));
+        const search = String(searchText || "").trim().toLowerCase();
+        if (!search) return null;
+
+        // Route IDs are canonical and must always be resolved first.
+        const exactId = this.destinations.find(item =>
+            String(item.id || "").trim().toLowerCase() === search
+        );
+        if (exactId) return exactId;
+
+        const exactName = this.destinations.find(item =>
+            String(item.name || "").trim().toLowerCase() === search
+        );
+        if (exactName) return exactName;
+
+        const slug = search.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        const slugMatch = this.destinations.find(item =>
+            String(item.name || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") === slug
+        );
+        if (slugMatch) return slugMatch;
+
+        const countryMatch = this.destinations.find(item =>
+            String(item.country || "").trim().toLowerCase() === search
+        );
+        if (countryMatch) return countryMatch;
+
+        return this.destinations.find(item =>
+            String(item.state || item.region || "").trim().toLowerCase() === search
+        ) || null;
     }
 };
