@@ -2,6 +2,10 @@ name: Nature Tours Image Downloader
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/download-images.js"
+      - ".github/workflows/image-downloader.yml"
 
 permissions:
   contents: write
