@@ -10,16 +10,24 @@ window.DestinationEngine = {
         const baseResponse = await fetch("data/destinations.json");
         let destinations = await baseResponse.json();
 
-        try {
-            const indiaResponse = await fetch("data/india-extra.json");
-            if (indiaResponse.ok) {
-                const indiaExtra = await indiaResponse.json();
-                const seen = new Set(destinations.map(item => String(item.id)));
-                destinations = destinations.concat(
-                    indiaExtra.filter(item => !seen.has(String(item.id)))
-                );
-            }
-        } catch (_) {}
+        const extraFiles = ["data/india-extra.json", "data/india-destinations-batch-3.json"];
+        const seen = new Set(destinations.map(item => String(item.id)));
+
+        for (const file of extraFiles) {
+            try {
+                const response = await fetch(file);
+                if (!response.ok) continue;
+                const extra = await response.json();
+                if (!Array.isArray(extra)) continue;
+                extra.forEach(item => {
+                    const id = String(item.id);
+                    if (!seen.has(id)) {
+                        destinations.push(item);
+                        seen.add(id);
+                    }
+                });
+            } catch (_) {}
+        }
 
         this.destinations = destinations;
         return this.destinations;
