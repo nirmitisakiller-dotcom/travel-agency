@@ -76,6 +76,39 @@
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
+  function initDomesticDestinationLinks() {
+    if (!/\/domestic\.html$/i.test(location.pathname)) return;
+    const apply = () => {
+      document.querySelectorAll("#india-grid .india-card").forEach(card => {
+        if (card.dataset.detailLinked) return;
+        const rawId = card.dataset.id || card.querySelector(".india-add")?.dataset.id;
+        if (!rawId) return;
+        const id = encodeURIComponent(rawId);
+        const title = card.querySelector("h3");
+        const media = card.querySelector(".india-card-media");
+        const makeLink = (node, className) => {
+          if (!node || node.closest("a")) return;
+          const a = document.createElement("a");
+          a.href = `destination.html?id=${id}`;
+          a.className = className;
+          a.setAttribute("aria-label", `View ${title?.textContent?.trim() || "destination"} details`);
+          a.style.color = "inherit";
+          a.style.textDecoration = "none";
+          node.parentNode.insertBefore(a, node);
+          a.appendChild(node);
+        };
+        makeLink(media, "destination-card-image-link");
+        makeLink(title, "destination-card-title-link");
+        if (title) title.style.cursor = "pointer";
+        card.dataset.detailLinked = "true";
+      });
+    };
+    apply();
+    const observer = new MutationObserver(apply);
+    const grid = document.getElementById("india-grid");
+    if (grid) observer.observe(grid, { childList: true, subtree: true });
+  }
+
   function injectStyle() {
     if (document.getElementById("plan-cart-search-enhancement-style")) return;
     const style = document.createElement("style");
@@ -89,6 +122,7 @@
       .plan-destination-result-with-image .plan-destination-result-text small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .plan-destination-result-action{white-space:nowrap;font-weight:800}
       .plan-destination-no-results{padding:20px;text-align:center;border:1px dashed rgba(100,116,139,.25);border-radius:12px}
+      .destination-card-image-link{display:block;height:100%}.destination-card-title-link{display:block}
     `;
     document.head.appendChild(style);
   }
@@ -96,6 +130,7 @@
   function boot() {
     injectStyle();
     init();
+    initDomesticDestinationLinks();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, { once: true });
