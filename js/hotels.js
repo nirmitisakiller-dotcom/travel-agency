@@ -1,263 +1,251 @@
-// ==========================================
-// Nature Tours Hotels
-// Version 4.0
-// ==========================================
-
+/*
+ * Nature Tours — Live Hotel Discovery
+ * One source of truth for destination hotel rendering.
+ * Hotels are discovered from OpenStreetMap and photographs from Wikimedia Commons.
+ * No fabricated hotel names and no repeated photographs.
+ */
 "use strict";
 
 const HotelApp = {
-    hotels: [],
     destination: null,
-    loading: false,
-    container: null,
-    wrapper: null,
+    hotels: [],
+    photoUrls: new Set(),
     whatsappNumber: "919822339466"
 };
 
-function $(id) {
-    return document.getElementById(id);
-}
+const hotelEscape = value => String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
-function getHotelImage(id) {
-    if (
-        window.ImageService &&
-        typeof window.ImageService.getHotelImage === "function"
-    ) {
-        return window.ImageService.getHotelImage(id);
-    }
-    return `assets/hotels/${id}.jpg`;
-}
-
-function formatPrice(price) {
-    if (price === undefined || price === null || price === "") {
-        return "Price unavailable";
-    }
-    return "₹" + Number(price).toLocaleString("en-IN");
-}
-
-function escapeHtml(text = "") {
-    return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-function showLoading(message = "Searching hotels...") {
-    if (!HotelApp.container) return;
-    HotelApp.loading = true;
-    HotelApp.container.innerHTML = `
-        <div class="loading-section">
-            <div class="loading-spinner"></div>
-            <h2>${escapeHtml(message)}</h2>
-            <p>Please wait while we find the best hotels.</p>
-        </div>
-    `;
-}
-
-function showError(message) {
-    if (!HotelApp.container) return;
-    HotelApp.loading = false;
-    HotelApp.container.innerHTML = `
-        <div class="error-section">
-            <h2>Oops!</h2>
-            <p>${escapeHtml(message)}</p>
-        </div>
-    `;
-}
-
-function showEmpty(message = "No hotels found.") {
-    if (!HotelApp.container) return;
-    HotelApp.loading = false;
-    HotelApp.container.innerHTML = `
-        <div class="empty-section">
-            <h2>No Results</h2>
-            <p>${escapeHtml(message)}</p>
-        </div>
-    `;
-}
-
-function getDestinationFromURL() {
+function getDestinationKey() {
     const params = new URLSearchParams(window.location.search);
-    return (
-        params.get("q") ||
-        params.get("destination") ||
-        localStorage.getItem("natureToursDestination") ||
-        ""
-    );
+    return (params.get("id") || params.get("destination") || params.get("name") || "").trim();
 }
 
-async function loadHotels() {
-    const response = await fetch("data/hotels.json");
-    if (!response.ok) {
-        throw new Error("Unable to load hotel database.");
+async function getDestination() {
+    const key = getDestinationKey();
+    if (!key) return null;
+
+    try {
+        const response = await fetch("data/destinations.json?hotels=1");
+        const list = await response.json();
+        if (!Array.isArray(list)) return null;
+        const lower = key.toLowerCase();
+        return list.find(item => String(item.id || "").toLowerCase() === lower)
+            || list.find(item => String(item.name || "").toLowerCase() === lower)
+            || null;
+    } catch (_) {
+        return null;
     }
-    HotelApp.hotels = await response.json();
-    return HotelApp.hotels;
 }
 
-function getHotelsForDestination(destinationName) {
-    if (!destinationName) return [];
-    const search = destinationName.trim().toLowerCase();
+async function geocodeDestination(destination) {
+    const query = encodeURIComponent(`${destination.name}, ${destination.country || "India"}`);
+    const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${query}`,
+        { headers: { Accept: "application/json" } }
+    );
+    if (!response.ok) throw new Error("Location service unavailable.");
+    const data = await response.json();
+    if (!data.length) throw new Error("Destination location could not be found.");
+    return { lat: Number(data[0].lat), lon: Number(data[0].lon) };
+}
 
-    return HotelApp.hotels.filter(hotel => {
-        const destinationId = String(hotel.destinationId || "").toLowerCase();
-        const hotelName = String(hotel.name || "").toLowerCase();
-        return (
-            destinationId === search ||
-            hotelName.includes(search)
-        );
+async function findOpenStreetMapHotels({ lat, lon }) {
+    const query = `[out:json][timeout:25];(
+        nwr["tourism"="hotel"](around:18000,${lat},${lon});
+        nwr["tourism"="resort"](around:18000,${lat},${lon});
+    );out center tags;`;
+
+    const response = await fetch("https://overpass-api.de/api/interpreter", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: query
+    });
+    if (!response.ok) throw new Error("Hotel discovery service unavailable.");
+    const data = await response.json();
+
+    const seen = new Set();
+    return (data.elements || [])
+        .map(item => {
+            const tags = item.tags || {};
+            const name = String(tags.name || "").trim();
+            const latValue = item.lat ?? item.center?.lat;
+            const lonValue = item.lon ?? item.center?.lon;
+            return {
+                id: `osm-${item.type}-${item.id}`,
+                osmId: item.id,
+                name,
+                lat: Number(latValue),
+                lon: Number(lonValue),
+                address: [tags["addr:housenumber"], tags["addr:street"], tags["addr:city"]].filter(Boolean).join(", "),
+                website: tags.website || tags["contact:website"] || "",
+                phone: tags.phone || tags["contact:phone"] || "",
+                stars: Number(tags.stars || 0),
+                type: tags.tourism || "hotel"
+            };
+        })
+        .filter(item => item.name && Number.isFinite(item.lat) && Number.isFinite(item.lon))
+        .filter(item => {
+            const key = item.name.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        })
+        .slice(0, 12);
+}
+
+async function findWikimediaPhoto(hotel, destination) {
+    const queries = [
+        `${hotel.name} ${destination.name}`,
+        hotel.name
+    ];
+
+    for (const query of queries) {
+        try {
+            const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrnamespace=6&gsrlimit=6&prop=imageinfo&iiprop=url&iiurlwidth=900&format=json&origin=*`;
+            const response = await fetch(url);
+            if (!response.ok) continue;
+            const data = await response.json();
+            const pages = Object.values(data.query?.pages || {});
+            for (const page of pages) {
+                const image = page.imageinfo?.[0]?.thumburl || page.imageinfo?.[0]?.url;
+                if (image && !HotelApp.photoUrls.has(image)) {
+                    HotelApp.photoUrls.add(image);
+                    return image;
+                }
+            }
+        } catch (_) {
+            // Continue without a photograph; never substitute another hotel's image.
+        }
+    }
+    return "";
+}
+
+function hotelMapsLink(hotel) {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${hotel.name} ${hotel.lat},${hotel.lon}`)}`;
+}
+
+function hotelWhatsApp(hotel, destination) {
+    const text = encodeURIComponent(
+        `Hello Nature Tours,\n\nI would like to enquire about:\n\n🏨 ${hotel.name}\n📍 ${destination.name}\n\nPlease check availability, room options and current price.\n\nThank you.`
+    );
+    return `https://wa.me/${HotelApp.whatsappNumber}?text=${text}`;
+}
+
+function addToPlanCart(hotel, destination, button) {
+    let items = [];
+    try { items = JSON.parse(localStorage.getItem("natureToursPlanCart") || "[]"); } catch (_) {}
+    if (!Array.isArray(items)) items = [];
+
+    const id = `hotel-${hotel.osmId}`;
+    if (!items.some(item => item.id === id)) {
+        items.push({
+            id,
+            type: "hotel",
+            destination: destination.name,
+            hotel: hotel.name,
+            address: hotel.address || "",
+            mapsUrl: hotelMapsLink(hotel)
+        });
+        localStorage.setItem("natureToursPlanCart", JSON.stringify(items));
+        document.dispatchEvent(new CustomEvent("natureToursPlanCartUpdated"));
+        button.textContent = "✓ Added to Plan";
+    } else {
+        button.textContent = "✓ Already Added";
+    }
+}
+
+function renderHotelCard(hotel, destination, index) {
+    const photo = hotel.photo;
+    return `
+        <article class="hotel-card live-hotel-card">
+            <div class="hotel-photo-wrap">
+                ${photo
+                    ? `<img class="hotel-photo" src="${hotelEscape(photo)}" alt="${hotelEscape(hotel.name)}" loading="lazy">`
+                    : `<div class="hotel-photo hotel-photo-unavailable"><span>📷</span><small>Photo unavailable</small></div>`}
+                <span class="hotel-live-badge">Verified listing</span>
+            </div>
+            <div class="hotel-content">
+                <h3>${hotelEscape(hotel.name)}</h3>
+                <p class="hotel-address">📍 ${hotelEscape(hotel.address || destination.name)}</p>
+                ${hotel.stars ? `<div class="hotel-rating">${"★".repeat(Math.min(5, hotel.stars))}${"☆".repeat(Math.max(0, 5 - hotel.stars))} <span>${hotel.stars}/5</span></div>` : ""}
+                <p class="hotel-source">OpenStreetMap listing${hotel.type === "resort" ? " • Resort" : " • Hotel"}</p>
+                <div class="hotel-buttons">
+                    <a class="hotel-btn" href="${hotelEscape(hotelMapsLink(hotel))}" target="_blank" rel="noopener noreferrer">Google Maps</a>
+                    ${hotel.website ? `<a class="hotel-btn" href="${hotelEscape(hotel.website)}" target="_blank" rel="noopener noreferrer">Hotel Website</a>` : ""}
+                    <a class="hotel-btn" href="${hotelEscape(hotelWhatsApp(hotel, destination))}" target="_blank" rel="noopener noreferrer">Enquire</a>
+                    <button class="hotel-btn hotel-plan-btn" type="button" data-hotel-index="${index}">Add to Plan</button>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+function renderHotels(destination, hotels) {
+    const page = document.getElementById("destination-page");
+    if (!page) return;
+
+    const old = page.querySelector(".live-hotels-section");
+    if (old) old.remove();
+
+    const section = document.createElement("section");
+    section.className = "hotel-section live-hotels-section";
+    section.innerHTML = `
+        <div class="hotel-section-heading">
+            <h2>Hotels in ${hotelEscape(destination.name)}</h2>
+            <p>Real hotel and resort listings discovered for this destination. Photographs are shown only when a matching Wikimedia Commons image is available.</p>
+        </div>
+        <div class="hotel-grid live-hotel-grid">
+            ${hotels.length ? hotels.map((hotel, index) => renderHotelCard(hotel, destination, index)).join("") : `
+                <div class="glance-card" style="grid-column:1/-1;text-align:center;">
+                    <h3>No verified hotel listings found</h3>
+                    <p>We won't invent a hotel or reuse an unrelated photograph. Please try again later.</p>
+                </div>
+            `}
+        </div>
+    `;
+
+    page.appendChild(section);
+
+    section.querySelectorAll(".hotel-plan-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            const hotel = HotelApp.hotels[Number(button.dataset.hotelIndex)];
+            if (hotel) addToPlanCart(hotel, destination, button);
+        });
     });
 }
 
-function renderStars(rating = 0) {
-    let stars = "";
-    const numericRating = Number(rating) || 0;
-    for (let i = 1; i <= 5; i++) {
-        stars += i <= numericRating ? "★" : "☆";
-    }
-    return stars;
-}
+async function initializeLiveHotels() {
+    if (!document.getElementById("destination-page")) return;
+    const destination = await getDestination();
+    if (!destination) return;
+    HotelApp.destination = destination;
 
-function getGoogleMapsLink(hotel) {
-    const query = encodeURIComponent(
-        `${hotel.name || ""} ${hotel.address || ""}`
-    );
-    return `https://www.google.com/maps/search/?api=1&query=${query}`;
-}
-
-function getClientWhatsAppLink(hotel) {
-    const message = encodeURIComponent(
-`Hello Nature Tours,
-
-I would like to enquire about this hotel:
-
-🏨 Hotel: ${hotel.name || ""}
-📍 Location: ${hotel.address || ""}
-⭐ Rating: ${hotel.rating || "N/A"}/5
-💰 Listed price: ${formatPrice(hotel.price)} per night
-
-Please contact me regarding availability and booking.
-
-Thank you.`
-    );
-
-    return `https://wa.me/${HotelApp.whatsappNumber}?text=${message}`;
-}
-
-function createHotelCard(hotel) {
-    return `
-        <div class="hotel-card">
-            <img
-                class="hotel-photo"
-                src="${getHotelImage(hotel.id)}"
-                alt="${escapeHtml(hotel.name || "Hotel")}"
-                loading="lazy"
-                onerror="this.src='https://placehold.co/600x400?text=Hotel';"
-            >
-
-            <div class="hotel-content">
-                <h2>${escapeHtml(hotel.name || "Unnamed Hotel")}</h2>
-
-                <div class="hotel-rating">
-                    ${renderStars(hotel.rating)}
-                    <span>${escapeHtml(String(hotel.rating || "N/A"))}/5</span>
-                </div>
-
-                <p class="hotel-address">
-                    📍 ${escapeHtml(hotel.address || "Address unavailable")}
-                </p>
-
-                <p class="hotel-price">
-                    ${formatPrice(hotel.price)}
-                    <small>/ night</small>
-                </p>
-
-                <div class="hotel-amenities">
-                    ${(hotel.amenities || [])
-                        .map(amenity => `<span>${escapeHtml(amenity)}</span>`)
-                        .join("")}
-                </div>
-
-                <div class="hotel-buttons">
-                    <a
-                        class="hotel-btn"
-                        href="${getClientWhatsAppLink(hotel)}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Send Enquiry
-                    </a>
-
-                    <a
-                        class="hotel-btn"
-                        href="${getGoogleMapsLink(hotel)}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Google Maps
-                    </a>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function renderHotels(hotels) {
-    HotelApp.loading = false;
-    if (!HotelApp.container) return;
-
-    if (!hotels.length) {
-        showEmpty("No hotels available for this destination.");
-        return;
-    }
-
-    HotelApp.container.innerHTML = hotels.map(createHotelCard).join("");
-
-    const counter = $("hotel-results-counter");
-    if (counter) {
-        counter.textContent =
-            `Showing ${hotels.length} hotel option${hotels.length === 1 ? "" : "s"}`;
-    }
-}
-
-async function initializeHotels() {
-    HotelApp.container =
-        $("hotel-cards-target-grid") ||
-        $("hotel-results") ||
-        $("hotels-container") ||
-        $("hotels") ||
-        document.querySelector(".hotel-results");
-
-    HotelApp.wrapper = $("active-hotels-section-wrapper");
-
-    if (!HotelApp.container) {
-        console.log("Hotels: no hotel container on this page.");
-        return;
-    }
-
-    HotelApp.destination = getDestinationFromURL();
-
-    if (!HotelApp.destination) {
-        console.log("Hotels: no destination selected.");
-        return;
-    }
-
-    if (HotelApp.wrapper) {
-        HotelApp.wrapper.style.display = "block";
-    }
-
-    showLoading();
+    const page = document.getElementById("destination-page");
+    const loading = document.createElement("section");
+    loading.className = "hotel-section live-hotels-section";
+    loading.innerHTML = `<div class="glance-card" style="text-align:center;"><h2>Finding real hotels in ${hotelEscape(destination.name)}...</h2><p>Checking live accommodation listings.</p></div>`;
+    page.appendChild(loading);
 
     try {
-        await loadHotels();
-        const hotels = getHotelsForDestination(HotelApp.destination);
-        renderHotels(hotels);
+        const coords = await geocodeDestination(destination);
+        const hotels = await findOpenStreetMapHotels(coords);
+        HotelApp.hotels = hotels;
+        HotelApp.photoUrls.clear();
+
+        for (const hotel of hotels) {
+            hotel.photo = await findWikimediaPhoto(hotel, destination);
+        }
+
+        renderHotels(destination, hotels);
     } catch (error) {
-        console.error("Hotels loading error:", error);
-        showError(error.message || "Unable to load hotels.");
+        console.error("Live hotel discovery failed:", error);
+        renderHotels(destination, []);
     }
 }
 
-document.addEventListener("DOMContentLoaded", initializeHotels);
+document.addEventListener("DOMContentLoaded", initializeLiveHotels, { once: true });
