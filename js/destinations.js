@@ -37,6 +37,18 @@ window.DestinationEngine = {
             } catch (_) {}
         }
 
+        // Jim Corbett was explicitly removed from the catalogue.
+        destinations = destinations.filter(item => String(item.id) !== "jim-corbett");
+
+        // Keep the first occurrence of each destination name as well as each id.
+        const unique = new Set();
+        destinations = destinations.filter(item => {
+            const key = String(item.name || item.id).trim().toLowerCase();
+            if (unique.has(key)) return false;
+            unique.add(key);
+            return true;
+        });
+
         this.destinations = destinations;
         return this.destinations;
     },
@@ -45,9 +57,9 @@ window.DestinationEngine = {
         await this.load();
         const search = searchText.trim().toLowerCase();
         return this.destinations.find(item => (
-            item.name.toLowerCase() === search ||
-            item.country.toLowerCase() === search ||
-            (item.state && item.state.toLowerCase() === search)
+            String(item.name || "").toLowerCase() === search ||
+            String(item.country || "").toLowerCase() === search ||
+            String(item.state || "").toLowerCase() === search
         ));
     }
 };
