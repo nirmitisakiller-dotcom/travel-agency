@@ -46,16 +46,18 @@ window.DestinationEngine = {
             return true;
         });
 
-        // Normalize common destination spellings without changing the display name.
+        // Normalize common destination spellings without changing the canonical route ID.
+        // Alibag/Alibagh are common spellings, while Alibaug is the preferred display/search name.
         destinations.forEach(item => {
             const id = String(item.id || "").trim().toLowerCase();
             const name = String(item.name || "").trim().toLowerCase();
-            if (id === "alibaug" || id === "alibag" || name === "alibaug" || name === "alibag") {
+            if (id === "alibaug" || id === "alibag" || name === "alibaug" || name === "alibag" || name === "alibagh") {
+                item.name = "Alibaug";
                 item.destinationAliases = ["Alibaug", "Alibag", "Alibagh", "Varsoli Beach", "Alibaug Beach", "Kolaba Fort"];
                 item.imageSearchTerms = [
-                    "Varsoli Beach Alibag Maharashtra",
-                    "Alibag Beach Maharashtra",
-                    "Kolaba Fort Alibag Maharashtra"
+                    "Varsoli Beach Alibaug Maharashtra",
+                    "Alibaug Beach Maharashtra",
+                    "Kolaba Fort Alibaug Maharashtra"
                 ];
             }
         });
