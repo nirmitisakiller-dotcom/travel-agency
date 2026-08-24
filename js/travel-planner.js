@@ -6,7 +6,7 @@ async function json(u,o){const r=await fetch(u,o);if(!r.ok)throw new Error('HTTP
 async function geocode(d){const k='geo:'+d.id;if(cache.has(k))return cache.get(k);const queries=[`${d.name}, ${d.region||''}, ${d.country||'India'}`,`${d.name}, ${d.country||'India'}`];for(const q0 of queries){const q=encodeURIComponent(q0.replace(/,\s*,/g,','));try{const a=await json('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q='+q,{headers:{Accept:'application/json'}});if(a?.length){const best=a.find(x=>x.type==='city'||x.type==='town'||x.type==='village'||x.type==='municipality'||x.type==='administrative')||a[0],p={lat:+best.lat,lon:+best.lon};cache.set(k,p);return p}}catch(_){} }cache.set(k,null);return null}
 function tourismQuery(lat,lon,radius){return `[out:json][timeout:45];(nwr["tourism"~"^(hotel|resort|guest_house|hostel|motel|camp_site|alpine_hut|chalet)$"](around:${radius},${lat},${lon});nwr["building"="hotel"](around:${radius},${lat},${lon}););out center tags;`}
 function normaliseHotels(elements,d){const result=[],seen=new Set();for(const i of elements||[]){const t=i.tags||{},name=String(t.name||'').trim(),nk=name.toLowerCase().replace(/\s+/g,' '),lat=i.lat??i.center?.lat,lon=i.lon??i.center?.lon;if(!name||seen.has(nk)||!Number.isFinite(Number(lat))||!Number.isFinite(Number(lon)))continue;seen.add(nk);result.push({id:`osm-${i.type}-${i.id}`,name,lat:+lat,lon:+lon,address:[t['addr:housenumber'],t['addr:street'],t['addr:place'],t['addr:city']||t['addr:town']||t['addr:village']||d.name].filter(Boolean).join(', '),stars:t.stars||t['hotel:stars']||'',website:t.website||t['contact:website']||'',phone:t.phone||t['contact:phone']||'',type:t.tourism||'hotel'})}return result}
-async function hotelsFromOSM(d){const k='hotels:'+d.id;if(cache.has(k))return cache.get(k);const p=await geocode(d);if(!p)return[];const radii=[20000,50000,80000];let best=[];try{for(const radius of radii){const data=await json('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:tourismQuery(p.lat,p.lon,radius)});const found=normaliseHotels(data.elements,d);if(found.length>best.length)best=found;if(best.length>=6)break}const out=best.slice(0,12);cache.set(k,out);return out}catch(_){cache.set(k,[]);return[]}}
+async function hotelsFromOSM(d){const k='hotels:'+d.id;if(cache.has(k))return cache.get(k);const p=await geocode(d);if(!p)return[];const radii=[20000,50000,80000];let best=[];const endpoints=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter'];for(const radius of radii){for(const ep of endpoints){try{const data=await json(ep+'?data='+encodeURIComponent(tourismQuery(p.lat,p.lon,radius)),{headers:{Accept:'application/json'}});const found=normaliseHotels(data.elements,d);if(found.length>best.length)best=found;if(best.length>=8)break}catch(_){} }if(best.length>=8)break}const out=best.slice(0,12);cache.set(k,out);return out}
 async function commonsPhoto(h,d){for(const term of [`${h.name} ${d.name}`,h.name,`${h.name} ${d.region||''}`])try{const u='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent(term)+'&gsrnamespace=6&gsrlimit=12&prop=imageinfo&iiprop=url&iiurlwidth=900&format=json&origin=*',data=await json(u);for(const p of Object.values(data.query?.pages||{})){if(!/hotel|resort|lodge|inn|hostel|guest.?house|camp|chalet|villa|palace/.test(String(p.title||'').toLowerCase()))continue;const s=p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url||'';if(s&&!usedImages.has(s)){usedImages.add(s);return s}}}catch(_){}return''}
 async function enrichHotels(d,hs){usedImages.clear();const out=[];for(const h of hs)out.push({...h,image:await commonsPhoto(h,d)});return out}
 function highlights(d){const t=Array.isArray(d.tags)?d.tags.filter(Boolean):[];return[...new Set([...t,'Local sightseeing','Scenic viewpoints','Local cuisine','Cultural experience','Leisure time'])].slice(0,8)}
@@ -23,4 +23,50 @@ function renderHotels(d,hs){const page=document.getElementById('destination-page
 function renderPlans(d,hs){const page=document.getElementById('destination-page');if(!page)return;page.querySelector('.live-itineraries')?.remove();const s=document.createElement('section');s.className='live-itineraries';s.innerHTML=`<div class="planner-heading"><span>🗓️ Plan your trip</span><h2>Itineraries for ${esc(d.name)}</h2><p>Choose a duration and connect a verified hotel to your plan.</p></div><div class="live-itinerary-grid"></div>`;const g=s.querySelector('.live-itinerary-grid');makePlans(d).forEach(plan=>{const c=document.createElement('article');c.className='live-itinerary-card';const opts=hs.map((h,i)=>`<option value="${i}">${esc(h.name)}</option>`).join('');c.innerHTML=`<div class="live-plan-badge">${esc(plan.style)}</div><h3>${esc(plan.duration)}</h3><label>Hotel for this plan<select>${opts||'<option value="">Hotel selection unavailable</option>'}</select></label><div class="live-schedule">${plan.schedule.map(day=>`<div class="live-day"><strong>Day ${day.day}</strong><p><b>Morning:</b> ${esc(day.morning)}</p><p><b>Afternoon:</b> ${esc(day.afternoon)}</p><p><b>Evening:</b> ${esc(day.evening)}</p></div>`).join('')}</div><button class="live-plan-add" type="button">+ Add itinerary to Plan Cart</button>`;c.querySelector('button').onclick=()=>{const h=hs[Number(c.querySelector('select').value)]||null;const ok=addCart({id:`itinerary-${plan.id}`,sourceId:plan.id,type:'itinerary',destination:plan.name,country:d.country||'India',duration:plan.duration,style:plan.style,schedule:plan.schedule,hotel:h?{id:h.id,name:h.name,image:h.image||'',address:h.address||''}:null});c.querySelector('button').textContent=ok?'✓ Added to Plan Cart':'✓ Already Added'};g.appendChild(c)});page.appendChild(s)}
 async function init(){const page=document.getElementById('destination-page');if(!page||!window.DestinationEngine)return;cartUI();try{const p=new URLSearchParams(location.search),requested=p.get('id')||p.get('destination')||'',d=await window.DestinationEngine.find(requested);if(!d)return;const hs=await hotelsFromOSM(d),enriched=await enrichHotels(d,hs);renderHotels(d,enriched);renderPlans(d,enriched)}catch(e){console.warn('Live travel planner failed',e)}}
 document.addEventListener('DOMContentLoaded',()=>setTimeout(init,1300));document.addEventListener('natureToursPlanCartUpdated',renderCart);
+
+/* Robust second-pass discovery: browser-friendly GET Overpass + Nominatim fallback.
+   This runs after the initial planner so a slow/blocked Overpass endpoint cannot leave
+   every destination permanently without a hotel list. */
+async function robustHotelPass(){
+  const page=document.getElementById('destination-page');
+  if(!page||!window.DestinationEngine)return;
+  try{
+    const p=new URLSearchParams(location.search),requested=p.get('id')||p.get('destination')||'';
+    const d=await window.DestinationEngine.find(requested); if(!d)return;
+    const point=await geocode(d); if(!point)return;
+    const endpoints=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter'];
+    let found=[];
+    for(const radius of [20000,50000,100000]){
+      for(const ep of endpoints){
+        try{
+          const data=await json(ep+'?data='+encodeURIComponent(tourismQuery(point.lat,point.lon,radius)),{headers:{Accept:'application/json'}});
+          const rows=normaliseHotels(data.elements,d); if(rows.length>found.length)found=rows;
+          if(found.length>=8)break;
+        }catch(_){}
+      }
+      if(found.length>=8)break;
+    }
+    /* Nominatim is a useful browser-safe fallback for named accommodation that
+       Overpass may not return from a large-radius query. */
+    if(found.length<6){
+      const queries=[`${d.name} hotel`,`${d.name} resort`,`${d.name} guest house`,`${d.name} homestay`,`${d.name} hostel`];
+      const seen=new Set(found.map(x=>x.name.toLowerCase()));
+      for(const q of queries){
+        try{
+          const rows=await json('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&addressdetails=1&q='+encodeURIComponent(q),{headers:{Accept:'application/json'}});
+          for(const x of rows||[]){
+            const name=String(x.name||x.display_name||'').split(',')[0].trim(),type=String(x.type||'').toLowerCase();
+            if(!name||seen.has(name.toLowerCase())||!/(hotel|resort|guest|hostel|motel|camp|lodge|chalet|inn|homestay)/i.test(`${name} ${x.display_name||''} ${type}`))continue;
+            seen.add(name.toLowerCase());found.push({id:`nominatim-${x.place_id}`,name,lat:+x.lat,lon:+x.lon,address:x.display_name||d.name,stars:'',website:'',phone:'',type:type||'hotel'});
+            if(found.length>=12)break;
+          }
+        }catch(_){}
+        if(found.length>=12)break;
+      }
+    }
+    const enriched=await enrichHotels(d,found.slice(0,12));
+    renderHotels(d,enriched); renderPlans(d,enriched);
+  }catch(e){console.warn('Robust hotel pass failed',e)}
+}
+setTimeout(robustHotelPass,6500);
 })();
