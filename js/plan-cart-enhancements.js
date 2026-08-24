@@ -4,13 +4,15 @@
   const FALLBACK_IMAGES = {
     "Netherlands": "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=240&q=80"
   };
+  const domesticImageCache = new Map();
+  const domesticReservedImages = new Set();
 
   function esc(v = "") {
     return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#039;");
   }
 
   function destinationImage(d) {
-    return d.image || FALLBACK_IMAGES[d.name] || "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=240&q=80";
+    return d.image || FALLBACK_IMAGES[d.name] || "";
   }
 
   async function getCatalogue() {
@@ -58,22 +60,86 @@
     }));
   }
 
-  async function init() {
+  async function commonsDestinationImage(d) {
+    const name = String(d.name || "").trim();
+    const region = String(d.region || d.state || "").trim();
+    const lower = name.toLowerCase();
+    const special = {
+      "alibaug": ["Varsoli Beach Alibaug Maharashtra", "Alibaug Beach Maharashtra", "Kolaba Fort Alibaug Maharashtra"],
+      "alibag": ["Varsoli Beach Alibaug Maharashtra", "Alibaug Beach Maharashtra", "Kolaba Fort Alibaug Maharashtra"],
+      "goa": ["Goa India beach", "Baga Beach Goa", "Fort Aguada Goa"],
+      "mumbai": ["Gateway of India Mumbai", "Marine Drive Mumbai", "Mumbai India"],
+      "manali": ["Manali Himachal Pradesh", "Solang Valley Manali", "Rohtang Pass Manali"],
+      "spiti valley": ["Spiti Valley Himachal Pradesh", "Kaza Spiti", "Key Monastery Spiti"]
+    };
+    const terms = special[lower] || [`${name} ${region} India`, `${name} India tourist attraction`, `${name} India landmark`];
+    for (const term of terms) {
+      try {
+        const url = "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=" + encodeURIComponent(term) + "&gsrnamespace=6&gsrlimit=40&prop=imageinfo&iiprop=url&iiurlwidth=900&format=json&origin=*";
+        const response = await fetch(url);
+        if (!response.ok) continue;
+        const data = await response.json();
+        const pages = Object.values(data.query?.pages || {});
+        for (const page of pages) {
+          const title = String(page.title || "").toLowerCase();
+          const src = page.imageinfo?.[0]?.thumburl || page.imageinfo?.[0]?.url || "";
+          if (!src || domesticReservedImages.has(src)) continue;
+          if (/flag|logo|map|icon|coat.?of.?arms|symbol|portrait|person|selfie|poster|menu|screenshot|document|painting|drawing|illustration/i.test(title)) continue;
+          domesticReservedImages.add(src);
+          return src;
+        }
+      } catch (_) {}
+    }
+    return "";
+  }
+
+  async function getDomesticImage(d) {
+    const key = String(d.id || d.name).toLowerCase();
+    if (domesticImageCache.has(key)) return domesticImageCache.get(key);
+    let src = await commonsDestinationImage(d);
+    domesticImageCache.set(key, src);
+    return src;
+  }
+
+  async function loadDomesticCardImages() {
+    if (!/\/domestic\.html$/i.test(location.pathname)) return;
     const catalogue = await getCatalogue();
     if (!Array.isArray(catalogue)) return;
-    window.PlanCartDestinationCatalogue = catalogue;
-    const input = document.getElementById("plan-destination-search");
-    if (!input || input.dataset.enhancedBound) return;
-    input.dataset.enhancedBound = "true";
-    input.addEventListener("input", render);
-    input.addEventListener("focus", render);
-    render();
-
-    const observer = new MutationObserver(() => {
-      const current = document.getElementById("plan-destination-search");
-      if (current && !current.dataset.enhancedBound) init();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    const byId = new Map(catalogue.map(d => [String(d.id || d.name), d]));
+    const apply = async () => {
+      const cards = [...document.querySelectorAll("#india-grid .india-card")];
+      for (const card of cards) {
+        const rawId = card.dataset.id || card.querySelector(".india-add")?.dataset.id;
+        const d = byId.get(String(rawId));
+        const media = card.querySelector(".india-card-media");
+        if (!d || !media || media.dataset.realImageLoaded === "true") continue;
+        const src = await getDomesticImage(d);
+        if (!src) {
+          media.dataset.realImageLoaded = "true";
+          media.classList.add("fallback");
+          if (!media.querySelector("img")) media.insertAdjacentHTML("afterbegin", `<span>${esc(d.name)}</span>`);
+          continue;
+        }
+        media.querySelectorAll("img").forEach(img => img.remove());
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = `${d.name} real destination photograph`;
+        img.loading = "lazy";
+        img.onerror = () => {
+          img.remove();
+          domesticReservedImages.delete(src);
+          domesticImageCache.delete(String(d.id || d.name).toLowerCase());
+          media.classList.add("fallback");
+          media.dataset.realImageLoaded = "true";
+          if (!media.querySelector("span")) media.insertAdjacentHTML("afterbegin", `<span>${esc(d.name)}</span>`);
+        };
+        media.appendChild(img);
+        media.dataset.realImageLoaded = "true";
+      }
+    };
+    await apply();
+    const grid = document.getElementById("india-grid");
+    if (grid) new MutationObserver(() => apply()).observe(grid, { childList: true, subtree: true });
   }
 
   function initDomesticDestinationLinks() {
@@ -131,6 +197,7 @@
     injectStyle();
     init();
     initDomesticDestinationLinks();
+    loadDomesticCardImages();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, { once: true });
