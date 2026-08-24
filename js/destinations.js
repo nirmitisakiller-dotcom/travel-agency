@@ -46,6 +46,20 @@ window.DestinationEngine = {
             return true;
         });
 
+        // Normalize common destination spellings without changing the display name.
+        destinations.forEach(item => {
+            const id = String(item.id || "").trim().toLowerCase();
+            const name = String(item.name || "").trim().toLowerCase();
+            if (id === "alibaug" || id === "alibag" || name === "alibaug" || name === "alibag") {
+                item.destinationAliases = ["Alibaug", "Alibag", "Alibagh", "Varsoli Beach", "Alibaug Beach", "Kolaba Fort"];
+                item.imageSearchTerms = [
+                    "Varsoli Beach Alibag Maharashtra",
+                    "Alibag Beach Maharashtra",
+                    "Kolaba Fort Alibag Maharashtra"
+                ];
+            }
+        });
+
         this.destinations = destinations;
         return this.destinations;
     },
@@ -65,6 +79,13 @@ window.DestinationEngine = {
             String(item.name || "").trim().toLowerCase() === search
         );
         if (exactName) return exactName;
+
+        const aliasMatch = this.destinations.find(item =>
+            Array.isArray(item.destinationAliases) && item.destinationAliases.some(alias =>
+                String(alias).trim().toLowerCase() === search
+            )
+        );
+        if (aliasMatch) return aliasMatch;
 
         const slug = search.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         const slugMatch = this.destinations.find(item =>
