@@ -3,7 +3,27 @@
   'use strict';
   const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#039;');
   async function json(url){const r=await fetch(url,{headers:{Accept:'application/json'}});if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
+
+  // Some Indian destinations have multiple spellings. Use canonical search terms
+  // and known coordinates so a naming mismatch cannot prevent hotel discovery.
+  const destinationSearch={
+    alibaug:['Alibaug, Maharashtra, India','Alibag, Maharashtra, India','Alibagh, Maharashtra, India'],
+    alibag:['Alibaug, Maharashtra, India','Alibag, Maharashtra, India','Alibagh, Maharashtra, India'],
+    alibagh:['Alibaug, Maharashtra, India','Alibag, Maharashtra, India','Alibagh, Maharashtra, India']
+  };
+  const destinationCoords={
+    alibaug:{lat:18.6414,lon:72.8722},
+    alibag:{lat:18.6414,lon:72.8722},
+    alibagh:{lat:18.6414,lon:72.8722}
+  };
+
   async function locate(d){
+    const name=String(d.name||'').trim().toLowerCase();
+    const canonical=destinationSearch[name];
+    if(canonical){
+      for(const q of canonical){try{const a=await json('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&q='+encodeURIComponent(q));if(a?.length){const x=a.find(v=>['city','town','village','municipality','administrative'].includes(v.type))||a[0];return {lat:+x.lat,lon:+x.lon}}}catch(_){} }
+      return destinationCoords[name]||null;
+    }
     const qs=[`${d.name}, ${d.region||''}, ${d.country||'India'}`,`${d.name}, ${d.country||'India'}`];
     for(const q of qs){try{const a=await json('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&q='+encodeURIComponent(q));if(a?.length){const x=a.find(v=>['city','town','village','municipality','administrative'].includes(v.type))||a[0];return {lat:+x.lat,lon:+x.lon}}}catch(_){} }
     return null;
@@ -18,7 +38,7 @@
         try{
           const data=await json(ep+'?data='+encodeURIComponent(query(p.lat,p.lon,r)));
           for(const x of data.elements||[]){const t=x.tags||{},name=String(t.name||'').trim(),lat=x.lat??x.center?.lat,lon=x.lon??x.center?.lon,key=name.toLowerCase().replace(/\s+/g,' ');if(!name||seen.has(key)||!Number.isFinite(+lat)||!Number.isFinite(+lon))continue;seen.add(key);out.push({id:`osm-${x.type}-${x.id}`,name,lat:+lat,lon:+lon,address:[t['addr:housenumber'],t['addr:street'],t['addr:place'],t['addr:city']||t['addr:town']||t['addr:village']||d.name].filter(Boolean).join(', '),stars:t.stars||t['hotel:stars']||'',website:t.website||t['contact:website']||'',type:t.tourism||'hotel'});}
-          if(out.length>=12)return out;
+          if(out.length>=12)return out.slice(0,12);
         }catch(_){}
       }
     }
