@@ -1,1 +1,3 @@
 Pages deployment trigger for the Nature Tours static site.
+
+Triggered: 2026-08-25 deployment reset.
