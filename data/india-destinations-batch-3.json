@@ -5,7 +5,7 @@
   {"id":"india-andhra-pradesh-tirupati","name":"Tirupati","country":"India","state":"Andhra Pradesh","region":"South India","type":"domestic","tags":["religious","temple","pilgrimage"]},
   {"id":"india-andhra-pradesh-srisailam","name":"Srisailam","country":"India","state":"Andhra Pradesh","region":"South India","type":"domestic","tags":["religious","nature","temple"]},
   {"id":"india-telangana-hyderabad","name":"Hyderabad","country":"India","state":"Telangana","region":"South India","type":"domestic","tags":["city","food","heritage"]},
-  {"id":"india-telangana-warangal","name":"Warangal","country":"India","state":"Telangana","region":"South India","type":"domestic","tags":["heritage","temple","history"]},
+  {"id":"india-telangana-warangal","name":"Warangal","country":"India","state":"Telangana","region":"South India","type":"domestic","tags":["heritage","temple","history"]}, 
   {"id":"india-telangana-nagarjuna-sagar","name":"Nagarjuna Sagar","country":"India","state":"Telangana","region":"South India","type":"domestic","tags":["nature","history","dam"]},
   {"id":"india-karnataka-bengaluru","name":"Bengaluru","country":"India","state":"Karnataka","region":"South India","type":"domestic","tags":["city","food","technology"]},
   {"id":"india-karnataka-mysuru","name":"Mysuru","country":"India","state":"Karnataka","region":"South India","type":"domestic","tags":["heritage","palace","culture"]},
