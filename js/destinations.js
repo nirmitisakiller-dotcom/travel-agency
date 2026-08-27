@@ -2,40 +2,59 @@
 // Nature Tours — Universal Destination Engine
 // ==========================================
 // One renderer for India or the rest of the world.
-// Local curated data is preferred; Supabase is supported as the future
-// canonical catalogue; Nominatim provides an on-demand destination resolver
-// so a new destination does not require a new code change.
+// Local curated data is preferred so destination pages cannot get stuck
+// waiting for a remote catalogue. Remote data is merged when available.
 
 window.DestinationEngine = {
     destinations: [],
     remoteCache: new Map(),
+
+    async fetchJson(url, options = {}, timeoutMs = 10000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+            const response = await fetch(url, { ...options, signal: controller.signal });
+            if (!response.ok) return null;
+            return await response.json();
+        } catch (_) {
+            return null;
+        } finally {
+            clearTimeout(timer);
+        }
+    },
 
     async load() {
         if (this.destinations.length) return this.destinations;
 
         let destinations = [];
 
-        // 1) Prefer the central Supabase catalogue when it contains data.
+        // 1) Local catalogue first. This is deterministic and prevents a
+        // Supabase/network problem from leaving the destination page loading forever.
+        const local = await this.fetchJson("data/destinations.json?engine=2", {}, 8000);
+        if (Array.isArray(local)) destinations = local;
+
+        // 2) Merge the central Supabase catalogue when available.
         try {
             if (window.API?.url && window.API?.key) {
-                const response = await fetch(`${window.API.url}/destinations?select=*`, {
-                    headers: { apikey: window.API.key, Authorization: `Bearer ${window.API.key}` }
-                });
-                if (response.ok) {
-                    const remote = await response.json();
-                    if (Array.isArray(remote) && remote.length) destinations = remote;
+                const remote = await this.fetchJson(
+                    `${window.API.url}/destinations?select=*`,
+                    { headers: { apikey: window.API.key, Authorization: `Bearer ${window.API.key}` } },
+                    8000
+                );
+                if (Array.isArray(remote)) {
+                    const byId = new Map(destinations.map(item => [String(item.id || "").trim().toLowerCase(), item]));
+                    remote.forEach(item => {
+                        const id = String(item.id || item.name || "").trim().toLowerCase();
+                        if (!id) return;
+                        if (byId.has(id)) Object.assign(byId.get(id), item);
+                        else {
+                            destinations.push(item);
+                            byId.set(id, item);
+                        }
+                    });
                 }
             }
         } catch (_) {}
-
-        // 2) Fall back to the repository catalogue. This keeps the site working
-        // even if the database is empty or temporarily unavailable.
-        if (!destinations.length) {
-            try {
-                const response = await fetch("data/destinations.json?engine=1");
-                if (response.ok) destinations = await response.json();
-            } catch (_) {}
-        }
 
         // 3) Merge additional curated batches without requiring frontend code changes.
         const extraFiles = [
@@ -49,18 +68,14 @@ window.DestinationEngine = {
         ];
         const seen = new Set(destinations.map(item => String(item.id || "").trim().toLowerCase()));
         for (const file of extraFiles) {
-            try {
-                const response = await fetch(file + "?engine=1");
-                if (!response.ok) continue;
-                const extra = await response.json();
-                if (!Array.isArray(extra)) continue;
-                extra.forEach(item => {
-                    const id = String(item.id || "").trim().toLowerCase();
-                    if (!id || seen.has(id)) return;
-                    destinations.push(item);
-                    seen.add(id);
-                });
-            } catch (_) {}
+            const extra = await this.fetchJson(file + "?engine=2", {}, 6000);
+            if (!Array.isArray(extra)) continue;
+            extra.forEach(item => {
+                const id = String(item.id || "").trim().toLowerCase();
+                if (!id || seen.has(id)) return;
+                destinations.push(item);
+                seen.add(id);
+            });
         }
 
         destinations = destinations.filter(item => String(item.id || "").trim().toLowerCase() !== "jim-corbett");
@@ -110,10 +125,9 @@ window.DestinationEngine = {
 
         try {
             const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&addressdetails=1&q=${encodeURIComponent(query)}`;
-            const response = await fetch(url, { headers: { Accept: "application/json" } });
-            if (!response.ok) return null;
-            const rows = await response.json();
-            const best = (rows || []).find(x => /city|town|village|municipality|administrative|island|suburb/i.test(String(x.type || ""))) || rows?.[0];
+            const response = await this.fetchJson(url, { headers: { Accept: "application/json" } }, 10000);
+            const rows = Array.isArray(response) ? response : [];
+            const best = rows.find(x => /city|town|village|municipality|administrative|island|suburb/i.test(String(x.type || ""))) || rows[0];
             if (!best) return null;
 
             const address = best.address || {};
@@ -130,21 +144,11 @@ window.DestinationEngine = {
 
             const resolved = {
                 id: `world-${String(best.osm_type || "place")}-${best.osm_id || encodeURIComponent(key)}`,
-                name,
-                country,
-                continent: "",
-                region,
-                type: "worldwide",
-                latitude: Number(best.lat),
-                longitude: Number(best.lon),
-                currency: "",
-                language: "",
-                timezone: "",
-                bestSeason: "Year-round; check local seasonal conditions",
-                tags,
+                name, country, continent: "", region, type: "worldwide",
+                latitude: Number(best.lat), longitude: Number(best.lon), currency: "", language: "", timezone: "",
+                bestSeason: "Year-round; check local seasonal conditions", tags,
                 description: `Explore ${name}${country ? `, ${country}` : ""} with Nature Tours, including local sights, real accommodation and personalised trip planning.`,
-                source: "OpenStreetMap/Nominatim",
-                destinationAliases: [query, name]
+                source: "OpenStreetMap/Nominatim", destinationAliases: [query, name]
             };
             this.remoteCache.set(key, resolved);
             return resolved;
@@ -176,8 +180,6 @@ window.DestinationEngine = {
         );
         if (grouped) return grouped;
 
-        // Universal fallback: unknown destinations are resolved live instead of
-        // becoming a new engineering ticket.
         return this.resolveWorldwide(searchText);
     },
 
