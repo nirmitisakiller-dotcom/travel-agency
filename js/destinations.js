@@ -28,12 +28,11 @@ window.DestinationEngine = {
 
         let destinations = [];
 
-        // 1) Local catalogue first. This is deterministic and prevents a
-        // Supabase/network problem from leaving the destination page loading forever.
-        const local = await this.fetchJson("data/destinations.json?engine=2", {}, 8000);
+        // Main catalogue is the only blocking dependency.
+        const local = await this.fetchJson("data/destinations.json?engine=3", {}, 8000);
         if (Array.isArray(local)) destinations = local;
 
-        // 2) Merge the central Supabase catalogue when available.
+        // Merge Supabase without making it a hard dependency.
         try {
             if (window.API?.url && window.API?.key) {
                 const remote = await this.fetchJson(
@@ -47,16 +46,14 @@ window.DestinationEngine = {
                         const id = String(item.id || item.name || "").trim().toLowerCase();
                         if (!id) return;
                         if (byId.has(id)) Object.assign(byId.get(id), item);
-                        else {
-                            destinations.push(item);
-                            byId.set(id, item);
-                        }
+                        else { destinations.push(item); byId.set(id, item); }
                     });
                 }
             }
         } catch (_) {}
 
-        // 3) Merge additional curated batches without requiring frontend code changes.
+        // Extra catalogues load in parallel so one slow/missing file cannot
+        // block the destination page for dozens of seconds.
         const extraFiles = [
             "data/india-extra.json",
             "data/india-destinations-batch-3.json",
@@ -67,16 +64,16 @@ window.DestinationEngine = {
             "data/india-destinations-batch-8.json"
         ];
         const seen = new Set(destinations.map(item => String(item.id || "").trim().toLowerCase()));
-        for (const file of extraFiles) {
-            const extra = await this.fetchJson(file + "?engine=2", {}, 6000);
-            if (!Array.isArray(extra)) continue;
+        const extras = await Promise.all(extraFiles.map(file => this.fetchJson(file + "?engine=3", {}, 6000)));
+        extras.forEach(extra => {
+            if (!Array.isArray(extra)) return;
             extra.forEach(item => {
                 const id = String(item.id || "").trim().toLowerCase();
                 if (!id || seen.has(id)) return;
                 destinations.push(item);
                 seen.add(id);
             });
-        }
+        });
 
         destinations = destinations.filter(item => String(item.id || "").trim().toLowerCase() !== "jim-corbett");
 
