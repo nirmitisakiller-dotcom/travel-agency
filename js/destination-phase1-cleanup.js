@@ -1,6 +1,6 @@
-/* Nature Tours — Phase 1 destination cleanup
- * Keeps destination.html on one cart/runtime even if an older cached script
- * or legacy planner injects its own cart after page load.
+/* Nature Tours — Phase 1 destination/cart cleanup
+ * Keeps destination.html on one destination runtime and one cart without
+ * fighting the runtime or creating a MutationObserver feedback loop.
  */
 (function () {
   'use strict';
@@ -18,7 +18,9 @@
   function removeLegacyCarts() {
     for (const selector of LEGACY_CART_SELECTORS) {
       document.querySelectorAll(selector).forEach((el) => {
-        if (!el.matches('#nt-destination-cart, #nt-destination-cart-panel')) el.remove();
+        if (!el.matches('#nt-destination-cart, #nt-destination-cart-panel')) {
+          el.remove();
+        }
       });
     }
   }
@@ -26,21 +28,38 @@
   function dedupeDestinationRuntimeUI() {
     const buttons = [...document.querySelectorAll('#nt-destination-cart')];
     buttons.slice(1).forEach((el) => el.remove());
+
     const panels = [...document.querySelectorAll('#nt-destination-cart-panel')];
     panels.slice(1).forEach((el) => el.remove());
-
-    const sections = [...document.querySelectorAll('.nt-destination-section')];
-    const seen = new Set();
-    sections.forEach((section) => {
-      const heading = section.querySelector('h2')?.textContent?.trim() || section.className;
-      if (seen.has(heading)) section.remove();
-      else seen.add(heading);
-    });
   }
 
   function clean() {
     removeLegacyCarts();
     dedupeDestinationRuntimeUI();
+  }
+
+  let scheduled = false;
+  let observer;
+
+  function scheduleClean() {
+    if (scheduled) return;
+    scheduled = true;
+    queueMicrotask(() => {
+      scheduled = false;
+      if (!document.documentElement) return;
+
+      // Disconnect while modifying the DOM so our own removals cannot trigger
+      // another cleanup pass indefinitely.
+      observer?.disconnect();
+      try {
+        clean();
+      } finally {
+        observer?.observe(document.documentElement, {
+          childList: true,
+          subtree: true
+        });
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
@@ -49,6 +68,9 @@
     clean();
   }
 
-  const observer = new MutationObserver(() => clean());
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  observer = new MutationObserver(scheduleClean);
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
 })();
