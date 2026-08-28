@@ -49,6 +49,7 @@ jobs:
           name: ${{ env.PAGES_ARTIFACT }}
           path: .
 
+      # Deployment artifact is uniquely scoped to this run and attempt.
       - id: deployment
         uses: actions/deploy-pages@v4
         with:
