@@ -15,7 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PAGES_ARTIFACT: github-pages-${{ github.run_id }}
+  # Include the workflow attempt so a rerun cannot create a second artifact
+  # with the same name inside the same GitHub Actions run.
+  PAGES_ARTIFACT: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
 
 jobs:
   deploy:
