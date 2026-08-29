@@ -11,37 +11,15 @@
 <link rel="stylesheet" href="css/custom-trip.css">
 </head>
 <body>
-<header class="main-header">
-<div class="header-container">
-<div class="logo-area"><a href="index.html" class="custom-trip-brand"><img src="logo.png" alt="Nature Tours Logo" class="brand-logo"><span class="brand-text">Nature<span>Tours</span></span></a></div>
-<nav class="nav-menu"><a href="index.html" class="nav-link">Home</a><a href="domestic.html" class="nav-link">Domestic</a><a href="international.html" class="nav-link">International</a><a href="custom-trip.html" class="nav-cta-btn">Custom Trip</a></nav>
-</div>
-</header>
-<main class="custom-trip-page">
-<section class="custom-trip-hero"><div class="custom-trip-hero-inner"><span class="sub-badge">Phase 2 · Personalised Planning</span><h1>Build Your Custom Trip</h1><p>Tell us what you want. We’ll turn your ideas into a practical, personalised journey.</p></div></section>
-<section class="custom-trip-builder section-container">
-<form id="custom-trip-form" class="custom-trip-form">
-<div class="custom-trip-progress"><span class="is-active">1. Trip basics</span><span>2. Preferences</span><span>3. Review</span></div>
-<div class="custom-trip-grid">
-<div class="custom-trip-field full"><label for="trip-destination">Where do you want to go?</label><input id="trip-destination" name="destination" required placeholder="e.g. Bali, Ladakh, Europe"><small>You can enter one destination or a multi-city route.</small></div>
-<div class="custom-trip-field"><label for="trip-start">Start date</label><input id="trip-start" name="startDate" type="date"></div>
-<div class="custom-trip-field"><label for="trip-end">End date</label><input id="trip-end" name="endDate" type="date"></div>
-<div class="custom-trip-field"><label for="trip-adults">Adults</label><input id="trip-adults" name="adults" type="number" min="1" max="99" value="1" required></div>
-<div class="custom-trip-field"><label for="trip-kids">Kids (4–18)</label><input id="trip-kids" name="kids" type="number" min="0" max="99" value="0"></div>
-<div class="custom-trip-field"><label for="trip-babies">Babies (0–4)</label><input id="trip-babies" name="babies" type="number" min="0" max="99" value="0"></div>
-<div class="custom-trip-field"><label for="trip-seniors">Senior citizens (60+)</label><input id="trip-seniors" name="seniors" type="number" min="0" max="99" value="0"></div>
+<header class="main-header"><div class="header-container"><div class="logo-area"><a href="index.html" class="custom-trip-brand"><img src="logo.png" alt="Nature Tours Logo" class="brand-logo"><span class="brand-text">Nature<span>Tours</span></span></a></div><nav class="nav-menu"><a href="index.html" class="nav-link">Home</a><a href="domestic.html" class="nav-link">Domestic</a><a href="international.html" class="nav-link">International</a><a href="custom-trip.html" class="nav-cta-btn">Custom Trip</a></nav></div></header>
+<main class="custom-trip-page"><section class="custom-trip-hero"><div class="custom-trip-hero-inner"><span class="sub-badge">Phase 2 · Personalised Planning</span><h1>Build Your Custom Trip</h1><p>Tell us what you want. We’ll turn your ideas into a practical, personalised journey.</p></div></section>
+<section class="custom-trip-builder section-container"><form id="custom-trip-form" class="custom-trip-form"><div class="custom-trip-progress"><span class="is-active">1. Trip basics</span><span>2. Preferences</span><span>3. Review</span></div>
+<div class="custom-trip-grid"><div class="custom-trip-field full"><label for="trip-destination">Where do you want to go?</label><div class="custom-trip-destination-wrap"><input id="trip-destination" name="destination" required autocomplete="off" placeholder="e.g. Bali, Ladakh, Europe"><div id="destination-suggestions" class="destination-suggestions" role="listbox" hidden></div></div><small>Choose a destination from our catalogue or enter a multi-city route.</small></div>
+<div class="custom-trip-route" id="custom-trip-route"><div class="custom-trip-route-head"><strong>Your route</strong><button type="button" id="add-route-stop" class="route-add">+ Add city</button></div><div id="route-stops"></div></div>
+<div class="custom-trip-field"><label for="trip-start">Start date</label><input id="trip-start" name="startDate" type="date"></div><div class="custom-trip-field"><label for="trip-end">End date</label><input id="trip-end" name="endDate" type="date"></div>
+<div class="custom-trip-field"><label for="trip-adults">Adults</label><input id="trip-adults" name="adults" type="number" min="1" max="99" value="1" required></div><div class="custom-trip-field"><label for="trip-kids">Kids (4–18)</label><input id="trip-kids" name="kids" type="number" min="0" max="99" value="0"></div><div class="custom-trip-field"><label for="trip-babies">Babies (0–4)</label><input id="trip-babies" name="babies" type="number" min="0" max="99" value="0"></div><div class="custom-trip-field"><label for="trip-seniors">Senior citizens (60+)</label><input id="trip-seniors" name="seniors" type="number" min="0" max="99" value="0"></div>
 <div class="custom-trip-field full"><label for="trip-budget">Approximate budget</label><input id="trip-budget" name="budget" placeholder="e.g. ₹2–3 lakh"><small>Optional. This helps us suggest the right hotels and experiences.</small></div>
 <div class="custom-trip-field full"><span class="custom-trip-label">What matters most?</span><div class="preference-grid"><label><input type="checkbox" name="preferences" value="Adventure"> 🏔️ Adventure</label><label><input type="checkbox" name="preferences" value="Relaxation"> 🌴 Relaxation</label><label><input type="checkbox" name="preferences" value="Luxury"> ✨ Luxury</label><label><input type="checkbox" name="preferences" value="Family"> 👨‍👩‍👧 Family</label><label><input type="checkbox" name="preferences" value="Honeymoon"> 💖 Honeymoon</label><label><input type="checkbox" name="preferences" value="Wildlife"> 🐅 Wildlife</label><label><input type="checkbox" name="preferences" value="Culture"> 🏛️ Culture</label><label><input type="checkbox" name="preferences" value="Food"> 🍽️ Food</label></div></div>
-<div class="custom-trip-field full"><label for="trip-notes">Anything else?</label><textarea id="trip-notes" name="notes" rows="5" placeholder="Hotel category, flights, food preferences, accessibility, places you definitely want to visit, pace of travel, etc."></textarea></div>
-</div>
-<div class="custom-trip-review" id="custom-trip-review" hidden><h2>Trip preview</h2><div id="custom-trip-review-content"></div></div>
-<div class="custom-trip-actions"><a href="index.html" class="custom-trip-secondary">Back</a><button type="submit" class="custom-trip-primary">Add Custom Trip to My Plan Cart →</button></div>
-<p class="custom-trip-note">Your custom trip is saved in this browser and can be reviewed with your other destinations and tour plans. No automatic booking or payment.</p>
-</form>
-</section>
-</main>
-<footer class="master-footer"><div class="footer-copyright-bar"><p>© 2026 Nature Tours. All Rights Reserved.</p></div></footer>
-<script src="js/custom-trip.js"></script>
-<script src="js/plan-cart.js"></script>
-</body>
-</html>
+<div class="custom-trip-field full"><label for="trip-notes">Anything else?</label><textarea id="trip-notes" name="notes" rows="5" placeholder="Hotel category, flights, food preferences, accessibility, places you definitely want to visit, pace of travel, etc."></textarea></div></div>
+<div class="custom-trip-review" id="custom-trip-review" hidden><h2>Trip preview</h2><div id="custom-trip-review-content"></div></div><div class="custom-trip-actions"><a href="index.html" class="custom-trip-secondary">Back</a><button type="submit" class="custom-trip-primary">Add Custom Trip to My Plan Cart →</button></div><p class="custom-trip-note">Your custom trip is saved in this browser and can be reviewed with your other destinations and tour plans. No automatic booking or payment.</p></form></section></main>
+<footer class="master-footer"><div class="footer-copyright-bar"><p>© 2026 Nature Tours. All Rights Reserved.</p></div></footer><script src="js/custom-trip.js"></script><script src="js/plan-cart.js"></script></body></html>
