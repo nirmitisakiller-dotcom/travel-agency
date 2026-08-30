@@ -6,17 +6,20 @@
     }
 
     function contextFromForm(form) {
+        const start = form.elements.startDate?.value || "";
+        const end = form.elements.endDate?.value || "";
+        const days = start && end ? Math.round((new Date(`${end}T00:00:00`) - new Date(`${start}T00:00:00`)) / 86400000) + 1 : 0;
         return {
             destination: form.elements.destination?.value?.trim() || "",
             route: [...document.querySelectorAll("#route-stops .route-stop-input")].map(input => input.value.trim()).filter(Boolean),
             budget: form.elements.budget?.value?.trim() || "",
             preferences: [...form.querySelectorAll('input[name="preferences"]:checked')].map(input => input.value),
-            days: Number(form.dataset.tripDays || 0) || 0
+            days: Number.isFinite(days) && days > 0 ? days : 0
         };
     }
 
     function renderHotelResults(panel, groups) {
-        panel.innerHTML = groups.map(group => {
+        const content = groups.map(group => {
             const cards = group.hotels.map(hotel => `
                 <article class="hotel-recommendation-card">
                     ${hotel.image ? `<img src="${escapeHtml(hotel.image)}" alt="${escapeHtml(hotel.name)}" loading="lazy">` : ""}
@@ -30,6 +33,7 @@
                 </article>`).join("");
             return `<div class="hotel-recommendation-city"><h3>${escapeHtml(group.city)}</h3>${cards ? `<div class="hotel-recommendation-list">${cards}</div>` : `<div class="hotel-recommendation-empty">No matching hotel is currently in the local catalogue for this stop.</div>`}</div>`;
         }).join("");
+        panel.innerHTML = `<span class="custom-trip-label">Stay recommendations</span><h2>Hotels for your route</h2><p class="hotel-recommendations-intro">Ranked from the current hotel catalogue using destination, budget and preference signals. Prices are catalogue values and are not live availability.</p>${content}`;
     }
 
     async function refresh(form, panel) {
@@ -41,7 +45,7 @@
             return;
         }
         panel.hidden = false;
-        panel.innerHTML = `<div class="hotel-recommendation-loading">Finding matching stays from the current hotel catalogue…</div>`;
+        panel.innerHTML = `<span class="custom-trip-label">Stay recommendations</span><h2>Hotels for your route</h2><div class="hotel-recommendation-loading">Finding matching stays from the current hotel catalogue…</div>`;
         const groups = await window.HotelRecommendations.recommendForRoute(route, context, 2);
         renderHotelResults(panel, groups);
         form.dataset.hotelRecommendations = JSON.stringify(groups);
