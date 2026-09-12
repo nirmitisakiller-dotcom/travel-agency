@@ -33,13 +33,9 @@ jobs:
         with:
           node-version: 20
 
-      # Build the deployment catalogue before Pages packages the site.
+      # Build only the required destination data before Pages packages the site.
       - name: Add required destination data
         run: node scripts/ensure-alibag.js
-
-      # Generate the static hotel catalogue from the same destination data.
-      - name: Generate hotel catalogue
-        run: node scripts/generate-hotels.js
 
       - uses: actions/configure-pages@v5
 
