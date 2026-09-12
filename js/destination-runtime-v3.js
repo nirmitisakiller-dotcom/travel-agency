@@ -1,6 +1,6 @@
 /* Nature Tours — Phase 1 stable destination runtime
  * One destination renderer, one itinerary renderer, one cart.
- * Hotel loading uses the generated catalogue first, then live fallbacks.
+ * Hotel loading uses live accommodation data only. No fabricated hotel catalogue.
  */
 (function () {
   'use strict';
@@ -56,24 +56,10 @@
     const lat=i.lat??i.center?.lat??i.latitude??i.geometry?.coordinates?.[1];
     const lon=i.lon??i.center?.lon??i.longitude??i.geometry?.coordinates?.[0];
     if(!name) return null;
-    return {id:`hotel-${i.type||'place'}-${i.id||index}-${name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`,name,lat:Number.isFinite(+lat)?+lat:null,lon:Number.isFinite(+lon)?+lon:null,address:i.address||[t['addr:street'],t['addr:city']||t['addr:town']||t['addr:village']||d.name].filter(Boolean).join(', '),stars:i.stars||t.stars||t['hotel:stars']||i.rating||'',website:i.website||i.bookingUrl||t.website||t.url||'',price:i.price,currency:i.currency,image:i.image};
-  }
-
-  function sameDestination(h,d){
-    const a=String(h.destinationId||'').trim().toLowerCase();
-    const ids=[d.id,d.name,...(Array.isArray(d.destinationAliases)?d.destinationAliases:[])].map(x=>String(x||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-'));
-    return a && ids.includes(a);
+    return {id:`hotel-${i.type||'place'}-${i.id||index}-${name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`,name,lat:Number.isFinite(+lat)?+lat:null,lon:Number.isFinite(+lon)?+lon:null,address:i.address||[t['addr:street'],t['addr:city']||t['addr:town']||t['addr:village']||d.name].filter(Boolean).join(', '),stars:i.stars||t.stars||t['hotel:stars']||i.rating||'',website:i.website||t.website||t.url||''};
   }
 
   async function hotels(d){
-    // First use the deterministic catalogue generated during the Pages build.
-    // This prevents a public map API outage from removing the hotel section.
-    const local=await fetchJson('data/hotels.json?destination-runtime=1',{},8000);
-    if(Array.isArray(local)){
-      const matches=local.filter(h=>sameDestination(h,d)).map((h,i)=>normaliseHotel(h,d,i)).filter(Boolean);
-      if(matches.length) return matches.slice(0,10);
-    }
-
     const p=await geocode(d); if(!p) return [];
     const out=[],seen=new Set();
     const addRows=rows=>{for(const i of rows||[]){const h=normaliseHotel(i,d,out.length);if(!h||seen.has(h.name.toLowerCase()))continue;seen.add(h.name.toLowerCase());out.push(h);if(out.length>=12)break;}};
@@ -106,9 +92,9 @@
   }
 
   function renderHotels(page,d,hs){
-    const s=document.createElement('section'); s.className='nt-destination-section nt-hotels-section'; s.innerHTML=`<h2>🏨 Hotels & Stays in ${esc(d.name)}</h2><p>Hotel options from the Nature Tours catalogue or live accommodation data.</p><div class="nt-hotel-grid"></div>`;
+    const s=document.createElement('section'); s.className='nt-destination-section nt-hotels-section'; s.innerHTML=`<h2>🏨 Verified Hotels & Stays in ${esc(d.name)}</h2><p>Live accommodation listings from OpenStreetMap. We do not invent hotel names, prices or booking links.</p><div class="nt-hotel-grid"></div>`;
     const g=s.querySelector('.nt-hotel-grid');
-    if(!hs.length){g.innerHTML='<div class="nt-hotel-card"><strong>Hotel listings are temporarily unavailable.</strong><p>The itinerary remains available. Please try again later.</p></div>';}else hs.forEach(h=>{const c=document.createElement('article');c.className='nt-hotel-card';c.innerHTML=`<h3>${esc(h.name)}</h3><p>${h.stars?'⭐ '+esc(h.stars)+' stars':''}${h.price?` · ${esc(h.currency||'INR')} ${esc(h.price)}`:''}</p><p>${esc(h.address||d.name)}</p>${h.website?`<p><a href="${esc(h.website)}" target="_blank" rel="noopener">Booking / Website</a></p>`:''}<button class="nt-card-btn" type="button">+ Add hotel to Plan Cart</button>`;c.querySelector('button').onclick=e=>{const ok=add({id:h.id,type:'hotel',destination:d.name,country:d.country||'',hotel:h.name,address:h.address||'',website:h.website||'',price:h.price||'',currency:h.currency||''});e.currentTarget.textContent=ok?'✓ Added to Plan Cart':'✓ Already Added';e.currentTarget.classList.add('added');};g.appendChild(c);});
+    if(!hs.length){g.innerHTML='<div class="nt-hotel-card"><strong>No verified hotel listing was found right now.</strong><p>We will not invent a hotel recommendation. You can still build the itinerary or send an enquiry for accommodation.</p></div>';}else hs.forEach(h=>{const c=document.createElement('article');c.className='nt-hotel-card';c.innerHTML=`<h3>${esc(h.name)}</h3><p>${h.stars?'⭐ '+esc(h.stars)+' stars':''}</p><p>${esc(h.address||d.name)}</p>${h.website?`<p><a href="${esc(h.website)}" target="_blank" rel="noopener">Hotel website</a></p>`:''}<button class="nt-card-btn" type="button">+ Add hotel to Plan Cart</button>`;c.querySelector('button').onclick=e=>{const ok=add({id:h.id,type:'hotel',destination:d.name,country:d.country||'',hotel:h.name,address:h.address||'',website:h.website||''});e.currentTarget.textContent=ok?'✓ Added to Plan Cart':'✓ Already Added';e.currentTarget.classList.add('added');};g.appendChild(c);});
     page.appendChild(s);
   }
 
