@@ -29,7 +29,7 @@ window.DestinationEngine = {
         let destinations = [];
 
         // Main catalogue is the only blocking dependency.
-        const local = await this.fetchJson("data/destinations.json?engine=3", {}, 8000);
+        const local = await this.fetchJson("data/destinations.json?engine=4", {}, 8000);
         if (Array.isArray(local)) destinations = local;
 
         // Merge Supabase without making it a hard dependency.
@@ -52,8 +52,6 @@ window.DestinationEngine = {
             }
         } catch (_) {}
 
-        // Extra catalogues load in parallel so one slow/missing file cannot
-        // block the destination page for dozens of seconds.
         const extraFiles = [
             "data/india-extra.json",
             "data/india-destinations-batch-3.json",
@@ -64,7 +62,7 @@ window.DestinationEngine = {
             "data/india-destinations-batch-8.json"
         ];
         const seen = new Set(destinations.map(item => String(item.id || "").trim().toLowerCase()));
-        const extras = await Promise.all(extraFiles.map(file => this.fetchJson(file + "?engine=3", {}, 6000)));
+        const extras = await Promise.all(extraFiles.map(file => this.fetchJson(file + "?engine=4", {}, 6000)));
         extras.forEach(extra => {
             if (!Array.isArray(extra)) return;
             extra.forEach(item => {
@@ -110,6 +108,18 @@ window.DestinationEngine = {
                     "Kolaba Fort Alibaug Maharashtra"
                 ];
                 item.tags = [...new Set([...item.tags, "beach", "coastal", "fort", "heritage"])]
+            }
+
+            // Do not allow the old generic catalogue image for Jalgaon to be
+            // used as a false destination photo. The image service will source
+            // it from Wikimedia Commons using these location-specific queries.
+            if (id === "jalgaon" || name === "jalgaon") {
+                item.image = "";
+                item.imageSearchTerms = [
+                    "Jalgaon Maharashtra",
+                    "Jalgaon city Maharashtra",
+                    "Jalgaon district Maharashtra"
+                ];
             }
         });
     },
@@ -185,16 +195,92 @@ window.DestinationEngine = {
         const search = String(searchText || "").trim().toLowerCase();
         if (!search) return this.destinations;
 
-        const results = this.destinations.filter(item =>
-            String(item.name || "").toLowerCase().includes(search) ||
-            String(item.country || "").toLowerCase().includes(search) ||
-            String(item.continent || "").toLowerCase().includes(search) ||
-            String(item.region || item.state || "").toLowerCase().includes(search) ||
-            (Array.isArray(item.tags) && item.tags.some(tag => String(tag).toLowerCase().includes(search)))
-        );
+        const results = this.destinations.filter(item => {
+            const aliases = Array.isArray(item.destinationAliases) ? item.destinationAliases : [];
+            const haystack = [
+                item.name,
+                item.id,
+                item.country,
+                item.continent,
+                item.region,
+                item.state,
+                ...(Array.isArray(item.tags) ? item.tags : []),
+                ...aliases
+            ].filter(Boolean).join(" ").toLowerCase();
+            return haystack.includes(search);
+        });
         if (results.length) return results;
 
         const remote = await this.resolveWorldwide(searchText);
         return remote ? [remote] : [];
     }
 };
+
+// --------------------------------------------------
+// Domestic explorer safety layer
+// --------------------------------------------------
+// The domestic page previously attached its search handler only after the
+// complete destination catalogue finished loading. On slower connections this
+// made the search box appear dead. This capture listener is installed early,
+// handles searches immediately, and leaves the existing renderer untouched for
+// the initial catalogue render.
+(function installDomesticSearchSafetyLayer() {
+    const boot = () => {
+        const input = document.getElementById("india-search");
+        const grid = document.getElementById("india-grid");
+        const status = document.getElementById("india-status");
+        if (!input || !grid || input.dataset.safetySearchInstalled === "1") return;
+        input.dataset.safetySearchInstalled = "1";
+
+        const norm = value => String(value || "").trim().toLowerCase();
+        const slug = value => norm(value).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        const esc = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+        const nameOf = item => {
+            const name = String(item?.name || "India Destination").trim();
+            return /^(alibag|alibagh)$/i.test(name) || /^(alibag|alibagh)$/i.test(String(item?.id || "")) ? "Alibaug" : name;
+        };
+        const matches = (items, query) => {
+            const q = norm(query);
+            if (!q) return items;
+            return items.filter(item => {
+                const fields = [item.name, item.id, item.state, item.region, item.country, item.continent, ...(item.tags || []), ...(item.destinationAliases || [])];
+                return fields.filter(Boolean).join(" ").toLowerCase().includes(q);
+            });
+        };
+        const render = items => {
+            const rows = Array.isArray(items) ? items : [];
+            if (status) status.textContent = input.value.trim() ? `Showing ${rows.length} matching India destination${rows.length === 1 ? "" : "s"}.` : `Showing ${rows.length} India destinations.`;
+            if (!rows.length) {
+                grid.innerHTML = '<div class="empty-india"><strong>No India destination found</strong><span>Try a destination, state, region or travel style.</span><br><a href="custom-trip.html">Build a Custom Trip</a></div>';
+                return;
+            }
+            grid.innerHTML = rows.map(item => {
+                const id = String(item.id || item.name || "destination");
+                const name = nameOf(item);
+                const state = String(item.state || "India");
+                const region = String(item.region || "");
+                const tags = (item.tags || []).slice(0, 5).join(" · ") || "Explore India";
+                return `<article class="india-card" data-id="${esc(id)}"><div class="india-card-media-wrap"><div class="india-card-media fallback" aria-label="${esc(name)} image">${esc(name)}</div><a class="india-card-link" href="destination.html?id=${encodeURIComponent(id)}" aria-label="Open ${esc(name)} destination"></a></div><div class="india-card-body"><h3>${esc(name)}</h3><p>${esc(state)}${region ? ` · ${esc(region)}` : ""}</p><div class="india-tags">${esc(tags)}</div><div class="india-actions"><button type="button" class="india-add" data-id="${esc(id)}">+ Add to Plan</button><a class="india-details" href="destination.html?id=${encodeURIComponent(id)}">View</a></div></div></article>`;
+            }).join("");
+        };
+
+        input.addEventListener("input", async event => {
+            event.stopImmediatePropagation();
+            const q = input.value.trim();
+            try {
+                const items = await window.DestinationEngine.load();
+                let rows = matches(items.filter(item => String(item.country || "").toLowerCase() === "india" || String(item.type || "").toLowerCase() === "domestic"), q);
+                if (!rows.length && q) {
+                    const remote = await window.DestinationEngine.search(q);
+                    rows = (remote || []).filter(item => String(item.country || "").toLowerCase() === "india" || String(item.type || "").toLowerCase() === "domestic");
+                }
+                render(rows);
+            } catch (_) {
+                render([]);
+            }
+        }, true);
+    };
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, { once: true });
+    else boot();
+})();
