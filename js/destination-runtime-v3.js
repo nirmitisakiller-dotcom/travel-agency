@@ -1,6 +1,6 @@
-/* Nature Tours — Phase 1 stable destination runtime
+/* Nature Tours — stable destination runtime
  * One destination renderer, one itinerary renderer, one cart.
- * Hotel loading uses live accommodation data only. No fabricated hotel catalogue.
+ * Hotels use live accommodation data only. Destination imagery is resolved through Supabase cache.
  */
 (function () {
   'use strict';
@@ -11,8 +11,7 @@
   const esc = v => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#039;');
   const read = () => { try { const x=JSON.parse(localStorage.getItem(CART_KEY)||'[]'); return Array.isArray(x)?x:[]; } catch(e){ return []; } };
   const syncCart = () => {
-    const b=document.getElementById('nt-destination-cart');
-    const p=document.getElementById('nt-destination-cart-panel');
+    const b=document.getElementById('nt-destination-cart'), p=document.getElementById('nt-destination-cart-panel');
     if(!b||!p) return;
     const items=read(); b.textContent='🛒 Plan Cart ('+items.length+')';
     const list=p.querySelector('.nt-cart-list');
@@ -31,7 +30,7 @@
   function cartUI(){
     if(document.getElementById('nt-destination-cart')) return;
     if(!document.getElementById('nt-runtime-v3-style')){
-      const s=document.createElement('style'); s.id='nt-runtime-v3-style'; s.textContent='.nt-destination-cart{position:fixed;right:20px;bottom:20px;z-index:99999;border:0;border-radius:999px;padding:13px 18px;background:#111;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 8px 28px #0003}.nt-destination-cart-panel{position:fixed;right:20px;bottom:76px;width:min(390px,calc(100vw - 40px));max-height:70vh;overflow:auto;background:#fff;color:#111;z-index:100000;border-radius:18px;box-shadow:0 15px 50px #0003;padding:18px;display:none}.nt-destination-cart-panel.open{display:block}.nt-cart-item{padding:10px 0;border-bottom:1px solid #ddd}.nt-cart-item button{float:right;border:0;background:none;font-size:18px;cursor:pointer}.nt-card-btn{width:100%;border:0;border-radius:10px;padding:12px;background:#0f766e;color:#fff;font-weight:800;cursor:pointer;margin-top:10px}.nt-card-btn.added{background:#166534}.nt-destination-section{margin:34px 0}.nt-hotel-grid,.nt-itinerary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.nt-hotel-card,.nt-itinerary-card{border:1px solid #e2e8f0;border-radius:16px;padding:18px;background:#fff;box-shadow:0 6px 20px rgba(15,23,42,.06)}@media(max-width:700px){.nt-hotel-grid,.nt-itinerary-grid{grid-template-columns:1fr}}'; document.head.appendChild(s);
+      const s=document.createElement('style'); s.id='nt-runtime-v3-style'; s.textContent='.nt-destination-cart{position:fixed;right:20px;bottom:20px;z-index:99999;border:0;border-radius:999px;padding:13px 18px;background:#111;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 8px 28px #0003}.nt-destination-cart-panel{position:fixed;right:20px;bottom:76px;width:min(390px,calc(100vw - 40px));max-height:70vh;overflow:auto;background:#fff;color:#111;z-index:100000;border-radius:18px;box-shadow:0 15px 50px #0003;padding:18px;display:none}.nt-destination-cart-panel.open{display:block}.nt-cart-item{padding:10px 0;border-bottom:1px solid #ddd}.nt-cart-item button{float:right;border:0;background:none;font-size:18px;cursor:pointer}.nt-card-btn{width:100%;border:0;border-radius:10px;padding:12px;background:#0f766e;color:#fff;font-weight:800;cursor:pointer;margin-top:10px}.nt-card-btn.added{background:#166534}.nt-destination-section{margin:34px 0}.nt-destination-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:24px;align-items:stretch;margin-bottom:34px}.nt-destination-hero-copy{padding:28px;border-radius:20px;background:#fff;border:1px solid #e2e8f0;box-shadow:0 8px 28px rgba(15,23,42,.06)}.nt-destination-hero-copy h1{margin-top:0}.nt-destination-meta{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.nt-destination-meta span{padding:6px 10px;border-radius:999px;background:#f1f5f9;font-size:13px}.nt-destination-hero-media{min-height:300px;border-radius:20px;overflow:hidden;background:#e2e8f0}.nt-destination-hero-media img{width:100%;height:100%;min-height:300px;display:block;object-fit:cover}.nt-destination-loading{display:flex;align-items:center;justify-content:center;height:100%;min-height:300px;color:#475569}.nt-hotel-grid,.nt-itinerary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.nt-hotel-card,.nt-itinerary-card{border:1px solid #e2e8f0;border-radius:16px;padding:18px;background:#fff;box-shadow:0 6px 20px rgba(15,23,42,.06)}@media(max-width:700px){.nt-destination-hero{grid-template-columns:1fr}.nt-destination-hero-copy{padding:20px}.nt-hotel-grid,.nt-itinerary-grid{grid-template-columns:1fr}}'; document.head.appendChild(s);
     }
     const b=document.createElement('button'); b.id='nt-destination-cart'; b.className='nt-destination-cart'; b.type='button'; b.dataset.ntRuntimeCart='1'; b.textContent='🛒 Plan Cart (0)';
     const p=document.createElement('aside'); p.id='nt-destination-cart-panel'; p.className='nt-destination-cart-panel'; p.dataset.ntRuntimeCart='1'; p.innerHTML='<h2>My Plan Cart</h2><div class="nt-cart-list"></div><button type="button" class="nt-card-btn" data-enquire>Proceed to Enquiry</button>';
@@ -41,6 +40,13 @@
   async function fetchJson(url, options={}, ms=15000){
     const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),ms);
     try{const r=await fetch(url,{...options,signal:controller.signal}); if(!r.ok)return null; return await r.json();}catch(e){return null;}finally{clearTimeout(timer);}
+  }
+
+  async function destinationImage(d){
+    if(!window.API?.url||!window.API?.key) return d.image||'';
+    const endpoint=window.API.url.replace(/\/rest\/v1\/?$/,'')+'/functions/v1/destination-images';
+    const data=await fetchJson(endpoint,{method:'POST',headers:{'Content-Type':'application/json',apikey:window.API.key,Authorization:`Bearer ${window.API.key}`},body:JSON.stringify({destinations:[{id:d.id,name:d.name,region:d.region||'',country:d.country||'',image:d.image||''}]})},16000);
+    return data?.images?.[d.id]||d.image||'';
   }
 
   async function geocode(d){
@@ -63,7 +69,6 @@
     const p=await geocode(d); if(!p) return [];
     const out=[],seen=new Set();
     const addRows=rows=>{for(const i of rows||[]){const h=normaliseHotel(i,d,out.length);if(!h||seen.has(h.name.toLowerCase()))continue;seen.add(h.name.toLowerCase());out.push(h);if(out.length>=12)break;}};
-
     const q=`[out:json][timeout:20];nwr["tourism"~"^(hotel|resort|guest_house|hostel|motel|camp_site|chalet)$"](around:50000,${p.lat},${p.lon});out center tags;`;
     for(const ep of ['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter']){
       if(out.length>=12) break;
@@ -71,9 +76,7 @@
       addRows(data?.elements);
     }
     if(out.length) return out.slice(0,10);
-
-    const queries=[`${d.name} hotel`, `hotels in ${d.name}`, `${d.name} resort`];
-    for(const query of queries){
+    for(const query of [`${d.name} hotel`,`hotels in ${d.name}`,`${d.name} resort`]){
       const rows=await fetchJson('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=10&addressdetails=1&q='+encodeURIComponent(query),{headers:{Accept:'application/json'}},12000);
       if(Array.isArray(rows)) addRows(rows.map((r,idx)=>({type:'nominatim',id:r.place_id||idx,name:r.name,lat:+r.lat,lon:+r.lon,address:r.display_name,tags:r.address||{}})));
       if(out.length>=10) break;
@@ -83,6 +86,16 @@
 
   function tags(d){return [...new Set([...(Array.isArray(d.tags)?d.tags:[]),'Local sightseeing','Scenic viewpoints','Local cuisine','Cultural experience','Leisure time'])].slice(0,8);}
   function plans(d){const h=tags(d),spec=[[2,1,'Quick Escape'],[3,2,'Short Discovery'],[5,4,'Complete Experience'],[7,6,'Relaxed Explorer']];return spec.map(([days,nights,style])=>({id:`${d.id}-${days}d`,days,nights,style,duration:`${days} Days / ${nights} Nights`,schedule:Array.from({length:days},(_,i)=>i===0?`Arrival, check-in and ${h[0]}.`:i===days-1?`Breakfast, ${h[(i+1)%h.length]} and departure.`:`Explore ${h[i%h.length]}, ${h[(i+1)%h.length]} and enjoy local experiences.`)}));}
+
+  async function renderOverview(page,d){
+    const s=document.createElement('section'); s.className='nt-destination-hero';
+    s.innerHTML=`<div class="nt-destination-hero-copy"><small>Nature Tours destination guide</small><h1>${esc(d.name)}</h1><p>${esc(d.description||`Explore ${d.name}${d.country?', '+d.country:''} with real accommodation, practical trip ideas and personalised planning.`)}</p><div class="nt-destination-meta">${d.country?`<span>📍 ${esc(d.country)}</span>`:''}${d.region?`<span>🧭 ${esc(d.region)}</span>`:''}${d.bestSeason?`<span>🌤️ ${esc(d.bestSeason)}</span>`:''}</div><p><strong>Travel style:</strong> ${esc(tags(d).slice(0,5).join(' · '))}</p><button class="nt-card-btn" type="button">+ Add a ${esc(d.name)} trip to Plan Cart</button></div><div class="nt-destination-hero-media"><div class="nt-destination-loading">Loading destination image…</div></div>`;
+    const btn=s.querySelector('button'); btn.onclick=()=>{const ok=add({id:`destination-${d.id}`,type:'destination',destination:d.name,country:d.country||'',region:d.region||''});btn.textContent=ok?'✓ Added to Plan Cart':'✓ Already Added';btn.classList.add('added');};
+    page.appendChild(s);
+    const url=await destinationImage(d); const media=s.querySelector('.nt-destination-hero-media');
+    if(url){media.innerHTML=`<img src="${esc(url)}" alt="${esc(d.name)} travel destination" width="800" height="520" fetchpriority="high" decoding="async">`;}
+    else media.innerHTML='<div class="nt-destination-loading">Destination image unavailable right now.</div>';
+  }
 
   function renderPlans(page,d){
     const s=document.createElement('section'); s.className='nt-destination-section nt-itineraries-section'; s.innerHTML=`<h2>🗓️ Itineraries for ${esc(d.name)}</h2><p>Choose a trip length and add it to your Plan Cart.</p><div class="nt-itinerary-grid"></div>`;
@@ -103,6 +116,7 @@
     removeOldUI(); cartUI();
     const u=new URLSearchParams(location.search),q=u.get('id')||u.get('destination')||u.get('name')||''; if(!q)return;
     const d=await window.DestinationEngine.find(q); if(!d)return;
+    await renderOverview(page,d);
     renderPlans(page,d);
     const hs=await hotels(d); renderHotels(page,d,hs);
   }
