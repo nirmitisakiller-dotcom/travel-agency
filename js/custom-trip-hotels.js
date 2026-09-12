@@ -18,22 +18,25 @@
         };
     }
 
+    function mapsUrl(hotel) {
+        return hotel.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${hotel.name} ${hotel.lat},${hotel.lon}`)}`;
+    }
+
     function renderHotelResults(panel, groups) {
         const content = groups.map(group => {
             const cards = group.hotels.map(hotel => `
                 <article class="hotel-recommendation-card">
-                    ${hotel.image ? `<img src="${escapeHtml(hotel.image)}" alt="${escapeHtml(hotel.name)}" loading="lazy">` : ""}
                     <div class="hotel-recommendation-info">
                         <strong>${escapeHtml(hotel.name)}</strong>
-                        <div class="hotel-recommendation-meta">${hotel.rating ? `${escapeHtml(hotel.rating)} ★` : "Rating not specified"}${hotel.price ? ` · ${escapeHtml(hotel.currency)} ${hotel.price.toLocaleString("en-IN")} / night` : ""}</div>
+                        <div class="hotel-recommendation-meta">${hotel.rating ? `${escapeHtml(hotel.rating)} ★` : "Rating not specified"} · Verified listing</div>
                         ${hotel.address ? `<p class="hotel-recommendation-address">${escapeHtml(hotel.address)}</p>` : ""}
-                        ${hotel.amenities.length ? `<p class="hotel-recommendation-amenities">${escapeHtml(hotel.amenities.slice(0, 4).join(" · "))}</p>` : ""}
-                        ${hotel.bookingUrl ? `<a class="hotel-recommendation-link" href="${escapeHtml(hotel.bookingUrl)}" target="_blank" rel="noopener noreferrer">View booking options →</a>` : ""}
+                        <p class="hotel-recommendation-amenities">Source: OpenStreetMap${hotel.website ? " · Hotel website available" : ""}</p>
+                        <a class="hotel-recommendation-link" href="${escapeHtml(mapsUrl(hotel))}" target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
                     </div>
                 </article>`).join("");
-            return `<div class="hotel-recommendation-city"><h3>${escapeHtml(group.city)}</h3>${cards ? `<div class="hotel-recommendation-list">${cards}</div>` : `<div class="hotel-recommendation-empty">No matching hotel is currently in the local catalogue for this stop.</div>`}</div>`;
+            return `<div class="hotel-recommendation-city"><h3>${escapeHtml(group.city)}</h3>${cards ? `<div class="hotel-recommendation-list">${cards}</div>` : `<div class="hotel-recommendation-empty">No verified hotel listing was found for this stop. We will not invent one.</div>`}</div>`;
         }).join("");
-        panel.innerHTML = `<span class="custom-trip-label">Stay recommendations</span><h2>Hotels for your route</h2><p class="hotel-recommendations-intro">Ranked from the current hotel catalogue using destination, budget and preference signals. Prices are catalogue values and are not live availability.</p>${content}`;
+        panel.innerHTML = `<span class="custom-trip-label">Stay recommendations</span><h2>Hotels for your route</h2><p class="hotel-recommendations-intro">Only live accommodation listings discovered from OpenStreetMap are shown. Prices and availability are not fabricated.</p>${content}`;
     }
 
     async function refresh(form, panel) {
@@ -45,7 +48,7 @@
             return;
         }
         panel.hidden = false;
-        panel.innerHTML = `<span class="custom-trip-label">Stay recommendations</span><h2>Hotels for your route</h2><div class="hotel-recommendation-loading">Finding matching stays from the current hotel catalogue…</div>`;
+        panel.innerHTML = `<span class="custom-trip-label">Stay recommendations</span><h2>Hotels for your route</h2><div class="hotel-recommendation-loading">Checking verified accommodation listings…</div>`;
         const groups = await window.HotelRecommendations.recommendForRoute(route, context, 2);
         renderHotelResults(panel, groups);
         form.dataset.hotelRecommendations = JSON.stringify(groups);
@@ -58,7 +61,7 @@
         if (!panel) return;
         const refreshLater = () => {
             clearTimeout(window.__hotelRecommendationTimer);
-            window.__hotelRecommendationTimer = setTimeout(() => refresh(form, panel), 250);
+            window.__hotelRecommendationTimer = setTimeout(() => refresh(form, panel), 400);
         };
         form.elements.destination?.addEventListener("change", refreshLater);
         form.elements.budget?.addEventListener("input", refreshLater);
